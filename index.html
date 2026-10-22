@@ -7,6 +7,16 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="缪子科技实验室：用宇宙射线缪子为隧道、地下空间与基础设施做无损成像与长期监测。上海。Muography for tunnels and infrastructure, Shanghai.">
 <meta name="theme-color" content="#04070c">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MuTechLab 缪子科技实验室">
+<meta property="og:title" content="缪子科技实验室 · 给城市地下做一次全身 CT">
+<meta property="og:description" content="宇宙射线缪子成像：不钻孔、不停运、无放射源，为隧道、地铁、大坝与矿山做无损成像与长期监测。已在上海隧道与地铁现场部署。">
+<meta property="og:image" content="assets/video/mutechlab-film-poster-90s.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="缪子科技实验室 · 给城市地下做一次全身 CT">
+<meta name="twitter:image" content="assets/video/mutechlab-film-poster-90s.webp">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2304070c'/><text x='50' y='70' font-size='64' text-anchor='middle' fill='%232fc8ff' font-family='sans-serif'>μ</text></svg>">
 <style>
 /* Layout: "precision lab" dark — full-width sections on a hairline grid, numbered mono labels, HUD panels with corner brackets, 1px-gap module grids.  */
@@ -74,6 +84,8 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 .lang:hover{border-color:var(--accent)}
 @media (max-width:1100px){.nav-links{display:none}}
 @media (max-width:440px){.nav-cta{display:none}.brand-text small{display:none}}
+.fab{display:none}
+@media (max-width:440px){.fab{display:inline-flex;position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:45;box-shadow:0 10px 30px rgba(0,0,0,.6),0 0 24px rgba(47,200,255,.35)}.fab.hide{display:none}}
 
 /* hero */
 .hero{position:relative;overflow:hidden;isolation:isolate;min-height:min(860px,calc(100svh - 68px));display:flex;flex-direction:column;justify-content:center}
@@ -132,7 +144,11 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 #app[data-lang="zh"] .foot-note{font-family:var(--cjk);font-size:12px}
 
 /* compare table */
-.tbl{overflow-x:auto;border-top:1px solid var(--line)}
+.tbl{overflow-x:auto;border-top:1px solid var(--line);position:relative}
+.cmp tbody th,.cmp thead th:first-child{position:sticky;left:0;background:var(--bg);z-index:1}
+.tbl-hint{display:none;font:400 11px/1.4 var(--f-mono);color:var(--faint);letter-spacing:.1em;margin-top:8px}
+#app[data-lang="zh"] .tbl-hint{font-family:var(--cjk);letter-spacing:.05em}
+@media (max-width:760px){.tbl-hint{display:block}.cmp{min-width:560px}}
 table.cmp{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
 .cmp th,.cmp td{text-align:left;padding:15px 16px 15px 0;border-bottom:1px solid var(--line);vertical-align:top}
 .cmp thead th{font:500 11px/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
@@ -157,7 +173,12 @@ table.cmp{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
 .status.wip{color:var(--accent)}.status.wip i{background:var(--accent);box-shadow:0 0 8px var(--accent)}
 .module h3{font-size:clamp(22px,2vw,28px);margin-top:40px}
 #app[data-lang="zh"] .module h3{font-family:var(--cjk);font-weight:600;letter-spacing:0}
-.mod-txt{margin-top:12px;color:var(--muted);font-size:14.5px;font-weight:300}
+.mod-txt{margin-top:12px;color:var(--muted);font-size:14.5px;font-weight:300;flex:1}
+.mod-link{display:inline-flex;align-items:center;gap:.5em;margin-top:22px;font:500 13px/1 var(--f-body);color:var(--accent);align-self:flex-start;padding-bottom:4px;border-bottom:1px solid rgba(47,200,255,.3);transition:border-color .2s}
+#app[data-lang="zh"] .mod-link{font-family:var(--cjk)}
+.mod-link:hover{border-color:var(--accent)}
+.mod-link .arr{transition:transform .25s var(--ease)}
+.mod-link:hover .arr{transform:translateX(4px)}
 @media (max-width:960px){.modules{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.modules{grid-template-columns:1fr}}
 
@@ -304,6 +325,8 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 .deploy{border-top:1px solid var(--line);margin-top:48px}
 .deploy li{display:grid;grid-template-columns:5.5em minmax(0,1.3fr) minmax(0,1.6fr) auto;gap:12px 28px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line)}
 .deploy .n{font:400 12px/1 var(--f-mono);color:var(--accent)}
+.dstat{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.dstat time{font:400 11.5px/1 var(--f-mono);color:var(--faint);letter-spacing:.06em}
 .deploy h3{font-size:19px}
 #app[data-lang="zh"] .deploy h3{font-family:var(--cjk);font-weight:600;letter-spacing:0}
 .deploy p{color:var(--muted);font-size:14px}
@@ -356,6 +379,9 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 .products .module h3{margin-top:28px}
 @media (min-width:961px){.modules.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .thesis.light{border-top-color:var(--line)}
+.rd-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 40px}
+.rd-grid li{grid-template-columns:3.5em minmax(0,1fr);border-bottom:1px solid var(--line)}
+@media (max-width:900px){.rd-grid{grid-template-columns:1fr}}
 .thesis.light li{border-bottom-color:var(--line)}
 .thesis.light p{color:var(--muted)}
 .invest-tl{border-top-color:rgba(255,255,255,.14)}
@@ -479,13 +505,14 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
       <p class="lead"><span class="zh">从宇宙线簇射到隧道里的探测器：缪子透射成像的原理，四步讲清。英文旁白 · 中文字幕。</span><span class="en">From the cosmic-ray shower to a detector in a tunnel: the principle of muon transmission tomography in four steps. English narration, Chinese subtitles.</span></p>
     </div>
     <div class="film-frame" id="film-frame">
-      <video id="film-video" playsinline preload="metadata" poster="assets/video/mutechlab-film-poster-90s.webp">
+      <video id="film-video" playsinline preload="none" poster="assets/video/mutechlab-film-poster-90s.webp">
+        <source src="assets/video/mutechlab-film-90s-720p.mp4" type="video/mp4" media="(max-width: 900px)">
         <source src="assets/video/mutechlab-film-90s.mp4" type="video/mp4">
       </video>
       <span class="bracket" aria-hidden="true"></span>
       <button class="film-play" id="film-play" type="button" aria-label="Play film / 播放影片"><span><i></i><span class="zh">播放 · 1:30</span><span class="en">Play · 1:30</span></span></button>
     </div>
-    <p class="film-meta"><span><b>1080p</b> · 1:30 · 24 MB</span><span class="zh">三维动画为示意，非实际工程图</span><span class="en">3D animation for illustration, not an engineering drawing</span></p>
+    <p class="film-meta"><span><b>1080p</b> · 1:30 · <span class="zh">手机自动切换 720p</span><span class="en">720p on phones</span></span><span class="zh">三维动画为示意，非实际工程图</span><span class="en">3D animation for illustration, not an engineering drawing</span></p>
   </div>
 </section>
 
@@ -511,6 +538,7 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
           </tbody>
         </table>
       </div>
+      <p class="tbl-hint"><span class="zh">← 左右滑动查看其他方法</span><span class="en">← swipe to compare other methods</span></p>
       <p class="foot-note"><span class="zh">各方法适用条件不同，选型请结合现场评估。</span><span class="en">Each method suits different conditions; choose after a site assessment.</span></p>
     </div>
   </div>
@@ -525,12 +553,12 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
       <p class="lead"><span class="zh">隧道与地铁已完成现场部署。其他场景先做模拟评估，再开展试点。</span><span class="en">Tunnels and metro are deployed in the field. For other settings we start with simulation, then a pilot.</span></p>
     </div>
     <div class="modules">
-      <article class="module" data-bg style="--img:url(assets/img/bg/sol-river.webp);--pos:center 70%"><header class="mod-top"><span>S-01</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">越江隧道覆土与淤积</span><span class="en">River-tunnel overburden</span></h3><p class="mod-txt"><span class="zh">持续测量隧道顶部的水体与泥沙，掌握冲刷与淤积变化。</span><span class="en">Track water and sediment above the roof to follow scour and deposition.</span></p></article>
-      <article class="module" data-bg style="--img:url(assets/img/bg/sol-road.webp);--pos:center 75%"><header class="mod-top"><span>S-02</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">城市道路隧道</span><span class="en">Urban road tunnels</span></h3><p class="mod-txt"><span class="zh">对上方覆土成像，发现密度异常与潜在空洞，如同腹部 CT。</span><span class="en">Image the cover to find density anomalies and voids, like an abdominal CT.</span></p></article>
-      <article class="module" data-bg style="--img:url(assets/img/bg/sol-metro.webp);--pos:center 70%"><header class="mod-top"><span>S-03</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">地铁与综合管廊</span><span class="en">Metro &amp; utility tunnels</span></h3><p class="mod-txt"><span class="zh">在既有通道内部署，不影响运营即可了解周边地层。</span><span class="en">Deploy inside existing passages without interrupting service.</span></p></article>
-      <article class="module" data-bg style="--img:url(assets/img/bg/sol-dam.webp)"><header class="mod-top"><span>S-04</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">大坝与水库</span><span class="en">Dams &amp; reservoirs</span></h3><p class="mod-txt"><span class="zh">评估坝体内部密度，如同心脏造影，辅助隐患排查。</span><span class="en">Assess density inside the dam body, like a cardiac angiogram.</span></p></article>
-      <article class="module" data-bg style="--img:url(assets/img/bg/sol-mine.webp)"><header class="mod-top"><span>S-05</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">矿产与地质勘查</span><span class="en">Mineral exploration</span></h3><p class="mod-txt"><span class="zh">从巷道或井下绘制上方岩体密度，圈定高密度区域。</span><span class="en">Map rock density from adits or boreholes to outline high-density zones.</span></p></article>
-      <article class="module" data-bg style="--img:url(assets/img/bg/sol-heritage.webp)"><header class="mod-top"><span>S-06</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">文物与历史建筑</span><span class="en">Heritage sites</span></h3><p class="mod-txt"><span class="zh">不触碰文物，探查内部空腔与结构。</span><span class="en">Look for cavities and structure without touching the site.</span></p></article>
+      <article class="module sol-card" data-setting="越江隧道 / River tunnel" data-bg style="--img:url(assets/img/bg/sol-river.webp);--pos:center 70%"><header class="mod-top"><span>S-01</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">越江隧道覆土与淤积</span><span class="en">River-tunnel overburden</span></h3><p class="mod-txt"><span class="zh">持续测量隧道顶部的水体与泥沙，掌握冲刷与淤积变化。</span><span class="en">Track water and sediment above the roof to follow scour and deposition.</span></p><a class="mod-link" href="#contact" data-topic="project"><span class="zh">咨询此场景</span><span class="en">Ask about this setting</span> <span class="arr">→</span></a></article>
+      <article class="module sol-card" data-setting="城市隧道与地下空间 / Urban tunnel" data-bg style="--img:url(assets/img/bg/sol-road.webp);--pos:center 75%"><header class="mod-top"><span>S-02</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">城市道路隧道</span><span class="en">Urban road tunnels</span></h3><p class="mod-txt"><span class="zh">对上方覆土成像，发现密度异常与潜在空洞，如同腹部 CT。</span><span class="en">Image the cover to find density anomalies and voids, like an abdominal CT.</span></p><a class="mod-link" href="#contact" data-topic="project"><span class="zh">咨询此场景</span><span class="en">Ask about this setting</span> <span class="arr">→</span></a></article>
+      <article class="module sol-card" data-setting="地铁与管廊 / Metro &amp; utility" data-bg style="--img:url(assets/img/bg/sol-metro.webp);--pos:center 70%"><header class="mod-top"><span>S-03</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">地铁与综合管廊</span><span class="en">Metro &amp; utility tunnels</span></h3><p class="mod-txt"><span class="zh">在既有通道内部署，不影响运营即可了解周边地层。</span><span class="en">Deploy inside existing passages without interrupting service.</span></p><a class="mod-link" href="#contact" data-topic="project"><span class="zh">咨询此场景</span><span class="en">Ask about this setting</span> <span class="arr">→</span></a></article>
+      <article class="module sol-card" data-setting="大坝堤防 / Dam &amp; levee" data-bg style="--img:url(assets/img/bg/sol-dam.webp)"><header class="mod-top"><span>S-04</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">大坝与水库</span><span class="en">Dams &amp; reservoirs</span></h3><p class="mod-txt"><span class="zh">评估坝体内部密度，如同心脏造影，辅助隐患排查。</span><span class="en">Assess density inside the dam body, like a cardiac angiogram.</span></p><a class="mod-link" href="#contact" data-topic="project"><span class="zh">咨询此场景</span><span class="en">Ask about this setting</span> <span class="arr">→</span></a></article>
+      <article class="module sol-card" data-setting="矿山地质 / Mining &amp; geology" data-bg style="--img:url(assets/img/bg/sol-mine.webp)"><header class="mod-top"><span>S-05</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">矿产与地质勘查</span><span class="en">Mineral exploration</span></h3><p class="mod-txt"><span class="zh">从巷道或井下绘制上方岩体密度，圈定高密度区域。</span><span class="en">Map rock density from adits or boreholes to outline high-density zones.</span></p><a class="mod-link" href="#contact" data-topic="project"><span class="zh">咨询此场景</span><span class="en">Ask about this setting</span> <span class="arr">→</span></a></article>
+      <article class="module sol-card" data-setting="文物建筑 / Heritage" data-bg style="--img:url(assets/img/bg/sol-heritage.webp)"><header class="mod-top"><span>S-06</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">文物与历史建筑</span><span class="en">Heritage sites</span></h3><p class="mod-txt"><span class="zh">不触碰文物，探查内部空腔与结构。</span><span class="en">Look for cavities and structure without touching the site.</span></p><a class="mod-link" href="#contact" data-topic="project"><span class="zh">咨询此场景</span><span class="en">Ask about this setting</span> <span class="arr">→</span></a></article>
     </div>
   </div>
 </section>
@@ -562,12 +590,12 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
     </div>
 
     <ol class="deploy">
-      <li><span class="n">D-01</span><h3><span class="zh">外环隧道越江段 · 一期</span><span class="en">Outer Ring Tunnel · phase 1</span></h3><p><span class="zh">黄浦江底先导实验，验证潮位与泥沙覆盖的响应，成果发表于 J. Appl. Phys.。</span><span class="en">Pilot under the Huangpu; flux tracks tide and sediment. Published in J. Appl. Phys.</span></p><span class="status ok"><i></i><span class="zh">已完成</span><span class="en">Completed</span></span></li>
-      <li><span class="n">D-02</span><h3><span class="zh">外环隧道越江段 · 二期</span><span class="en">Outer Ring Tunnel · phase 2</span></h3><p><span class="zh">在一期基础上扩展的长期监测部署。</span><span class="en">Extended long-term monitoring building on phase 1.</span></p><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></li>
-      <li><span class="n">D-03</span><h3><span class="zh">崇明线</span><span class="en">Chongming Line metro</span></h3><p><span class="zh">在轨道交通工程中开展的缪子测量部署。</span><span class="en">Muon measurements deployed on a rail-transit project.</span></p><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></li>
-      <li><span class="n">D-04</span><h3><span class="zh">漕宝路快速路隧道</span><span class="en">Caobao Road expressway tunnel</span></h3><p><span class="zh">首个“成像级”部署，对隧道上方覆土进行密度成像。</span><span class="en">Our first imaging-grade deployment: density imaging of the tunnel cover.</span></p><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></li>
-      <li><span class="n">D-05</span><h3><span class="zh">研发基地 · CMS 调试</span><span class="en">R&amp;D site · CMS commissioning</span></h3><p><span class="zh">在地面与地下层共三处测量，地下点位通量明显降低，CMS 成为上海首台投入运行的缪子成像设备。</span><span class="en">Three locations above and below ground; the underground site shows a clear flux deficit. CMS became Shanghai's first operating muography instrument.</span></p><span class="status ok"><i></i>2025.09</span></li>
-      <li><span class="n">D-06</span><h3><span class="zh">马来西亚 · 跨境地质勘测</span><span class="en">Malaysia · cross-border survey</span></h3><p><span class="zh">首次携便携探测器出境：槟城理科大学防空洞、怡保霹雳洞（石灰岩溶洞）、吉隆坡占美清真寺站周边，获吉隆坡市政厅与 Prasarana 支持。</span><span class="en">Our first survey abroad: the USM air-raid shelter in Penang, Perak Cave in Ipoh (limestone karst) and around Masjid Jamek station in Kuala Lumpur, supported by DBKL and Prasarana.</span></p><span class="status wip"><i></i>2026.08</span></li>
+      <li><span class="n">D-01</span><h3><span class="zh">外环隧道越江段 · 一期</span><span class="en">Outer Ring Tunnel · phase 1</span></h3><p><span class="zh">黄浦江底先导实验，验证潮位与泥沙覆盖的响应，成果发表于 J. Appl. Phys.。</span><span class="en">Pilot under the Huangpu; flux tracks tide and sediment. Published in J. Appl. Phys.</span></p><span class="dstat"><span class="status ok"><i></i><span class="zh">已完成</span><span class="en">Completed</span></span><time>2025.01</time></span></li>
+      <li><span class="n">D-02</span><h3><span class="zh">外环隧道越江段 · 二期</span><span class="en">Outer Ring Tunnel · phase 2</span></h3><p><span class="zh">在一期基础上扩展的长期监测部署。</span><span class="en">Extended long-term monitoring building on phase 1.</span></p><span class="dstat"><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span><time>2025</time></span></li>
+      <li><span class="n">D-03</span><h3><span class="zh">崇明线</span><span class="en">Chongming Line metro</span></h3><p><span class="zh">在轨道交通工程中开展的缪子测量部署。</span><span class="en">Muon measurements deployed on a rail-transit project.</span></p><span class="dstat"><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span><time>2025</time></span></li>
+      <li><span class="n">D-04</span><h3><span class="zh">漕宝路快速路隧道</span><span class="en">Caobao Road expressway tunnel</span></h3><p><span class="zh">首个“成像级”部署，对隧道上方覆土进行密度成像。</span><span class="en">Our first imaging-grade deployment: density imaging of the tunnel cover.</span></p><span class="dstat"><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span><time>2026</time></span></li>
+      <li><span class="n">D-05</span><h3><span class="zh">研发基地 · CMS 调试</span><span class="en">R&amp;D site · CMS commissioning</span></h3><p><span class="zh">在地面与地下层共三处测量，地下点位通量明显降低，CMS 成为上海首台投入运行的缪子成像设备。</span><span class="en">Three locations above and below ground; the underground site shows a clear flux deficit. CMS became Shanghai's first operating muography instrument.</span></p><span class="dstat"><span class="status ok"><i></i><span class="zh">已完成</span><span class="en">Completed</span></span><time>2025.09</time></span></li>
+      <li><span class="n">D-06</span><h3><span class="zh">马来西亚 · 跨境地质勘测</span><span class="en">Malaysia · cross-border survey</span></h3><p><span class="zh">首次携便携探测器出境：槟城理科大学防空洞、怡保霹雳洞（石灰岩溶洞）、吉隆坡占美清真寺站周边，获吉隆坡市政厅与 Prasarana 支持。</span><span class="en">Our first survey abroad: the USM air-raid shelter in Penang, Perak Cave in Ipoh (limestone karst) and around Masjid Jamek station in Kuala Lumpur, supported by DBKL and Prasarana.</span></p><span class="dstat"><span class="status ok"><i></i><span class="zh">已完成</span><span class="en">Completed</span></span><time>2026.08</time></span></li>
     </ol>
   </div>
 </section>
@@ -632,13 +660,15 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
         </ol>
         <p class="foot-note"><span class="zh">覆盖图像质量评价、探测器性能测试与系统技术要求，为规范化研发、性能评价和行业应用提供依据。</span><span class="en">Covering image quality, detector testing and system requirements, they give a basis for consistent R&amp;D, performance evaluation and industry adoption.</span></p>
 
-        <p class="label" style="margin-top:48px"><span class="idx">R&amp;D</span><span class="zh">研发前沿</span><span class="en">Next generation</span></p>
-        <ol class="thesis light">
+      </div>
+    </div>
+    <div style="margin-top:72px">
+        <p class="label"><span class="idx">R&amp;D</span><span class="zh">研发前沿</span><span class="en">Next generation</span></p>
+        <ol class="thesis light rd-grid">
           <li><span class="n">N-01</span><div><h3><span class="zh">加速器缪子成像（SHINE）</span><span class="en">Accelerator muography at SHINE</span></h3><p><span class="zh">宇宙线成像慢，是因为每平方厘米每分钟只有约一个缪子。利用 SHINE 电子束打靶产生的 GeV 级缪子，模拟显示约 3×10⁵ 个事例、约 6 小时即可得到结构相似度 SSIM &gt; 0.9 的图像。</span><span class="en">Cosmic-ray muography is slow: about one muon per cm² per minute. With GeV muons from SHINE's electron beam on target, simulation shows about 3×10⁵ events, roughly six hours, give an image with SSIM &gt; 0.9.</span></p></div></li>
           <li><span class="n">N-02</span><div><h3><span class="zh">闪烁光纤散射层析（SciFi-MST）</span><span class="en">Scintillating-fibre scattering tomography</span></h3><p><span class="zh">对钢筋混凝土做散射密度切片成像，看清内部钢筋与缺陷。</span><span class="en">Scattering-density slices of reinforced concrete that reveal rebar and defects inside.</span></p></div></li>
           <li><span class="n">N-03</span><div><h3><span class="zh">缪子“世界模型”</span><span class="en">Muon world model</span></h3><p><span class="zh">用神经网络替代模型加速正演与反演，缩短从数据到图像的时间。</span><span class="en">Neural surrogates that speed up forward modelling and inversion, shortening the path from data to image.</span></p></div></li>
         </ol>
-      </div>
     </div>
   </div>
 </section>
@@ -702,7 +732,8 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
         <div class="ro-grid">
           <div class="ro"><div class="k"><span class="zh">缪子存活比例</span><span class="en">Muons surviving</span></div><div class="v" id="surv">—</div></div>
           <div class="ro"><div class="k"><span class="zh">每日计数 · θ&lt;30°</span><span class="en">Counts / day · θ&lt;30°</span></div><div class="v" id="perday">—</div></div>
-          <div class="ro wide"><div class="k"><span class="zh">识别该变化所需时间 · 3σ</span><span class="en">Time to detect · 3σ</span></div><div class="v" id="ttime">—</div><div class="verdict"><span class="dot"></span><span id="verdict">—</span></div></div>
+          <div class="ro wide"><div class="k"><span class="zh">识别该变化所需时间 · 3σ</span><span class="en">Time to detect · 3σ</span></div><div class="v" id="ttime">—</div><div class="verdict"><span class="dot"></span><span id="verdict">—</span></div>
+            <div class="cta-row" style="margin-top:22px"><a class="btn btn-ghost btn-sm" href="#contact" id="send-est"><span class="zh">把这个估算发给我们</span><span class="en">Send this estimate to us</span> <span class="arr">→</span></a></div></div>
         </div>
         <p class="foot-note"><span class="zh">粗估：地表 30° 内通量约 50 个/m²·s；dE/dX = a + bE（a ≈ 0.25 GeV/m.w.e.，b ≈ 4×10⁻⁴ /m.w.e.）；所需计数 N = (3/δ)²。未计效率、角分布与本底，正式方案以模拟为准。</span><span class="en">Rough model: ~50 muons/m²·s within 30° at surface; dE/dX = a + bE (a ≈ 0.25 GeV/m.w.e., b ≈ 4×10⁻⁴ /m.w.e.); required counts N = (3/δ)². Ignores efficiency, angles and background; formal plans follow simulation.</span></p>
       </div>
@@ -781,6 +812,8 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
         <details><summary><span class="n">Q2</span><span><span class="zh">能看多细？</span><span class="en">How fine is the detail?</span></span></summary><p><span class="zh">分辨率取决于探测器角分辨率、与目标的距离和测量时长。可行性报告会给出具体数值。</span><span class="en">It depends on angular resolution, distance and measurement time. The feasibility report gives concrete numbers.</span></p></details>
         <details><summary><span class="n">Q3</span><span><span class="zh">有辐射吗？</span><span class="en">Is there a radiation risk?</span></span></summary><p><span class="zh">没有额外辐射。我们只接收天然宇宙射线缪子，设备不发射射线，也无需放射源许可。</span><span class="en">No. We only receive natural cosmic-ray muons; the equipment emits nothing and needs no source licence.</span></p></details>
         <details><summary><span class="n">Q4</span><span><span class="zh">会影响运营吗？</span><span class="en">Will it disrupt operations?</span></span></summary><p><span class="zh">不会。设备装在检修通道或设备间，静默运行，只需供电和网络。</span><span class="en">No. Equipment sits in service corridors, runs silently and needs only power and network.</span></p></details>
+        <details><summary><span class="n">Q5</span><span><span class="zh">怎么收费？</span><span class="en">How is it priced?</span></span></summary><p><span class="zh">初步评估免费：提供场地位置、目标深度与图纸，我们判断能不能测。之后的模拟评估、现场部署与长期监测按项目报价，取决于探测器数量、测量时长与报告深度。</span><span class="en">The initial assessment is free: send the site, target depth and drawings and we tell you whether it can be measured. Simulation, deployment and long-term monitoring are quoted per project, depending on the number of detectors, measuring time and depth of reporting.</span></p></details>
+        <details><summary><span class="n">Q6</span><span><span class="zh">项目怎么开始？</span><span class="en">How does a project start?</span></span></summary><p><span class="zh">填写下方表单或通过公众号联系我们。我们通常在一周内给出初步评估，并约定模拟与试点方案。</span><span class="en">Fill in the form below or reach us on WeChat. We usually reply with an initial assessment within a week and agree a simulation and pilot plan.</span></p></details>
       </div>
     </div>
   </div>
@@ -821,9 +854,11 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 </section>
 </main>
 
+<a href="#contact" class="btn btn-sm btn-primary fab" id="fab"><span class="zh">联系我们</span><span class="en">Contact</span> <span class="arr">→</span></a>
+
 <footer class="foot">
   <div class="wrap foot-in">
-    <span>© 2026 <span class="zh">缪子科技实验室 · 上海</span><span class="en">MuTechLab · Shanghai</span></span>
+    <span>© 2026 <span class="zh">缪子科技实验室 · 上海</span><span class="en">MuTechLab · Shanghai</span><span id="icp" hidden> · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener"><span id="icp-no"></span></a></span></span>
     <nav aria-label="Footer"><a href="#solutions"><span class="zh">解决方案</span><span class="en">Solutions</span></a><a href="#deployments"><span class="zh">案例</span><span class="en">Deployments</span></a><a href="#investors"><span class="zh">投资者</span><span class="en">Investors</span></a><a href="#careers"><span class="zh">加入我们</span><span class="en">Careers</span></a><a href="#contact"><span class="zh">联系</span><span class="en">Contact</span></a></nav>
   </div>
 </footer>
@@ -833,11 +868,13 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 (function(){
   /* ---- edit before launch ---- */
   var CONTACT_EMAIL = "";   // e.g. "mutechlab@example.edu.cn"
+  var ICP_NO = "";          // e.g. "沪ICP备2026xxxxxx号" — required for hosting in mainland China
 
   var app=document.getElementById('app');
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function en(){return app.dataset.lang==='en'}
   if(CONTACT_EMAIL){ document.getElementById('email-v').textContent=CONTACT_EMAIL; document.getElementById('email-row').hidden=false; }
+  if(ICP_NO){ document.getElementById('icp-no').textContent=ICP_NO; document.getElementById('icp').hidden=false; }
 
   function setLang(l){
     app.dataset.lang=l; document.documentElement.lang=l==='en'?'en':'zh-CN';
@@ -890,7 +927,15 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
     try{ navigator.clipboard.writeText(sum.textContent).then(function(){ msg.textContent=en()?'Copied.':'已复制。'; },sel); }catch(e){ sel(); }
   });
 
-  document.querySelectorAll('[data-topic]').forEach(function(a){ a.addEventListener('click',function(){ document.getElementById('f-topic').value=a.dataset.topic; }); });
+  document.querySelectorAll('[data-topic]').forEach(function(a){ a.addEventListener('click',function(){ document.getElementById('f-topic').value=a.dataset.topic; var card=a.closest('[data-setting]'); if(card){ var ta=document.getElementById('f-msg'); var tag='场景 Setting: '+card.dataset.setting.replace('&amp;','&'); if(ta.value.indexOf(tag)<0) ta.value=(tag+'\n'+ta.value).trim(); } }); });
+  document.getElementById('send-est').addEventListener('click',function(){
+    document.getElementById('f-topic').value='project';
+    var matName=document.querySelector('#mat button[aria-pressed="true"] .'+(en()?'en':'zh')).textContent;
+    var line='可行性速算 Feasibility: '+depth.value+' m '+matName+' ('+rho+' g/cm³), 变化 '+delta.value+'%, 探测器 '+area+' m² → '+document.getElementById('ttime').textContent+' · '+document.getElementById('verdict').textContent;
+    var ta=document.getElementById('f-msg'); ta.value=(ta.value.replace(/可行性速算 Feasibility:[^\n]*\n?/,'')+'\n'+line).trim();
+  });
+  var fab=document.getElementById('fab'), contactSec=document.getElementById('contact');
+  if('IntersectionObserver' in window) new IntersectionObserver(function(e){ fab.classList.toggle('hide',e[0].isIntersecting); },{threshold:.1}).observe(contactSec);
 
 
   var l='zh'; try{ l=localStorage.getItem('mtl-lang')||'zh'; }catch(e){}
