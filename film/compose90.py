@@ -32,8 +32,7 @@ def segment(post, first, last, src_fps, out):
     """Interpolate post frames [first..last] (1-based) to 30 fps 1080p."""
     if os.path.exists(out): return out
     run(["ffmpeg", "-v", "error", "-y", "-start_number", str(first), "-framerate", f"{src_fps:.5f}", "-i", os.path.join(post, "%04d.png"),
-         "-frames:v", str(last - first + 1),
-         "-vf", f"minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,scale={W}:{H}:flags=lanczos,format=yuv420p",
+         "-vf", f"trim=end_frame={last - first + 1},setpts=PTS-STARTPTS,minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,scale={W}:{H}:flags=lanczos,format=yuv420p",
          "-c:v", "libx264", "-crf", "14", "-preset", "medium", out])
     return out
 
