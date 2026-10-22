@@ -8,3 +8,4 @@ voice/tts/
 !voice/_cache/*.wav
 __pycache__/
 pkg/
+.venv/

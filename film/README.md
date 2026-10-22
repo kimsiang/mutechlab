@@ -25,10 +25,11 @@ Then:
 ./run_mac.sh 30           # the 30 s cut only                           → muonlab_promo_30s.mp4
 ```
 
-`run_mac.sh` installs the Python packages it needs (`bpy`, `pillow`, `numpy`, `scipy`, `soundfile`,
-`sherpa-onnx`), renders with Cycles on the GPU (`BLENDER_DEVICE=CPU ./run_mac.sh 90` to force CPU), and
-is resumable: rendered frames in `render/` and `render_p/` are kept, so if it stops you just run it again.
-Python 3.11–3.13 is required by `bpy`.
+`run_mac.sh` creates a private Python **3.13** virtualenv in `film/.venv` (Blender's `bpy` 5.2 wheel exists only
+for 3.13; it installs `python@3.13` with Homebrew if you don't have it), installs `bpy`, `pillow`, `numpy`,
+`scipy`, `soundfile` into it, renders with Cycles on the GPU (`BLENDER_DEVICE=CPU ./run_mac.sh 90` to force CPU),
+and is resumable: rendered frames in `render/` and `render_p/` are kept, so if it stops you just run it again.
+If you run the steps by hand, use `./.venv/bin/python` instead of `python3`.
 
 When it finishes, copy `muonlab_promo_90s.mp4` into the website as `../assets/video/mutechlab-film-90s.mp4`
 (or just push it and say so) — the page expects that path.
@@ -36,6 +37,7 @@ When it finishes, copy `muonlab_promo_90s.mp4` into the website as `../assets/vi
 Doing the steps by hand, which is what the script does:
 
 ```bash
+source .venv/bin/activate      # the 3.13 venv made by run_mac.sh
 python3 scene.py  --step 1 --res 1920 1080 --samples 64 --out render   --device METAL   # 30 s plates (0–27 s)
 python3 scene2.py --step 1 --res 1920 1080 --samples 64 --out render_p --device METAL   # principle act (58 s)
 python3 narrate.py --texts texts90.toml --duration 90                                   # voice stem + subtitles
