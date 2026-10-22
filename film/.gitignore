@@ -1,9 +1,10 @@
 render*/
 work*/
 voice/models/
+voice/tts/
 *.mp4
 *.gif
 *.wav
+!voice/_cache/*.wav
 __pycache__/
 pkg/
-voice/tts/
