@@ -9,7 +9,7 @@ Audiences: infrastructure owners (customers), investors, future hires.
 ## Structure
 - `index.html` — the whole site (styles and scripts inline)
 - `assets/fonts/` — self-hosted Space Grotesk, Inter, JetBrains Mono (no Google Fonts, so it loads in mainland China)
-- `assets/img/` — Outer Ring Tunnel flux figure and CMS detector figure (no people)
+- `assets/img/` — Outer Ring Tunnel flux figure, CMS detector figure, and `bg/` box backgrounds (lab, detector and film-frame crops; no people, no institutional signage)
 - `assets/video/` — the 90 s promo film (principle + application, 24 MB), English narration + 中文字幕, and its poster frame. Source and build instructions: `film/README.md`
 - `src/hero.js` — 3D muon tracker hero (three.js); `npm install && npm run build` → `assets/js/hero.bundle.js`
 - `build_artifact.py` — makes a single-file copy with assets inlined

@@ -147,7 +147,7 @@ table.cmp{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
 .modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .module{position:relative;background:var(--bg-2);padding:clamp(22px,2.6vw,34px);display:flex;flex-direction:column;overflow:hidden;transition:background .4s var(--ease)}
 .module::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 80% 0%,rgba(34,81,255,.16),transparent 70%);opacity:0;transition:opacity .5s;pointer-events:none}
-.module:hover{background:var(--bg-3)}
+.module:hover{background-color:var(--bg-3)}
 .module:hover::before{opacity:1}
 .mod-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font:400 11px/1.4 var(--f-mono);letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
 .status{display:inline-flex;align-items:center;gap:7px;color:var(--muted)}
@@ -189,7 +189,7 @@ table.cmp{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
 .deliver .lead{color:#c8d6ec}
 .roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)}
 .role{background:rgba(3,14,34,.72);padding:28px 24px 32px;backdrop-filter:blur(6px);transition:background .3s}
-.role:hover{background:rgba(10,30,70,.85)}
+.role:hover{background-color:rgba(10,30,70,.85)}
 .role .mono{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
 #app[data-lang="zh"] .role .mono{font-family:var(--cjk);font-size:12.5px}
 .role h3{font-size:22px;margin:34px 0 12px}
@@ -289,7 +289,7 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 .hero-title{max-width:13em}
 .router{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line)}
 .router a{position:relative;background:var(--bg-2);padding:28px clamp(18px,2.4vw,32px) 30px;display:flex;flex-direction:column;gap:10px;transition:background .3s}
-.router a:hover{background:var(--bg-3)}
+.router a:hover{background-color:var(--bg-3)}
 .router .who{font:400 11px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 #app[data-lang="zh"] .router .who{font-family:var(--cjk);font-size:12.5px;letter-spacing:.08em}
 .router h3{font-size:clamp(20px,1.9vw,26px)}
@@ -364,6 +364,21 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 .stds{margin-top:20px;border-top:1px solid var(--line)}
 .stds li{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--text)}
 .stds .n{font:400 11px/1.9 var(--f-mono);color:var(--accent)}
+
+/* ---------- box background images ---------- */
+@property --ov{syntax:'<number>';inherits:false;initial-value:.84}
+[data-bg][data-bg]{--ov:.84;position:relative;background-image:linear-gradient(180deg,rgba(4,7,12,calc(var(--ov) - .06)) 0%,rgba(4,7,12,var(--ov)) 55%,rgba(4,7,12,calc(var(--ov) + .08)) 100%),var(--img);background-size:cover;background-position:var(--pos,center);background-repeat:no-repeat;transition:--ov .5s var(--ease),background-color .3s}
+[data-bg][data-bg]:hover{--ov:.66}
+.role[data-bg][data-bg]{background-image:linear-gradient(180deg,rgba(3,14,34,calc(var(--ov) - .06)) 0%,rgba(3,14,34,var(--ov)) 55%,rgba(3,14,34,calc(var(--ov) + .08)) 100%),var(--img)}
+.spec[data-bg]{padding-left:20px;margin-right:0}
+.spec-strip{gap:0}
+.timeline li[data-bg]{padding:30px 18px 26px;margin-right:12px}
+.timeline li[data-bg]::before{left:18px}
+.moat>div[data-bg]{min-height:150px}
+.module[data-bg] .mod-txt,.router a[data-bg] p,.role[data-bg] p,.timeline li[data-bg] p,.moat>div[data-bg] span,.spec[data-bg]>span{color:#c3cddb}
+@media (max-width:900px){.timeline li[data-bg]::before{top:18px;left:auto;right:18px}}
+@media (max-width:760px){.spec[data-bg]{padding-left:16px}.timeline li[data-bg]{margin-right:0}}
+@media (prefers-reduced-motion:reduce){[data-bg]{transition:none}}
 @media (prefers-reduced-motion:reduce){.pi-mark i{animation:none;display:none}}
 
 /* FILM */
@@ -437,19 +452,19 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
   </aside>
 
   <div class="spec-strip wrap" role="list">
-    <div class="spec" role="listitem"><b>4<small> sites</small></b><span class="zh">上海现场部署</span><span class="en">Shanghai field deployments</span></div>
-    <div class="spec" role="listitem"><b>~4<small> %/m</small></b><span class="zh">潮位每米对应的通量变化</span><span class="en">Flux change per metre of tide</span></div>
-    <div class="spec" role="listitem"><b>JAP<small> 2025</small></b><span class="zh">现场成果同行评审发表</span><span class="en">Peer-reviewed field result</span></div>
-    <div class="spec" role="listitem"><b>1st<small> prize</small></b><span class="zh">第十五届上海“挑战杯”创业比赛一等奖</span><span class="en">First prize, 15th Shanghai Challenge Cup entrepreneurship competition</span></div>
+    <div class="spec" role="listitem" data-bg style="--img:url(assets/img/bg/spec-sites.webp)"><b>4<small> sites</small></b><span class="zh">上海现场部署</span><span class="en">Shanghai field deployments</span></div>
+    <div class="spec" role="listitem" data-bg style="--img:url(assets/img/bg/spec-tide.webp);--pos:70% 70%"><b>~4<small> %/m</small></b><span class="zh">潮位每米对应的通量变化</span><span class="en">Flux change per metre of tide</span></div>
+    <div class="spec" role="listitem" data-bg style="--img:url(assets/img/bg/spec-jap.webp);--pos:center 80%"><b>JAP<small> 2025</small></b><span class="zh">现场成果同行评审发表</span><span class="en">Peer-reviewed field result</span></div>
+    <div class="spec" role="listitem" data-bg style="--img:url(assets/img/bg/spec-prize.webp)"><b>1st<small> prize</small></b><span class="zh">第十五届上海“挑战杯”创业比赛一等奖</span><span class="en">First prize, 15th Shanghai Challenge Cup entrepreneurship competition</span></div>
   </div>
 </section>
 
 <!-- AUDIENCE ROUTER -->
 <nav class="router-wrap" aria-label="Choose your path">
   <div class="router">
-    <a href="#solutions"><span class="who"><span class="zh">我是业主 / 设计院</span><span class="en">Infrastructure owners</span></span><h3><span class="zh">看清结构内部</span><span class="en">See inside your structure</span></h3><p><span class="zh">隧道、地铁、大坝与矿山的无损成像与长期监测。</span><span class="en">Non-invasive imaging and monitoring for tunnels, metro, dams and mines.</span></p><span class="go"><span class="zh">解决方案</span><span class="en">Solutions</span> <span class="arr">→</span></span></a>
-    <a href="#investors"><span class="who"><span class="zh">我是投资机构</span><span class="en">Investors</span></span><h3><span class="zh">硬科技 + 数据服务</span><span class="en">Deep tech meets data services</span></h3><p><span class="zh">已落地的现场案例、自主知识产权与双轮商业模式。</span><span class="en">Field deployments, our own IP and a two-engine business model.</span></p><span class="go"><span class="zh">投资者关系</span><span class="en">Investor brief</span> <span class="arr">→</span></span></a>
-    <a href="#careers"><span class="who"><span class="zh">我想加入</span><span class="en">Future colleagues</span></span><h3><span class="zh">把粒子物理带进城市</span><span class="en">Bring particle physics to the city</span></h3><p><span class="zh">探测器、算法、现场工程与商务岗位。</span><span class="en">Detector, algorithm, field engineering and business roles.</span></p><span class="go"><span class="zh">开放岗位</span><span class="en">Open roles</span> <span class="arr">→</span></span></a>
+    <a href="#solutions" data-bg style="--img:url(assets/img/bg/router-owner.webp);--pos:center 75%"><span class="who"><span class="zh">我是业主 / 设计院</span><span class="en">Infrastructure owners</span></span><h3><span class="zh">看清结构内部</span><span class="en">See inside your structure</span></h3><p><span class="zh">隧道、地铁、大坝与矿山的无损成像与长期监测。</span><span class="en">Non-invasive imaging and monitoring for tunnels, metro, dams and mines.</span></p><span class="go"><span class="zh">解决方案</span><span class="en">Solutions</span> <span class="arr">→</span></span></a>
+    <a href="#investors" data-bg style="--img:url(assets/img/bg/router-invest.webp);--pos:center 40%"><span class="who"><span class="zh">我是投资机构</span><span class="en">Investors</span></span><h3><span class="zh">硬科技 + 数据服务</span><span class="en">Deep tech meets data services</span></h3><p><span class="zh">已落地的现场案例、自主知识产权与双轮商业模式。</span><span class="en">Field deployments, our own IP and a two-engine business model.</span></p><span class="go"><span class="zh">投资者关系</span><span class="en">Investor brief</span> <span class="arr">→</span></span></a>
+    <a href="#careers" data-bg style="--img:url(assets/img/bg/router-join.webp)"><span class="who"><span class="zh">我想加入</span><span class="en">Future colleagues</span></span><h3><span class="zh">把粒子物理带进城市</span><span class="en">Bring particle physics to the city</span></h3><p><span class="zh">探测器、算法、现场工程与商务岗位。</span><span class="en">Detector, algorithm, field engineering and business roles.</span></p><span class="go"><span class="zh">开放岗位</span><span class="en">Open roles</span> <span class="arr">→</span></span></a>
   </div>
 </nav>
 
@@ -510,12 +525,12 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
       <p class="lead"><span class="zh">隧道与地铁已完成现场部署。其他场景先做模拟评估，再开展试点。</span><span class="en">Tunnels and metro are deployed in the field. For other settings we start with simulation, then a pilot.</span></p>
     </div>
     <div class="modules">
-      <article class="module"><header class="mod-top"><span>S-01</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">越江隧道覆土与淤积</span><span class="en">River-tunnel overburden</span></h3><p class="mod-txt"><span class="zh">持续测量隧道顶部的水体与泥沙，掌握冲刷与淤积变化。</span><span class="en">Track water and sediment above the roof to follow scour and deposition.</span></p></article>
-      <article class="module"><header class="mod-top"><span>S-02</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">城市道路隧道</span><span class="en">Urban road tunnels</span></h3><p class="mod-txt"><span class="zh">对上方覆土成像，发现密度异常与潜在空洞，如同腹部 CT。</span><span class="en">Image the cover to find density anomalies and voids, like an abdominal CT.</span></p></article>
-      <article class="module"><header class="mod-top"><span>S-03</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">地铁与综合管廊</span><span class="en">Metro &amp; utility tunnels</span></h3><p class="mod-txt"><span class="zh">在既有通道内部署，不影响运营即可了解周边地层。</span><span class="en">Deploy inside existing passages without interrupting service.</span></p></article>
-      <article class="module"><header class="mod-top"><span>S-04</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">大坝与水库</span><span class="en">Dams &amp; reservoirs</span></h3><p class="mod-txt"><span class="zh">评估坝体内部密度，如同心脏造影，辅助隐患排查。</span><span class="en">Assess density inside the dam body, like a cardiac angiogram.</span></p></article>
-      <article class="module"><header class="mod-top"><span>S-05</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">矿产与地质勘查</span><span class="en">Mineral exploration</span></h3><p class="mod-txt"><span class="zh">从巷道或井下绘制上方岩体密度，圈定高密度区域。</span><span class="en">Map rock density from adits or boreholes to outline high-density zones.</span></p></article>
-      <article class="module"><header class="mod-top"><span>S-06</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">文物与历史建筑</span><span class="en">Heritage sites</span></h3><p class="mod-txt"><span class="zh">不触碰文物，探查内部空腔与结构。</span><span class="en">Look for cavities and structure without touching the site.</span></p></article>
+      <article class="module" data-bg style="--img:url(assets/img/bg/sol-river.webp);--pos:center 70%"><header class="mod-top"><span>S-01</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">越江隧道覆土与淤积</span><span class="en">River-tunnel overburden</span></h3><p class="mod-txt"><span class="zh">持续测量隧道顶部的水体与泥沙，掌握冲刷与淤积变化。</span><span class="en">Track water and sediment above the roof to follow scour and deposition.</span></p></article>
+      <article class="module" data-bg style="--img:url(assets/img/bg/sol-road.webp);--pos:center 75%"><header class="mod-top"><span>S-02</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">城市道路隧道</span><span class="en">Urban road tunnels</span></h3><p class="mod-txt"><span class="zh">对上方覆土成像，发现密度异常与潜在空洞，如同腹部 CT。</span><span class="en">Image the cover to find density anomalies and voids, like an abdominal CT.</span></p></article>
+      <article class="module" data-bg style="--img:url(assets/img/bg/sol-metro.webp);--pos:center 70%"><header class="mod-top"><span>S-03</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">地铁与综合管廊</span><span class="en">Metro &amp; utility tunnels</span></h3><p class="mod-txt"><span class="zh">在既有通道内部署，不影响运营即可了解周边地层。</span><span class="en">Deploy inside existing passages without interrupting service.</span></p></article>
+      <article class="module" data-bg style="--img:url(assets/img/bg/sol-dam.webp)"><header class="mod-top"><span>S-04</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">大坝与水库</span><span class="en">Dams &amp; reservoirs</span></h3><p class="mod-txt"><span class="zh">评估坝体内部密度，如同心脏造影，辅助隐患排查。</span><span class="en">Assess density inside the dam body, like a cardiac angiogram.</span></p></article>
+      <article class="module" data-bg style="--img:url(assets/img/bg/sol-mine.webp)"><header class="mod-top"><span>S-05</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">矿产与地质勘查</span><span class="en">Mineral exploration</span></h3><p class="mod-txt"><span class="zh">从巷道或井下绘制上方岩体密度，圈定高密度区域。</span><span class="en">Map rock density from adits or boreholes to outline high-density zones.</span></p></article>
+      <article class="module" data-bg style="--img:url(assets/img/bg/sol-heritage.webp)"><header class="mod-top"><span>S-06</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">文物与历史建筑</span><span class="en">Heritage sites</span></h3><p class="mod-txt"><span class="zh">不触碰文物，探查内部空腔与结构。</span><span class="en">Look for cavities and structure without touching the site.</span></p></article>
     </div>
   </div>
 </section>
@@ -567,22 +582,22 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
     </div>
 
     <div class="modules products">
-      <article class="module"><header class="mod-top"><span>P-01</span><span class="status ok"><i></i><span class="zh">基础型号</span><span class="en">Core model</span></span></header>
+      <article class="module" data-bg style="--img:url(assets/img/bg/prod-flux.webp)"><header class="mod-top"><span>P-01</span><span class="status ok"><i></i><span class="zh">基础型号</span><span class="en">Core model</span></span></header>
         <h3><span class="zh">缪子通量监测仪</span><span class="en">Muon flux monitor</span></h3>
         <p class="mod-txt"><span class="zh">长期通量测量，快速估算上覆土层与水层厚度，配实时计数显示。</span><span class="en">Long-term flux measurement and quick thickness estimates of overlying soil and water, with a live counter.</span></p>
         <dl class="specs"><div><dt><span class="zh">尺寸</span><span class="en">Size</span></dt><dd>145 × 30 × 30 cm³</dd></div><div><dt><span class="zh">适用</span><span class="en">For</span></dt><dd><span class="zh">隧道覆土、淤积监测</span><span class="en">Tunnel cover, sediment</span></dd></div></dl>
       </article>
-      <article class="module"><header class="mod-top"><span>P-02</span><span class="status ok"><i></i><span class="zh">旗舰型号</span><span class="en">Flagship</span></span></header>
+      <article class="module" data-bg style="--img:url(assets/img/bg/prod-3d.webp);--pos:center 40%"><header class="mod-top"><span>P-02</span><span class="status ok"><i></i><span class="zh">旗舰型号</span><span class="en">Flagship</span></span></header>
         <h3><span class="zh">三维缪子成像系统</span><span class="en">3D muon imaging system</span></h3>
         <p class="mod-txt"><span class="zh">多层三角闪烁体径迹探测，对复杂结构做三维密度重建。</span><span class="en">Multi-layer triangular-scintillator tracking for 3D density reconstruction of complex structures.</span></p>
         <dl class="specs"><div><dt><span class="zh">尺寸</span><span class="en">Size</span></dt><dd>60 × 61 × 53 cm³</dd></div><div><dt><span class="zh">适用</span><span class="en">For</span></dt><dd><span class="zh">空洞、密度异常成像</span><span class="en">Voids, density anomalies</span></dd></div></dl>
       </article>
-      <article class="module"><header class="mod-top"><span>P-03</span><span class="status ok"><i></i><span class="zh">研发平台</span><span class="en">R&amp;D platform</span></span></header>
+      <article class="module" data-bg style="--img:url(assets/img/bg/prod-cms.webp);--pos:center 40%"><header class="mod-top"><span>P-03</span><span class="status ok"><i></i><span class="zh">研发平台</span><span class="en">R&amp;D platform</span></span></header>
         <h3><span class="zh">CMS 宇宙线成像系统</span><span class="en">Cosmic-ray Muography System</span></h3>
         <p class="mod-txt"><span class="zh">三层径迹层，透射成像模式运行，紧凑、模块化、高分辨率。</span><span class="en">Three tracking layers running in radiography mode; compact, modular, high-resolution.</span></p>
         <dl class="specs"><div><dt><span class="zh">有效面积</span><span class="en">Active area</span></dt><dd>≈ 50 × 50 cm²</dd></div><div><dt><span class="zh">读出</span><span class="en">Readout</span></dt><dd>SiPM · CAEN A5202</dd></div></dl>
       </article>
-      <article class="module"><header class="mod-top"><span>P-04</span><span class="status"><i></i><span class="zh">科教产品</span><span class="en">Education</span></span></header>
+      <article class="module" data-bg style="--img:url(assets/img/bg/prod-demo.webp);--pos:center 30%"><header class="mod-top"><span>P-04</span><span class="status"><i></i><span class="zh">科教产品</span><span class="en">Education</span></span></header>
         <h3><span class="zh">50 通道缪子演示装置</span><span class="en">50-channel muon demonstrator</span></h3>
         <p class="mod-txt"><span class="zh">5 × 10 闪烁体阵列，缪子穿过即点亮 LED，让观众实时“看见”宇宙线。</span><span class="en">A 5 × 10 scintillator array that lights an LED for every muon, so visitors watch cosmic rays arrive.</span></p>
         <dl class="specs"><div><dt><span class="zh">通道</span><span class="en">Channels</span></dt><dd>50 · SiPM</dd></div><div><dt><span class="zh">适用</span><span class="en">For</span></dt><dd><span class="zh">科技馆、中小学、高校</span><span class="en">Museums, schools, universities</span></dd></div></dl>
@@ -605,10 +620,10 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
           <div><dt><span class="zh">软件</span><span class="en">Software</span></dt><dd><span class="zh">Geant4 模拟 · 三维层析与正则化反演 · AI 替代模型</span><span class="en">Geant4 · 3D tomography and regularised inversion · AI surrogates</span></dd></div>
         </dl>
         <div class="moat">
-          <div><b>1 + 1</b><span><span class="zh">成像系统发明专利：1 项授权、1 项申请中</span><span class="en">Imaging-system invention patents: 1 granted, 1 pending</span></span></div>
-          <div><b>256</b><span><span class="zh">四层径迹仪闪烁体条数</span><span class="en">Scintillator bars in the four-layer tracker</span></span></div>
-          <div><b>SCI</b><span><span class="zh">J. Appl. Phys. 等同行评审论文</span><span class="en">Peer-reviewed papers incl. J. Appl. Phys.</span></span></div>
-          <div><b>3</b><span><span class="zh">参与起草并已发布的团体标准</span><span class="en">Published group standards we co-drafted</span></span></div>
+          <div data-bg style="--img:url(assets/img/bg/moat-patent.webp)"><b>1 + 1</b><span><span class="zh">成像系统发明专利：1 项授权、1 项申请中</span><span class="en">Imaging-system invention patents: 1 granted, 1 pending</span></span></div>
+          <div data-bg style="--img:url(assets/img/bg/moat-bars.webp)"><b>256</b><span><span class="zh">四层径迹仪闪烁体条数</span><span class="en">Scintillator bars in the four-layer tracker</span></span></div>
+          <div data-bg style="--img:url(assets/img/bg/moat-sci.webp)"><b>SCI</b><span><span class="zh">J. Appl. Phys. 等同行评审论文</span><span class="en">Peer-reviewed papers incl. J. Appl. Phys.</span></span></div>
+          <div data-bg style="--img:url(assets/img/bg/moat-std.webp)"><b>3</b><span><span class="zh">参与起草并已发布的团体标准</span><span class="en">Published group standards we co-drafted</span></span></div>
         </div>
         <ol class="stds">
           <li><span class="n">STD-01</span><span><span class="zh">《缪子成像重建图像质量评价方法》</span><span class="en">Image-quality evaluation of muography reconstructions</span></span></li>
@@ -717,11 +732,11 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 
     <p class="label" style="margin-top:88px"><span class="idx">→</span><span class="zh">里程碑</span><span class="en">Milestones</span></p>
     <ol class="timeline invest-tl">
-      <li><time>2024</time><h3><span class="zh">首台便携探测器</span><span class="en">First portable detector</span></h3><p><span class="zh">在上海自然博物馆面向公众展出；参加中国缪子成像研讨会，中国缪子成像协作组于会上成立。</span><span class="en">Shown at the Shanghai Natural History Museum; at the Chinese Muography Workshop, where the Chinese Muography Collaboration Group was founded.</span></p></li>
-      <li><time>2025.09</time><h3><span class="zh">论文发表 · CMS 上线</span><span class="en">Paper out · CMS online</span></h3><p><span class="zh">外环隧道成果发表于 J. Appl. Phys.，多国媒体报道；CMS 开始透射成像。</span><span class="en">Outer Ring Tunnel result in J. Appl. Phys., covered by media abroad; CMS begins radiography.</span></p></li>
-      <li><time>2026.07</time><h3><span class="zh">应急管理展出</span><span class="en">Emergency-management debut</span></h3><p><span class="zh">在 2026 应急管理新视野国际会议展出三款产品。</span><span class="en">Three products shown at the 2026 New Horizons in Emergency Management conference.</span></p></li>
-      <li><time>2026.08</time><h3><span class="zh">走出国门</span><span class="en">First survey abroad</span></h3><p><span class="zh">马来西亚三地现场勘测，开启跨境合作。</span><span class="en">Three Malaysian field campaigns and new partnerships.</span></p></li>
-      <li><time>2026.10</time><h3><span class="zh">加速器缪子成像</span><span class="en">Accelerator muography</span></h3><p><span class="zh">SHINE 加速器缪子成像研究亮相第五届中国粒子加速器会议。</span><span class="en">SHINE accelerator muography presented at CPAC 2026.</span></p></li>
+      <li data-bg style="--img:url(assets/img/bg/ms-2024.webp)"><time>2024</time><h3><span class="zh">首台便携探测器</span><span class="en">First portable detector</span></h3><p><span class="zh">在上海自然博物馆面向公众展出；参加中国缪子成像研讨会，中国缪子成像协作组于会上成立。</span><span class="en">Shown at the Shanghai Natural History Museum; at the Chinese Muography Workshop, where the Chinese Muography Collaboration Group was founded.</span></p></li>
+      <li data-bg style="--img:url(assets/img/bg/ms-2025.webp)"><time>2025.09</time><h3><span class="zh">论文发表 · CMS 上线</span><span class="en">Paper out · CMS online</span></h3><p><span class="zh">外环隧道成果发表于 J. Appl. Phys.，多国媒体报道；CMS 开始透射成像。</span><span class="en">Outer Ring Tunnel result in J. Appl. Phys., covered by media abroad; CMS begins radiography.</span></p></li>
+      <li data-bg style="--img:url(assets/img/bg/ms-2026a.webp);--pos:center 40%"><time>2026.07</time><h3><span class="zh">应急管理展出</span><span class="en">Emergency-management debut</span></h3><p><span class="zh">在 2026 应急管理新视野国际会议展出三款产品。</span><span class="en">Three products shown at the 2026 New Horizons in Emergency Management conference.</span></p></li>
+      <li data-bg style="--img:url(assets/img/bg/ms-2026b.webp)"><time>2026.08</time><h3><span class="zh">走出国门</span><span class="en">First survey abroad</span></h3><p><span class="zh">马来西亚三地现场勘测，开启跨境合作。</span><span class="en">Three Malaysian field campaigns and new partnerships.</span></p></li>
+      <li data-bg style="--img:url(assets/img/bg/ms-2026c.webp);--pos:center 85%"><time>2026.10</time><h3><span class="zh">加速器缪子成像</span><span class="en">Accelerator muography</span></h3><p><span class="zh">SHINE 加速器缪子成像研究亮相第五届中国粒子加速器会议。</span><span class="en">SHINE accelerator muography presented at CPAC 2026.</span></p></li>
     </ol>
   </div>
 </section>
@@ -742,10 +757,10 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
     </div>
     <div>
       <div class="roles" style="grid-template-columns:1fr 1fr">
-        <div class="role"><span class="mono">R-01</span><h3><span class="zh">探测器工程师</span><span class="en">Detector engineer</span></h3><p><span class="zh">闪烁体、SiPM 与读出电子学的设计、装配与测试。</span><span class="en">Design, build and test scintillator, SiPM and readout systems.</span></p></div>
-        <div class="role"><span class="mono">R-02</span><h3><span class="zh">算法 / AI 工程师</span><span class="en">Algorithm / AI engineer</span></h3><p><span class="zh">模拟、三维重建与机器学习反演。</span><span class="en">Simulation, 3D reconstruction and ML-based inversion.</span></p></div>
-        <div class="role"><span class="mono">R-03</span><h3><span class="zh">现场工程师</span><span class="en">Field engineer</span></h3><p><span class="zh">隧道与工地的部署、运维与数据质量。</span><span class="en">Deployment, upkeep and data quality on tunnels and sites.</span></p></div>
-        <div class="role"><span class="mono">R-04</span><h3><span class="zh">商务拓展</span><span class="en">Business development</span></h3><p><span class="zh">对接业主、设计院与海外市场。</span><span class="en">Work with owners, design institutes and overseas markets.</span></p></div>
+        <div class="role" data-bg style="--img:url(assets/img/bg/role-det.webp)"><span class="mono">R-01</span><h3><span class="zh">探测器工程师</span><span class="en">Detector engineer</span></h3><p><span class="zh">闪烁体、SiPM 与读出电子学的设计、装配与测试。</span><span class="en">Design, build and test scintillator, SiPM and readout systems.</span></p></div>
+        <div class="role" data-bg style="--img:url(assets/img/bg/role-ai.webp)"><span class="mono">R-02</span><h3><span class="zh">算法 / AI 工程师</span><span class="en">Algorithm / AI engineer</span></h3><p><span class="zh">模拟、三维重建与机器学习反演。</span><span class="en">Simulation, 3D reconstruction and ML-based inversion.</span></p></div>
+        <div class="role" data-bg style="--img:url(assets/img/bg/role-field.webp);--pos:center 70%"><span class="mono">R-03</span><h3><span class="zh">现场工程师</span><span class="en">Field engineer</span></h3><p><span class="zh">隧道与工地的部署、运维与数据质量。</span><span class="en">Deployment, upkeep and data quality on tunnels and sites.</span></p></div>
+        <div class="role" data-bg style="--img:url(assets/img/bg/role-bd.webp);--pos:center 70%"><span class="mono">R-04</span><h3><span class="zh">商务拓展</span><span class="en">Business development</span></h3><p><span class="zh">对接业主、设计院与海外市场。</span><span class="en">Work with owners, design institutes and overseas markets.</span></p></div>
       </div>
       <p class="foot-note"><span class="zh">也欢迎博士后、研究生与本科生以科研实习的方式加入。</span><span class="en">Postdocs, graduate students and undergraduates are welcome as research interns.</span></p>
       <div class="cta-row"><a class="btn btn-ghost" href="#contact" data-topic="job"><span class="zh">投递简历</span><span class="en">Send your CV</span> <span class="arr">→</span></a></div>
