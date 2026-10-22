@@ -365,6 +365,23 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 .stds li{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--text)}
 .stds .n{font:400 11px/1.9 var(--f-mono);color:var(--accent)}
 @media (prefers-reduced-motion:reduce){.pi-mark i{animation:none;display:none}}
+
+/* FILM */
+.film{padding-block:clamp(64px,8vw,110px)}
+.film-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.film-head .h2{font-size:clamp(26px,3.2vw,44px)}
+.film-head .lead{margin-top:10px;max-width:34em}
+.film-frame{position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--line-2);overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.9),0 0 0 1px rgba(47,200,255,.08)}
+.film-frame video{display:block;width:100%;height:100%;object-fit:cover}
+.film-frame .bracket{position:absolute;inset:10px;pointer-events:none}
+.film-play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(0deg,rgba(4,7,12,.55),rgba(4,7,12,.1));border:0;cursor:pointer;color:#fff;font:500 13px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;transition:opacity .4s var(--ease)}
+.film-play span{display:inline-flex;align-items:center;gap:14px;padding:14px 22px 14px 16px;border:1px solid rgba(255,255,255,.35);background:rgba(4,7,12,.55);backdrop-filter:blur(6px)}
+.film-play i{width:38px;height:38px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#031019;box-shadow:0 0 18px var(--accent)}
+.film-play i::before{content:"";margin-left:3px;border-style:solid;border-width:7px 0 7px 12px;border-color:transparent transparent transparent #031019}
+.film-play:hover i{transform:scale(1.06)}
+.film-frame.playing .film-play{opacity:0;pointer-events:none}
+.film-meta{display:flex;gap:18px 28px;flex-wrap:wrap;margin-top:14px;font:400 11px/1.6 var(--f-mono);color:var(--faint);letter-spacing:.06em}
+.film-meta b{color:var(--muted);font-weight:500}
 </style>
 </head>
 <body>
@@ -435,6 +452,27 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
     <a href="#careers"><span class="who"><span class="zh">我想加入</span><span class="en">Future colleagues</span></span><h3><span class="zh">把粒子物理带进城市</span><span class="en">Bring particle physics to the city</span></h3><p><span class="zh">探测器、算法、现场工程与商务岗位。</span><span class="en">Detector, algorithm, field engineering and business roles.</span></p><span class="go"><span class="zh">开放岗位</span><span class="en">Open roles</span> <span class="arr">→</span></span></a>
   </div>
 </nav>
+
+<!-- 00 FILM -->
+<section class="sec film" id="film">
+  <div class="wrap">
+    <div class="film-head">
+      <div>
+        <p class="label"><span class="idx">00</span><span class="zh">30 秒看懂缪子成像</span><span class="en">Muography in 30 seconds</span></p>
+        <h2 class="h2"><span class="zh">不开挖，看见地下</span><span class="en">See underground without digging</span></h2>
+      </div>
+      <p class="lead"><span class="zh">从街道到隧道：宇宙线缪子如何穿过地层、落入探测器，并被重建成一张地下影像。英文旁白 · 中文字幕。</span><span class="en">From street to tunnel: how cosmic-ray muons cross the ground, land in our detector and become an image of what lies beneath. English narration, Chinese subtitles.</span></p>
+    </div>
+    <div class="film-frame" id="film-frame">
+      <video id="film-video" playsinline preload="metadata" poster="assets/video/mutechlab-film-poster.webp">
+        <source src="assets/video/mutechlab-film-30s.mp4" type="video/mp4">
+      </video>
+      <span class="bracket" aria-hidden="true"></span>
+      <button class="film-play" id="film-play" type="button" aria-label="Play film / 播放影片"><span><i></i><span class="zh">播放 · 0:30</span><span class="en">Play · 0:30</span></span></button>
+    </div>
+    <p class="film-meta"><span><b>1080p</b> · 30 s · 11 MB</span><span class="zh">三维动画为示意，非实际工程图</span><span class="en">3D animation for illustration, not an engineering drawing</span></p>
+  </div>
+</section>
 
 <!-- 01 WHY -->
 <section class="sec" id="why">
@@ -842,6 +880,15 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 
   var l='zh'; try{ l=localStorage.getItem('mtl-lang')||'zh'; }catch(e){}
   setLang(l);
+})();
+
+// film: custom play button, then native controls
+(function(){
+  var f=document.getElementById('film-frame'),v=document.getElementById('film-video'),b=document.getElementById('film-play');
+  if(!f||!v||!b)return;
+  b.addEventListener('click',function(){v.play();});
+  v.addEventListener("play",function(){f.classList.add("playing");v.controls=true;});
+  v.addEventListener('ended',function(){f.classList.remove('playing');v.currentTime=0;});
 })();
 </script>
 <script type="module" src="assets/js/hero.bundle.js"></script>
