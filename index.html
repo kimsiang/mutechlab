@@ -6,463 +6,710 @@
 <title>MuTechLab 缪子成像</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="缪子科技实验室：用宇宙射线缪子为隧道、地下空间与基础设施做无损成像与长期监测。上海交通大学李政道研究所。Muography for tunnels and infrastructure, Shanghai.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@600;800&family=Noto+Sans+SC:wght@300;400;500&display=swap">
+<meta name="theme-color" content="#04070c">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%2304070c'/><text x='50' y='70' font-size='64' text-anchor='middle' fill='%232fc8ff' font-family='sans-serif'>μ</text></svg>">
 <style>
-/* Layout: stacked full-bleed "pages", one idea each; headline block top-left, ~7% margins, hairlines only, art bleeds off the right edge. */
+/* Layout: "precision lab" dark — full-width sections on a hairline grid, numbered mono labels, HUD panels with corner brackets, 1px-gap module grids. Matches kimsiang.github.io. */
+@font-face{font-family:"Space Grotesk";src:url(assets/fonts/space-grotesk-latin-wght-normal.woff2) format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:"Inter";src:url(assets/fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(assets/fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2");font-weight:100 800;font-display:swap}
 :root{
-  --navy:#051C2C; --blue:#2251FF; --cyan:#00A9F4;
-  --royal-a:#0341B3; --royal-b:#01254F;
-  --ice-a:#FFFFFF; --ice-b:#CDEEFF;
-  --ink:#051C2C; --ink-soft:#3A4F5E; --paper:#FFFFFF; --mist:rgba(255,255,255,.74);
-  --rule-dark:rgba(5,28,44,.5); --rule-light:rgba(255,255,255,.5);
-  --display:"Playfair Display","Noto Serif SC","Songti SC",Georgia,serif;
-  --body:"Inter","Noto Sans SC","PingFang SC","Helvetica Neue",Arial,sans-serif;
-  --m:max(16px,7vw);
-  color-scheme:light;
+  --bg:#04070c; --bg-2:#070c14; --bg-3:#0b1220;
+  --text:#e9eff8; --muted:#8d9bb0; --faint:#56637a; --soft:#c3cddb;
+  --line:rgba(150,180,220,.13); --line-2:rgba(150,180,220,.24);
+  --accent:#2fc8ff; --accent-2:#2251ff; --ok:#3ee6a8;
+  --cjk:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif;
+  --f-display:"Space Grotesk","Inter",var(--cjk);
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",var(--cjk);
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --pad:clamp(16px,5vw,72px); --max:1320px; --ease:cubic-bezier(.2,.7,.1,1);
+  color-scheme:dark;
 }
-*{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:300;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--navy)}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-#app:not(.en) .en, #app.en .zh{display:none!important}
-
-/* nav */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--navy);color:var(--paper);border-bottom:1px solid rgba(255,255,255,.12)}
-.nav-in{display:flex;align-items:center;gap:28px;padding-block:14px;padding-left:max(var(--m),env(safe-area-inset-left,0px));padding-right:max(var(--m),env(safe-area-inset-right,0px))}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
-.brand-mark{width:30px;height:30px;flex:none}
-.brand-name{font-family:var(--display);font-weight:700;font-size:18px;white-space:nowrap}
-.brand-sub{font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.6;white-space:nowrap}
-.links{display:flex;gap:22px;margin-left:auto;font-size:14px;font-weight:400}
-.links a{text-decoration:none;opacity:.82}
-.links a:hover{opacity:1;color:var(--cyan)}
-.nav-cta{text-decoration:none;font-size:13px;font-weight:500;background:var(--blue);color:#fff;border-radius:999px;padding:7px 14px;white-space:nowrap}
-.lang{display:flex;border:1px solid rgba(255,255,255,.4);border-radius:999px;overflow:hidden;flex:none}
-.lang button{background:none;border:0;color:var(--paper);font:500 12px var(--body);padding:5px 11px;cursor:pointer;letter-spacing:.06em}
-.lang button[aria-pressed="true"]{background:var(--blue)}
-@media (max-width:1080px){.links{display:none}.nav-cta{margin-left:auto}.brand-sub{display:none}}
-@media (max-width:420px){.nav-cta{display:none}.lang{margin-left:auto}}
-
-/* page grammar */
-.page{position:relative;overflow:hidden;padding-block:clamp(72px,11vw,140px) clamp(96px,12vw,160px);padding-left:max(var(--m),env(safe-area-inset-left,0px));padding-right:max(var(--m),env(safe-area-inset-right,0px))}
-.page > *{position:relative;z-index:1}
-.navy{background:var(--navy);color:var(--paper)}
-.royal{background:linear-gradient(160deg,var(--royal-a),var(--royal-b));color:var(--paper)}
-.ice{background:linear-gradient(180deg,var(--ice-a),var(--ice-b));color:var(--ink)}
-.white{background:var(--paper);color:var(--ink)}
-.eyebrow{font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;margin:0 0 22px}
-.navy .eyebrow,.royal .eyebrow{color:var(--cyan)}
-.ice .eyebrow,.white .eyebrow{color:var(--blue)}
-.pill{display:inline-block;background:var(--blue);color:#fff;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;padding:4px 12px}
-.pill.ghost{background:transparent;border:1px solid currentColor;color:inherit;opacity:.8}
-h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.1;margin:0;text-wrap:balance;letter-spacing:-.01em}
-h1{font-size:clamp(42px,7vw,92px);max-width:13ch}
-h2{font-size:clamp(34px,5vw,62px);max-width:17ch}
-#app:not(.en) h1{max-width:9em}
-#app:not(.en) h2{max-width:12em}
-h3{font-size:clamp(21px,2vw,26px)}
-.lede{max-width:34em;font-size:clamp(17px,1.5vw,20px);margin:28px 0 0}
-.navy .lede,.royal .lede{color:var(--mist)}
-.ice .lede,.white .lede{color:var(--ink-soft)}
-.next{position:absolute;right:max(var(--m),env(safe-area-inset-right,0px));bottom:clamp(36px,5vw,56px);width:44px;height:12px;z-index:2}
-.next line,.next polyline{stroke:currentColor;stroke-width:1;fill:none}
-.navy .next,.royal .next{color:var(--cyan)}
-.ice .next,.white .next{color:var(--blue)}
-.foot{font-size:11.5px;color:var(--ink-soft);margin-top:14px;line-height:1.5;max-width:46em}
-.navy .foot,.royal .foot{color:var(--mist)}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.65 var(--f-body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img,svg,canvas{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;font-family:var(--f-display);font-weight:500;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+p{margin:0}
+ul,ol,dl,dd{margin:0;padding:0;list-style:none}
+::selection{background:var(--accent-2);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+#app[data-lang="en"] .zh,#app[data-lang="zh"] .en{display:none!important}
+#app[data-lang="zh"]{font-family:var(--cjk)}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
+.mono,.label,time{font-family:var(--f-mono)}
 
 /* buttons */
-.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
-.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:500 15px var(--body);padding:12px 22px;border-radius:999px;border:1px solid transparent;cursor:pointer}
-.btn-solid{background:var(--blue);color:#fff}
-.btn-solid:hover{background:#1a43dd}
-.btn-line{border-color:var(--rule-light);color:#fff;background:transparent}
-.btn-line:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn{--h:48px;display:inline-flex;align-items:center;justify-content:center;gap:.6em;height:var(--h);padding:0 24px;border:1px solid transparent;border-radius:2px;font:500 14px/1 var(--f-body);cursor:pointer;transition:background .25s var(--ease),border-color .25s,color .25s,box-shadow .25s}
+#app[data-lang="zh"] .btn{font-family:var(--cjk)}
+.btn .arr{transition:transform .25s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-primary{background:var(--accent);color:#031019}
+.btn-primary:hover{background:#7bdcff;box-shadow:0 0 28px rgba(47,200,255,.45)}
+.btn-ghost{border-color:var(--line-2);color:var(--text);background:rgba(10,18,30,.4);backdrop-filter:blur(6px)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{--h:36px;padding:0 16px;font-size:13px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px));background:rgba(4,7,12,.78);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{width:34px;height:34px;display:grid;place-items:center;flex:none;border:1px solid var(--accent);border-radius:6px;color:var(--accent);font:500 19px/1 var(--f-body);background:linear-gradient(145deg,rgba(47,200,255,.18),rgba(34,81,255,.05));box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 0 12px rgba(47,200,255,.25),0 6px 14px -6px rgba(47,200,255,.5)}
+.brand-text{font:500 15px/1.1 var(--f-display);white-space:nowrap}
+.brand-text b{font-weight:700}
+.brand-text small{display:block;font:400 10px/1.4 var(--f-mono);color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+#app[data-lang="zh"] .brand-text small{font-family:var(--cjk);letter-spacing:.1em}
+.nav-links{display:flex;gap:2px}
+.nav-links a{position:relative;padding:8px 11px;font-size:13.5px;color:var(--muted);transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:11px;right:11px;bottom:2px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.lang{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;background:none;border:1px solid var(--line-2);border-radius:2px;color:var(--faint);font:500 12px/1 var(--f-mono);cursor:pointer}
+.lang i{width:1px;height:12px;background:var(--line-2)}
+.lang [data-l="zh"]{font-family:var(--cjk)}
+#app[data-lang="en"] .lang [data-l="en"],#app[data-lang="zh"] .lang [data-l="zh"]{color:var(--accent)}
+.lang:hover{border-color:var(--accent)}
+@media (max-width:1100px){.nav-links{display:none}}
+@media (max-width:440px){.nav-cta{display:none}.brand-text small{display:none}}
 
 /* hero */
-#hero{min-height:min(840px,90vh);display:flex;flex-direction:column;justify-content:flex-end}
-#scene{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-#hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--navy) 0%,rgba(5,28,44,.88) 36%,rgba(5,28,44,.1) 78%);z-index:0}
-.proof{display:flex;flex-wrap:wrap;gap:10px 32px;margin-top:48px;font-size:13px;color:var(--mist)}
-.proof > span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cyan);margin-right:10px;vertical-align:2px}
+.hero{position:relative;overflow:hidden;isolation:isolate;min-height:min(860px,calc(100svh - 68px));display:flex;flex-direction:column;justify-content:center}
+#scene{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.hero-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(4,7,12,.94) 0%,rgba(4,7,12,.6) 38%,transparent 64%),linear-gradient(0deg,var(--bg) 0%,transparent 26%)}
+.hero-grid{position:absolute;inset:0;z-index:-3;background:radial-gradient(60% 50% at 72% 50%,rgba(34,81,255,.26),transparent 70%),repeating-linear-gradient(90deg,transparent 0 79px,rgba(150,180,220,.05) 79px 80px),repeating-linear-gradient(0deg,transparent 0 79px,rgba(150,180,220,.05) 79px 80px),var(--bg)}
+.hero-inner{padding-block:72px 168px;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 11.5px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
+#app[data-lang="zh"] .eyebrow{letter-spacing:.2em;font-family:var(--cjk);font-size:13px}
+.dot,.live{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);flex:none}
+.live{animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.hero-title{font-size:clamp(40px,5.6vw,84px);font-weight:500;line-height:1.02;letter-spacing:-.035em;max-width:12.5em;text-shadow:0 18px 40px rgba(0,0,0,.65)}
+.hero-title em{display:block;font-style:normal;font-weight:300;color:transparent;background:linear-gradient(90deg,#cfe9ff 0%,var(--accent) 45%,#6f8dff 100%);-webkit-background-clip:text;background-clip:text;font-size:.6em;line-height:1.15;margin-top:.3em;max-width:16em;letter-spacing:-.025em}
+#app[data-lang="zh"] .hero-title{font-family:var(--cjk);font-weight:600;letter-spacing:0;font-size:clamp(36px,5vw,72px);max-width:11em}
+#app[data-lang="zh"] .hero-title em{letter-spacing:0;font-weight:400}
+.hero-sub{margin-top:28px;max-width:36em;color:var(--soft);font-size:clamp(15.5px,1.25vw,18px);font-weight:300}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
 
-/* why: comparison table */
-.tbl-wrap{overflow-x:auto;margin-top:64px;max-width:1180px}
-table.cmp{border-collapse:collapse;width:100%;min-width:680px;font-size:15px}
-.cmp th,.cmp td{text-align:left;padding:16px 18px 16px 0;border-bottom:1px solid var(--rule-dark);vertical-align:top}
-.cmp thead th{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--ink-soft)}
-.cmp thead th.us{color:var(--blue)}
-.cmp tbody th{font-weight:500;color:var(--ink);width:20%}
-.cmp td{color:var(--ink-soft)}
-.cmp td.us{color:var(--ink);font-weight:500}
-.cmp td.us::before{content:"●";color:var(--blue);margin-right:8px;font-size:10px;vertical-align:2px}
+.hud{position:absolute;right:max(var(--pad),env(safe-area-inset-right,0px));top:56px;width:248px;border:1px solid var(--line-2);background:rgba(5,10,18,.62);backdrop-filter:blur(8px);font:400 11px/1.4 var(--f-mono);color:var(--muted);z-index:2}
+.hud::before,.hud::after,.bracket::before,.bracket::after{content:"";position:absolute;width:8px;height:8px;border:1px solid var(--accent)}
+.hud::before,.bracket::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.hud::after,.bracket::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.hud-head{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);letter-spacing:.12em;text-transform:uppercase;color:var(--text)}
+.hud dl{padding:8px 14px}
+.hud dl div{display:flex;justify-content:space-between;padding:4px 0}
+.hud dt{color:var(--faint)}
+.hud dd{color:var(--accent);font-variant-numeric:tabular-nums}
+.hud-note{padding:9px 14px 11px;border-top:1px solid var(--line);font-size:10px;color:var(--faint);line-height:1.5}
+#app[data-lang="zh"] .hud-head,#app[data-lang="zh"] .hud-note{font-family:var(--cjk)}
+.spec-strip{position:absolute;left:0;right:0;bottom:0;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.spec{padding:22px 20px 30px 0;border-right:1px solid var(--line);margin-right:20px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.spec:last-child{border-right:0;margin-right:0}
+.spec b{font:400 clamp(22px,2.2vw,32px)/1 var(--f-display);letter-spacing:-.02em;color:var(--text);text-shadow:0 10px 30px rgba(47,200,255,.18)}
+.spec b small{font-size:.5em;color:var(--accent);font-family:var(--f-mono);letter-spacing:0}
+.spec>span{font-size:12px;color:var(--muted)}
+@media (max-width:980px){.hud{display:none}}
+@media (max-width:760px){.hero-inner{padding-bottom:40px}.spec-strip{position:relative;grid-template-columns:1fr 1fr}.spec:nth-child(2){border-right:0;margin-right:0}.spec{padding-block:18px 20px}}
 
-/* solutions */
-.sols{margin-top:64px;max-width:1180px}
-.sol{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.5fr) 150px;gap:12px 40px;padding:28px 0;border-top:1px solid var(--rule-light);align-items:baseline}
-.sol:last-child{border-bottom:1px solid var(--rule-light)}
-.sol h3{color:#fff}
-.sol p{margin:0;color:var(--mist);font-size:15.5px}
-.sol .st{justify-self:start}
-.sol .st .pill{white-space:nowrap}
-@media (max-width:820px){.sol{grid-template-columns:1fr}}
+/* sections */
+.sec{position:relative;padding-block:clamp(88px,12vw,150px);border-top:1px solid rgba(150,180,220,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.025),inset 0 40px 80px -60px rgba(0,0,0,.9)}
+.sec-grid{background:repeating-linear-gradient(90deg,transparent 0 119px,rgba(150,180,220,.035) 119px 120px),var(--bg-2)}
+.label{display:flex;align-items:center;gap:12px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:22px}
+#app[data-lang="zh"] .label{font-family:var(--cjk);letter-spacing:.2em;font-size:13px}
+.label .idx{color:var(--accent);font-family:var(--f-mono)}
+.label .idx::after{content:"";display:inline-block;width:28px;height:1px;background:var(--line-2);vertical-align:middle;margin-left:12px}
+.h2{font-size:clamp(32px,4.4vw,60px);letter-spacing:-.03em;text-shadow:0 18px 40px rgba(0,0,0,.65)}
+#app[data-lang="zh"] .h2{font-family:var(--cjk);font-weight:600;letter-spacing:0}
+.lead{margin-top:20px;max-width:40em;color:var(--muted);font-size:clamp(15px,1.2vw,18px);font-weight:300}
+.sec-head{margin-bottom:clamp(44px,5.5vw,72px)}
+.grid-2{display:grid;grid-template-columns:5fr 7fr;gap:clamp(40px,6vw,110px);align-items:start}
+.grid-2>*{min-width:0}
+@media (max-width:960px){.grid-2{grid-template-columns:1fr}}
+.foot-note{margin-top:16px;font:400 11px/1.6 var(--f-mono);color:var(--faint);max-width:60em}
+#app[data-lang="zh"] .foot-note{font-family:var(--cjk);font-size:12px}
+
+/* compare table */
+.tbl{overflow-x:auto;border-top:1px solid var(--line)}
+table.cmp{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+.cmp th,.cmp td{text-align:left;padding:15px 16px 15px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.cmp thead th{font:500 11px/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+#app[data-lang="zh"] .cmp thead th{font-family:var(--cjk);font-size:12.5px}
+.cmp thead th.us{color:var(--accent)}
+.cmp tbody th{font-weight:500;color:var(--text);width:19%}
+.cmp td{color:var(--muted)}
+.cmp td.us{color:var(--text);background:linear-gradient(90deg,rgba(47,200,255,.06),transparent)}
+.cmp td.us::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);margin:0 10px 2px 8px}
+
+/* modules */
+.modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.module{position:relative;background:var(--bg-2);padding:clamp(22px,2.6vw,34px);display:flex;flex-direction:column;overflow:hidden;transition:background .4s var(--ease)}
+.module::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 80% 0%,rgba(34,81,255,.16),transparent 70%);opacity:0;transition:opacity .5s;pointer-events:none}
+.module:hover{background:var(--bg-3)}
+.module:hover::before{opacity:1}
+.mod-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font:400 11px/1.4 var(--f-mono);letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+.status{display:inline-flex;align-items:center;gap:7px;color:var(--muted)}
+#app[data-lang="zh"] .status{font-family:var(--cjk);letter-spacing:.06em;font-size:12px}
+.status i{width:6px;height:6px;border-radius:50%;background:var(--faint)}
+.status.ok{color:var(--ok)}.status.ok i{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.status.wip{color:var(--accent)}.status.wip i{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.module h3{font-size:clamp(22px,2vw,28px);margin-top:40px}
+#app[data-lang="zh"] .module h3{font-family:var(--cjk);font-weight:600;letter-spacing:0}
+.mod-txt{margin-top:12px;color:var(--muted);font-size:14.5px;font-weight:300}
+@media (max-width:960px){.modules{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.modules{grid-template-columns:1fr}}
 
 /* case */
-.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:start;max-width:1240px}
-@media (max-width:960px){.split{grid-template-columns:1fr;gap:44px}}
-.kv{margin-top:40px;max-width:34em}
-.kv div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid var(--rule-dark);font-size:15px}
-.kv dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:500;padding-top:2px}
-.kv dd{margin:0;color:var(--ink-soft)}
-.bigfig{font-family:var(--display);font-weight:800;font-size:clamp(64px,9vw,120px);line-height:1;color:var(--blue);font-variant-numeric:tabular-nums}
-.bigfig small{font-size:.32em;margin-left:6px;font-weight:700}
-.bigcap{max-width:24em;color:var(--ink-soft);margin-top:10px;font-size:15.5px}
-.chart-wrap{overflow-x:auto;margin-top:36px}
-#tide{width:100%;min-width:420px;height:auto;display:block}
-#tide text{font-family:var(--body);fill:var(--ink-soft);font-size:12px}
-#tide .val{fill:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
-#tide .grid{stroke:var(--rule-dark);stroke-width:1;opacity:.5}
-#tide .stem{stroke:var(--cyan);stroke-width:1.5}
-#tide .dot{fill:var(--blue)}
-.chart-title{font-family:var(--display);font-weight:700;font-size:22px;margin:0 0 4px}
-.chart-sub{font-size:13px;color:var(--ink-soft);margin:0}
+.photo{position:relative;border:1px solid var(--line-2);overflow:hidden;background:var(--bg-3)}
+.photo img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:saturate(.85) contrast(1.05)}
+.photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px 14px;font:400 11px/1.4 var(--f-mono);color:var(--soft);background:linear-gradient(0deg,rgba(4,7,12,.9),transparent)}
+#app[data-lang="zh"] .photo figcaption{font-family:var(--cjk);font-size:12px}
+.photo{margin:0}
+.specs{margin-top:28px;border-top:1px solid var(--line)}
+.specs div{display:grid;grid-template-columns:9.5em minmax(0,1fr);gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.specs dt{color:var(--faint);font:400 11px/1.9 var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+#app[data-lang="zh"] .specs dt{font-family:var(--cjk);font-size:12.5px;letter-spacing:.05em}
+.specs dd{color:var(--text);font-family:var(--f-mono);font-size:13px}
+#app[data-lang="zh"] .specs dd{font-family:var(--cjk)}
+.specs a{color:var(--accent);border-bottom:1px solid rgba(47,200,255,.3)}
+.big{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+.big b{font:400 clamp(64px,8vw,112px)/1 var(--f-display);letter-spacing:-.045em;color:var(--text);text-shadow:0 10px 30px rgba(47,200,255,.25)}
+.big b small{font-size:.38em;color:var(--accent);font-family:var(--f-mono);letter-spacing:0;margin-left:4px}
+.big span{color:var(--muted);font-size:14.5px;max-width:18em}
+.panel{position:relative;margin-top:32px;border:1px solid var(--line-2);background:rgba(5,10,18,.55);padding:18px 18px 8px}
+.panel-head{display:flex;justify-content:space-between;gap:12px;font:400 11px/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text);padding-bottom:12px;border-bottom:1px solid var(--line)}
+#app[data-lang="zh"] .panel-head{font-family:var(--cjk);font-size:12.5px;letter-spacing:.06em}
+.panel-head span:last-child{color:var(--faint)}
+.chart{overflow-x:auto}
+#tide{width:100%;min-width:400px;height:auto}
+#tide text{font-family:var(--f-mono);fill:var(--muted);font-size:11px}
+#tide .val{fill:var(--accent);font-variant-numeric:tabular-nums}
+#tide .grid{stroke:var(--line-2);stroke-width:1}
+#tide .stem{stroke:rgba(47,200,255,.55);stroke-width:1.5}
+#tide .dot{fill:#dff6ff;filter:drop-shadow(0 0 6px #2fc8ff)}
 
-/* deliverables + process */
-.dels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 40px;margin-top:64px;max-width:1240px}
-.del{border-top:1px solid var(--rule-dark);padding:22px 0 30px}
-.del .tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:500}
-.del h3{margin-top:10px;font-size:22px}
-.del p{margin:10px 0 0;color:var(--ink-soft);font-size:15px}
-@media (max-width:980px){.dels{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.dels{grid-template-columns:1fr}}
-.steps{list-style:none;margin:64px 0 0;padding:0;max-width:1180px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 28px}
-.steps li{border-top:1px solid var(--rule-light);padding-top:20px}
-.steps b{display:block;font-family:var(--display);font-size:40px;line-height:1;color:var(--cyan);font-weight:700}
-.steps h3{margin-top:14px;font-size:20px;color:#fff}
-.steps p{margin:8px 0 0;color:var(--mist);font-size:14.5px}
-.steps .dur{display:block;margin-top:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
-@media (max-width:980px){.steps{grid-template-columns:1fr 1fr;gap:28px}}
-@media (max-width:560px){.steps{grid-template-columns:1fr}}
+/* deliverables (roles grid) */
+.deliver{overflow:hidden;background:radial-gradient(80% 90% at 85% 10%,#0341b3 0%,#01254f 38%,var(--bg) 80%)}
+.deliver .lead{color:#c8d6ec}
+.roles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1)}
+.role{background:rgba(3,14,34,.72);padding:28px 24px 32px;backdrop-filter:blur(6px);transition:background .3s}
+.role:hover{background:rgba(10,30,70,.85)}
+.role .mono{font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
+#app[data-lang="zh"] .role .mono{font-family:var(--cjk);font-size:12.5px}
+.role h3{font-size:22px;margin:34px 0 12px}
+#app[data-lang="zh"] .role h3{font-family:var(--cjk);font-weight:600;letter-spacing:0}
+.role p{font-size:13.5px;color:#a9b8d0;line-height:1.6}
+@media (max-width:980px){.roles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.roles{grid-template-columns:1fr}}
+
+/* process timeline */
+.timeline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line)}
+.timeline li{position:relative;padding:28px 18px 0 0}
+.timeline li::before{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.timeline time{display:block;font:400 clamp(30px,3vw,42px)/1 var(--f-display);color:var(--text);letter-spacing:-.03em;text-shadow:0 10px 30px rgba(47,200,255,.18)}
+.timeline h3{margin-top:16px;font-size:18px}
+#app[data-lang="zh"] .timeline h3{font-family:var(--cjk);font-weight:600;letter-spacing:0}
+.timeline p{margin-top:8px;color:var(--muted);font-size:13.5px}
+@media (max-width:900px){.timeline{grid-template-columns:1fr 1fr;row-gap:32px}}
+@media (max-width:520px){.timeline{grid-template-columns:1fr}}
 
 /* estimator */
-.tool{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:64px;margin-top:56px;max-width:1240px;align-items:start}
-@media (max-width:960px){.tool{grid-template-columns:1fr;gap:36px}}
-.field{padding:18px 0;border-top:1px solid var(--rule-dark)}
-.field > label,.field > .lab{display:flex;justify-content:space-between;gap:12px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
-.field output{font-family:var(--display);font-size:22px;color:var(--ink);letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums;font-weight:700}
-input[type=range]{width:100%;margin-top:14px;accent-color:var(--blue)}
-.seg{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.seg button{font:400 14px var(--body);background:transparent;color:var(--ink);border:1px solid var(--rule-dark);border-radius:999px;padding:7px 14px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
-.readout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
-.ro{border-top:1px solid var(--rule-dark);padding:20px 0 26px;min-width:0}
-.ro .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
-.ro .big{font-family:var(--display);font-weight:800;font-size:clamp(36px,4.4vw,58px);line-height:1.05;color:var(--blue);margin-top:8px;font-variant-numeric:tabular-nums}
-.ro .hint{font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.tool>div{background:var(--bg-2);padding:clamp(20px,2.6vw,34px);min-width:0}
+.field{padding:16px 0;border-bottom:1px solid var(--line)}
+.field:first-child{padding-top:0}
+.field .lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:400 11px/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+#app[data-lang="zh"] .field .lab{font-family:var(--cjk);font-size:12.5px;letter-spacing:.06em}
+.field output{font:400 20px/1 var(--f-mono);color:var(--accent);letter-spacing:0;text-transform:none;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;margin-top:14px;accent-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips button{font:400 13px var(--f-body);background:transparent;color:var(--soft);border:1px solid var(--line-2);border-radius:100px;padding:7px 13px;cursor:pointer;transition:border-color .2s,color .2s}
+#app[data-lang="zh"] .chips button{font-family:var(--cjk)}
+.chips button:hover{border-color:var(--accent);color:var(--accent)}
+.chips button[aria-pressed="true"]{color:#031019;border-color:transparent;background-image:linear-gradient(180deg,#7fe0ff,#2fc8ff 50%,#16a6e6);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 14px -6px rgba(47,200,255,.7)}
+.hint{margin-top:8px;font-size:12px;color:var(--faint)}
+.ro-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.ro{padding:18px 16px 22px 0;border-bottom:1px solid var(--line);min-width:0}
 .ro.wide{grid-column:1/-1}
-.verdict{font-family:var(--display);font-size:clamp(22px,2.4vw,30px);font-weight:700;color:var(--ink);margin-top:6px}
-@media (max-width:520px){.readout{grid-template-columns:1fr}}
+.ro .k{font:400 11px/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+#app[data-lang="zh"] .ro .k{font-family:var(--cjk);font-size:12.5px;letter-spacing:.06em}
+.ro .v{margin-top:8px;font:400 clamp(32px,3.6vw,48px)/1 var(--f-display);letter-spacing:-.03em;color:var(--text);font-variant-numeric:tabular-nums;text-shadow:0 10px 30px rgba(47,200,255,.18)}
+.ro.wide .v{color:var(--accent);font-size:clamp(40px,4.6vw,64px)}
+.verdict{margin-top:12px;display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--soft)}
+@media (max-width:900px){.tool{grid-template-columns:1fr}}
 
 /* faq */
-.faq{margin-top:56px;max-width:960px}
-.faq details{border-top:1px solid var(--rule-dark)}
-.faq details:last-child{border-bottom:1px solid var(--rule-dark)}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;padding:22px 0;font-family:var(--display);font-weight:700;font-size:clamp(19px,1.8vw,23px)}
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:3.5em minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:22px 0;font:500 clamp(18px,1.7vw,22px)/1.3 var(--f-display);letter-spacing:-.01em}
+#app[data-lang="zh"] .faq summary{font-family:var(--cjk);font-weight:600;letter-spacing:0}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";color:var(--blue);font-family:var(--body);font-weight:300;font-size:26px;line-height:1}
-.faq details[open] summary::after{content:"−"}
-.faq p{margin:0 0 24px;color:var(--ink-soft);max-width:44em;font-size:15.5px}
+.faq summary .n{font:400 12px/1 var(--f-mono);color:var(--accent)}
+.faq summary::after{content:"+";font:300 22px/1 var(--f-mono);color:var(--faint)}
+.faq details[open] summary::after{content:"−";color:var(--accent)}
+.faq details p{padding:0 0 24px 4.5em;color:var(--muted);font-size:15px;font-weight:300;max-width:52em}
+@media (max-width:600px){.faq summary{grid-template-columns:2.4em minmax(0,1fr) auto}.faq details p{padding-left:0}}
 
-/* credibility */
-.cred{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 48px;margin-top:64px;max-width:1180px}
-.cr{border-top:1px solid var(--rule-light);padding-top:22px}
-.cr .num{font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6vw,60px);line-height:1;color:var(--cyan)}
-.cr p{color:var(--mist);font-size:15px;margin:12px 0 0;max-width:22em}
-@media (max-width:820px){.cred{grid-template-columns:1fr;gap:32px}}
+/* about */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:48px;border-top:1px solid var(--line)}
+.stats>div{padding:20px 16px 0 0;display:flex;flex-direction:column;gap:8px}
+.stats b{font:400 clamp(30px,3.4vw,48px)/1 var(--f-display);letter-spacing:-.03em;color:var(--text);text-shadow:0 10px 30px rgba(47,200,255,.18)}
+#app[data-lang="zh"] .stats b{font-family:var(--cjk);font-weight:600;letter-spacing:0}
+.stats span{font-size:12.5px;color:var(--muted);line-height:1.5}
+.prose p{color:var(--soft);font-size:clamp(15.5px,1.2vw,18px);font-weight:300}
+.prose p+p{margin-top:1.2em}
+blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--accent);font:300 clamp(17px,1.5vw,21px)/1.5 var(--f-display);color:var(--text)}
+#app[data-lang="zh"] blockquote{font-family:var(--cjk)}
+@media (max-width:600px){.stats{grid-template-columns:1fr}.stats>div{padding-bottom:16px;border-bottom:1px solid var(--line)}}
 
-/* contact form */
-.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px;margin-top:56px;max-width:1000px}
+/* contact */
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form .full{grid-column:1/-1}
-.form label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);font-weight:500;padding-top:22px}
-.form input,.form select,.form textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--rule-light);color:#fff;font:300 17px var(--body);padding:10px 0;border-radius:0}
-.form select option{color:var(--ink)}
-.form textarea{min-height:96px;resize:vertical}
-.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-bottom-color:var(--cyan)}
-.form .actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:32px}
-#form-msg{font-size:14px;color:var(--cyan)}
-#summary{grid-column:1/-1;margin-top:20px;white-space:pre-wrap;font-size:14px;color:#fff;border-top:1px solid var(--rule-light);padding-top:16px}
-@media (max-width:640px){.form{grid-template-columns:1fr}}
-.contact{margin-top:64px;display:flex;flex-wrap:wrap;gap:20px 64px;font-size:15px;color:var(--mist)}
-.contact b{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);font-weight:500;margin-bottom:6px}
-.contact .v{color:#fff}
+.form label{display:block}
+.form .k{display:block;font:400 11px/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+#app[data-lang="zh"] .form .k{font-family:var(--cjk);font-size:12.5px;letter-spacing:.06em}
+.form input,.form select,.form textarea{width:100%;background:var(--bg-3);border:1px solid var(--line-2);border-radius:6px;color:var(--text);font:400 15px var(--f-body);padding:12px 14px;box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.04)}
+#app[data-lang="zh"] .form input,#app[data-lang="zh"] .form textarea,#app[data-lang="zh"] .form select{font-family:var(--cjk)}
+.form textarea{min-height:110px;resize:vertical}
+.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--accent)}
+.form .actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+#form-msg{font:400 12.5px/1.4 var(--f-mono);color:var(--accent)}
+#app[data-lang="zh"] #form-msg{font-family:var(--cjk)}
+#summary{grid-column:1/-1;position:relative;white-space:pre-wrap;font:400 13px/1.7 var(--f-mono);color:var(--soft);border:1px solid var(--line-2);background:rgba(5,10,18,.55);padding:16px 18px}
+@media (max-width:600px){.form{grid-template-columns:1fr}}
+.contact-dl{margin-top:36px;border-top:1px solid var(--line)}
+.contact-dl div{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.contact-dl dt{font:400 11px/1.9 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+#app[data-lang="zh"] .contact-dl dt{font-family:var(--cjk);font-size:12.5px;letter-spacing:.06em}
+.contact-dl a{color:var(--accent)}
 
-footer{background:var(--navy);color:var(--mist);font-size:13px;padding-block:44px calc(44px + env(safe-area-inset-bottom,0px));padding-left:max(var(--m),env(safe-area-inset-left,0px));padding-right:max(var(--m),env(safe-area-inset-right,0px));border-top:1px solid rgba(255,255,255,.12)}
-.foot-in{display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between;align-items:baseline}
-.learn{font-family:var(--display);font-size:20px;color:#fff}
-.learn a{color:var(--cyan);text-decoration:none}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.foot{border-top:1px solid var(--line);padding-block:32px calc(32px + env(safe-area-inset-bottom,0px))}
+.foot-in{display:flex;justify-content:space-between;align-items:center;gap:16px 24px;flex-wrap:wrap;font-size:12.5px;color:var(--faint)}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot nav a:hover{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.live{animation:none}}
+
+/* ---------- company-front additions ---------- */
+.hero-title{max-width:13em}
+.router{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line)}
+.router a{position:relative;background:var(--bg-2);padding:28px clamp(18px,2.4vw,32px) 30px;display:flex;flex-direction:column;gap:10px;transition:background .3s}
+.router a:hover{background:var(--bg-3)}
+.router .who{font:400 11px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+#app[data-lang="zh"] .router .who{font-family:var(--cjk);font-size:12.5px;letter-spacing:.08em}
+.router h3{font-size:clamp(20px,1.9vw,26px)}
+#app[data-lang="zh"] .router h3{font-family:var(--cjk);font-weight:600;letter-spacing:0}
+.router p{color:var(--muted);font-size:14px}
+.router .go{margin-top:auto;padding-top:10px;font:500 13px/1 var(--f-body);color:var(--accent)}
+.router a:hover .go .arr{transform:translateX(4px)}
+.router .arr{display:inline-block;transition:transform .25s var(--ease)}
+@media (max-width:760px){.router{grid-template-columns:1fr}}
+.router-wrap{max-width:var(--max);margin:0 auto}
+
+.deploy{border-top:1px solid var(--line);margin-top:48px}
+.deploy li{display:grid;grid-template-columns:5.5em minmax(0,1.3fr) minmax(0,1.6fr) auto;gap:12px 28px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--line)}
+.deploy .n{font:400 12px/1 var(--f-mono);color:var(--accent)}
+.deploy h3{font-size:19px}
+#app[data-lang="zh"] .deploy h3{font-family:var(--cjk);font-weight:600;letter-spacing:0}
+.deploy p{color:var(--muted);font-size:14px}
+@media (max-width:820px){.deploy li{grid-template-columns:3.5em minmax(0,1fr)}.deploy p,.deploy .status{grid-column:2}}
+
+.tech-photo img{aspect-ratio:3/4}
+.moat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:36px}
+.moat>div{background:var(--bg-2);padding:22px 22px 24px}
+.moat b{display:block;font:400 clamp(28px,3vw,40px)/1 var(--f-display);letter-spacing:-.03em;color:var(--text);text-shadow:0 10px 30px rgba(47,200,255,.18)}
+.moat b small{font-size:.45em;color:var(--accent);font-family:var(--f-mono);letter-spacing:0;margin-left:4px}
+#app[data-lang="zh"] .moat b small{font-family:var(--cjk)}
+.moat span{display:block;margin-top:10px;color:var(--muted);font-size:13.5px}
+@media (max-width:520px){.moat{grid-template-columns:1fr}}
+
+.invest{overflow:hidden;background:radial-gradient(80% 90% at 15% 0%,#0341b3 0%,#01254f 40%,var(--bg) 82%)}
+.invest .lead,.invest .prose p{color:#c8d6ec}
+.thesis{counter-reset:t;border-top:1px solid rgba(255,255,255,.14)}
+.thesis li{display:grid;grid-template-columns:3.5em minmax(0,1fr);gap:16px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.thesis .n{font:400 12px/1.8 var(--f-mono);color:var(--accent)}
+.thesis h3{font-size:20px}
+#app[data-lang="zh"] .thesis h3{font-family:var(--cjk);font-weight:600;letter-spacing:0}
+.thesis p{margin-top:6px;color:#a9b8d0;font-size:14px}
+
+.careers-photo img{aspect-ratio:4/3}
+.culture{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.culture li{padding:7px 14px;border:1px solid var(--line-2);border-radius:100px;font-size:13px;color:var(--soft)}
+
+.pi{display:grid;grid-template-columns:180px minmax(0,1fr);gap:clamp(22px,3vw,44px);padding:clamp(20px,2.6vw,34px);border:1px solid var(--line);background:linear-gradient(135deg,rgba(34,81,255,.08),transparent 60%);margin-top:48px}
+.pi-mark{position:relative;aspect-ratio:1;border:1px solid var(--line-2);overflow:hidden}
+.pi-mark img{width:100%;height:100%;object-fit:cover}
+.pi-mark i{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:scan 4s var(--ease) infinite}
+@keyframes scan{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+.pi-role{font:400 11px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+#app[data-lang="zh"] .pi-role{font-family:var(--cjk);font-size:13px;letter-spacing:.06em}
+.pi h3{font-size:clamp(24px,2.6vw,36px);margin-top:10px}
+.pi h3 .cjk{font-family:var(--cjk);font-weight:400;color:var(--muted);font-size:.7em;margin-left:.3em}
+.cv{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
+.cv li{display:grid;grid-template-columns:6.4em minmax(0,1fr);gap:12px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--soft)}
+.cv b{font:400 12px/1.6 var(--f-mono);color:var(--faint)}
+@media (max-width:760px){.pi{grid-template-columns:1fr}.pi-mark{max-width:180px}.cv{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.pi-mark i{animation:none;display:none}}
 </style>
 </head>
 <body>
-<div id="app">
+<div id="app" data-lang="zh">
 
 <header class="nav">
-  <div class="nav-in">
-    <a class="brand" href="#hero" aria-label="MuTechLab">
-      <svg class="brand-mark" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="none" stroke="#00A9F4" stroke-width="1"/><path d="M8 4 L22 26" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="15" cy="15" r="2.6" fill="#2251FF"/></svg>
-      <span>
-        <span class="brand-name"><span class="zh">缪子科技实验室</span><span class="en">MuTechLab</span></span><br>
-        <span class="brand-sub">Muography · Shanghai</span>
-      </span>
-    </a>
-    <nav class="links" aria-label="Sections">
-      <a href="#why"><span class="zh">为什么选缪子</span><span class="en">Why muography</span></a>
-      <a href="#solutions"><span class="zh">解决方案</span><span class="en">Solutions</span></a>
-      <a href="#case"><span class="zh">案例</span><span class="en">Case study</span></a>
-      <a href="#service"><span class="zh">服务流程</span><span class="en">How we work</span></a>
-      <a href="#estimate"><span class="zh">可行性速算</span><span class="en">Feasibility</span></a>
-      <a href="#faq"><span class="zh">常见问题</span><span class="en">FAQ</span></a>
-    </nav>
-    <a class="nav-cta" href="#contact"><span class="zh">咨询项目</span><span class="en">Start a project</span></a>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" id="btn-zh" aria-pressed="true">中文</button>
-      <button type="button" id="btn-en" aria-pressed="false">EN</button>
-    </div>
+  <a href="#top" class="brand" aria-label="MuTechLab">
+    <span class="brand-mark">μ</span>
+    <span class="brand-text"><b>MuTech</b> Lab<small><span class="zh">缪子科技实验室</span><span class="en">Muon Technology Laboratory</span></small></span>
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#solutions"><span class="zh">解决方案</span><span class="en">Solutions</span></a>
+    <a href="#deployments"><span class="zh">项目案例</span><span class="en">Deployments</span></a>
+    <a href="#technology"><span class="zh">核心技术</span><span class="en">Technology</span></a>
+    <a href="#estimate"><span class="zh">可行性速算</span><span class="en">Feasibility</span></a>
+    <a href="#investors"><span class="zh">投资者</span><span class="en">Investors</span></a>
+    <a href="#careers"><span class="zh">加入我们</span><span class="en">Careers</span></a>
+  </nav>
+  <div class="nav-right">
+    <button class="lang" id="lang" type="button" aria-label="Switch language / 切换语言"><span data-l="en">EN</span><i></i><span data-l="zh">中文</span></button>
+    <a href="#contact" class="btn btn-sm btn-primary nav-cta"><span class="zh">联系我们</span><span class="en">Contact</span></a>
   </div>
 </header>
 
-<!-- 1 HERO -->
-<section class="page navy" id="hero">
+<main>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid" aria-hidden="true"></div>
   <canvas id="scene" aria-hidden="true"></canvas>
-  <p class="eyebrow"><span class="zh">缪子成像 · 无损探测 · 长期监测</span><span class="en">Muography · Non-invasive imaging · Long-term monitoring</span></p>
-  <h1><span class="zh">不开挖，看清隧道上方的每一米</span><span class="en">See every metre above your tunnel, without digging</span></h1>
-  <p class="lede"><span class="zh">宇宙射线缪子每时每刻穿过地层。我们在隧道内布设探测器，把它们变成一台全天候工作的“地下 CT”，持续报告覆土、淤积与空洞的变化。</span><span class="en">Cosmic-ray muons pass through the ground every second. We place detectors inside your tunnel and turn them into an always-on underground CT scanner that reports changes in overburden, sediment and voids.</span></p>
-  <div class="cta">
-    <a class="btn btn-solid" href="#contact"><span class="zh">预约现场评估</span><span class="en">Book a site assessment</span> →</a>
-    <a class="btn btn-line" href="#estimate"><span class="zh">两分钟估算可行性</span><span class="en">Check feasibility in 2 minutes</span></a>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-inner wrap">
+    <p class="eyebrow"><span class="dot"></span><span class="zh">上海交通大学李政道研究所 · 缪子成像技术转化</span><span class="en">From the Tsung-Dao Lee Institute, Shanghai Jiao Tong University</span></p>
+    <h1 class="hero-title">
+      <span class="zh">给城市地下，做一次全身 CT。<em>自研缪子成像系统，已在上海隧道与地铁现场部署。</em></span>
+      <span class="en">A full-body CT scan for the city underground.<em>Our own muon imaging systems, already deployed in Shanghai's tunnels and metro.</em></span>
+    </h1>
+    <p class="hero-sub"><span class="zh">宇宙射线缪子每时每刻穿过地层。我们把它变成大体积致密结构的“内窥镜”：不钻孔、不停运、无放射源，7×24 小时报告结构内部的变化。</span><span class="en">Cosmic-ray muons pass through the ground every second. We turn them into an endoscope for large, dense structures: no drilling, no closures, no radioactive source, reporting what changes inside around the clock.</span></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#contact"><span class="zh">预约现场评估</span><span class="en">Book a site assessment</span> <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#deployments"><span class="zh">查看项目案例</span><span class="en">See deployments</span> <span class="arr">→</span></a>
+    </div>
   </div>
-  <div class="proof">
-    <span><span class="zh">上海越江隧道实测验证</span><span class="en">Field-proven under the Huangpu River</span></span>
-    <span><span class="zh">成果发表于 J. Appl. Phys.（2025）</span><span class="en">Published in J. Appl. Phys. (2025)</span></span>
-    <span><span class="zh">无放射源 · 不停运 · 不钻孔</span><span class="en">No source · no closures · no drilling</span></span>
+
+  <aside class="hud" aria-label="Tunnel monitor (simulation)">
+    <div class="hud-head"><span class="live"></span><span class="zh">越江隧道监测 · 演示</span><span class="en">River tunnel monitor · demo</span></div>
+    <dl>
+      <div><dt>EVT</dt><dd id="hud-evt">018342</dd></div>
+      <div><dt>FLUX</dt><dd id="hud-flux">0.962</dd></div>
+      <div><dt>TIDE</dt><dd id="hud-tide">+0.9 m</dd></div>
+      <div><dt>θ<sub>zen</sub></dt><dd id="hud-theta">14.2°</dd></div>
+    </dl>
+    <p class="hud-note"><span class="zh">模拟数据 · 通量为相对低潮值</span><span class="en">Simulated data · flux relative to low tide</span></p>
+  </aside>
+
+  <div class="spec-strip wrap" role="list">
+    <div class="spec" role="listitem"><b>4<small> sites</small></b><span class="zh">上海现场部署</span><span class="en">Shanghai field deployments</span></div>
+    <div class="spec" role="listitem"><b>~4<small> %/m</small></b><span class="zh">潮位每米对应的通量变化</span><span class="en">Flux change per metre of tide</span></div>
+    <div class="spec" role="listitem"><b>JAP<small> 2025</small></b><span class="zh">现场成果同行评审发表</span><span class="en">Peer-reviewed field result</span></div>
+    <div class="spec" role="listitem"><b>MIIT<small> 2024</small></b><span class="zh">入选工信部典型案例</span><span class="en">MIIT typical case</span></div>
   </div>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
 </section>
 
-<!-- 2 WHY -->
-<section class="page white" id="why">
-  <p class="eyebrow"><span class="zh">为什么选缪子成像</span><span class="en">Why muography</span></p>
-  <h2><span class="zh">别的方法看不到的深度，缪子可以</span><span class="en">It reaches depths other methods cannot</span></h2>
-  <p class="lede"><span class="zh">钻探只看一个点，雷达只看浅层，声呐要上船、要封航。缪子从天上来，穿透混凝土、水和土层，从隧道内部就能持续测量。</span><span class="en">Boreholes see one point, radar sees the shallow layer, and sonar needs a boat on the water. Muons come from the sky, pass through concrete, water and soil, and can be measured continuously from inside the tunnel.</span></p>
-  <div class="tbl-wrap">
-    <table class="cmp">
-      <thead><tr>
-        <th></th>
-        <th class="us"><span class="zh">缪子成像</span><span class="en">Muography</span></th>
-        <th><span class="zh">钻孔取样</span><span class="en">Boreholes</span></th>
-        <th><span class="zh">探地雷达</span><span class="en">Ground radar</span></th>
-        <th><span class="zh">水面声呐</span><span class="en">Surface sonar</span></th>
-      </tr></thead>
-      <tbody>
-        <tr><th><span class="zh">探测深度</span><span class="en">Depth</span></th><td class="us"><span class="zh">数米至数百米</span><span class="en">Metres to hundreds of metres</span></td><td><span class="zh">取决于钻深</span><span class="en">As deep as drilled</span></td><td><span class="zh">通常数米以内</span><span class="en">Usually a few metres</span></td><td><span class="zh">仅水底表面</span><span class="en">Riverbed surface only</span></td></tr>
-        <tr><th><span class="zh">对结构的影响</span><span class="en">Impact on structure</span></th><td class="us"><span class="zh">完全无损</span><span class="en">None</span></td><td><span class="zh">需打孔</span><span class="en">Drilling required</span></td><td><span class="zh">无损</span><span class="en">None</span></td><td><span class="zh">无损</span><span class="en">None</span></td></tr>
-        <tr><th><span class="zh">对运营的影响</span><span class="en">Impact on operations</span></th><td class="us"><span class="zh">不停运，设备静默运行</span><span class="en">No closures, silent operation</span></td><td><span class="zh">需占道或封闭</span><span class="en">Lane or site closure</span></td><td><span class="zh">需短时占道</span><span class="en">Short closures</span></td><td><span class="zh">需协调航道</span><span class="en">Waterway coordination</span></td></tr>
-        <tr><th><span class="zh">连续监测</span><span class="en">Continuous monitoring</span></th><td class="us"><span class="zh">7×24 小时</span><span class="en">24/7</span></td><td><span class="zh">一次性</span><span class="en">One-off</span></td><td><span class="zh">定期巡检</span><span class="en">Periodic</span></td><td><span class="zh">定期巡检</span><span class="en">Periodic</span></td></tr>
-        <tr><th><span class="zh">辐射源</span><span class="en">Radiation source</span></th><td class="us"><span class="zh">无，使用天然缪子</span><span class="en">None, natural muons</span></td><td><span class="zh">无</span><span class="en">None</span></td><td><span class="zh">无</span><span class="en">None</span></td><td><span class="zh">无</span><span class="en">None</span></td></tr>
-      </tbody>
-    </table>
+<!-- AUDIENCE ROUTER -->
+<nav class="router-wrap" aria-label="Choose your path">
+  <div class="router">
+    <a href="#solutions"><span class="who"><span class="zh">我是业主 / 设计院</span><span class="en">Infrastructure owners</span></span><h3><span class="zh">看清结构内部</span><span class="en">See inside your structure</span></h3><p><span class="zh">隧道、地铁、大坝与矿山的无损成像与长期监测。</span><span class="en">Non-invasive imaging and monitoring for tunnels, metro, dams and mines.</span></p><span class="go"><span class="zh">解决方案</span><span class="en">Solutions</span> <span class="arr">→</span></span></a>
+    <a href="#investors"><span class="who"><span class="zh">我是投资机构</span><span class="en">Investors</span></span><h3><span class="zh">硬科技 + 数据服务</span><span class="en">Deep tech meets data services</span></h3><p><span class="zh">已落地的现场案例、自主知识产权与双轮商业模式。</span><span class="en">Field deployments, our own IP and a two-engine business model.</span></p><span class="go"><span class="zh">投资者关系</span><span class="en">Investor brief</span> <span class="arr">→</span></span></a>
+    <a href="#careers"><span class="who"><span class="zh">我想加入</span><span class="en">Future colleagues</span></span><h3><span class="zh">把粒子物理带进城市</span><span class="en">Bring particle physics to the city</span></h3><p><span class="zh">探测器、算法、现场工程与商务岗位。</span><span class="en">Detector, algorithm, field engineering and business roles.</span></p><span class="go"><span class="zh">开放岗位</span><span class="en">Open roles</span> <span class="arr">→</span></span></a>
   </div>
-  <p class="foot"><span class="zh">各方法适用条件差异较大，实际选型请结合现场评估。缪子成像的空间分辨率与测量时长需按场地具体计算。</span><span class="en">Each method suits different conditions; choose after a site assessment. Muography resolution and measurement time are computed per site.</span></p>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
-</section>
+</nav>
 
-<!-- 3 SOLUTIONS -->
-<section class="page royal" id="solutions">
-  <p class="eyebrow"><span class="zh">解决方案</span><span class="en">Solutions</span></p>
-  <h2><span class="zh">从越江隧道起步，延伸到更多地下空间</span><span class="en">Proven in river tunnels, extending underground</span></h2>
-  <p class="lede"><span class="zh">隧道场景已完成现场验证。其他场景可先做模拟评估，再开展试点。</span><span class="en">Tunnel monitoring is field-proven. For other settings we start with a simulation study, then a pilot.</span></p>
-  <div class="sols">
-    <div class="sol"><h3><span class="zh">越江隧道覆土与淤积监测</span><span class="en">River-tunnel overburden &amp; sediment</span></h3><p><span class="zh">持续测量隧道顶部的水体与泥沙总量，掌握冲刷与淤积变化。</span><span class="en">Continuously track water and sediment above the tunnel roof to follow scour and deposition.</span></p><div class="st"><span class="pill"><span class="zh">已验证</span><span class="en">Field-proven</span></span></div></div>
-    <div class="sol"><h3><span class="zh">城市道路隧道与地下空间</span><span class="en">Urban road tunnels &amp; underground space</span></h3><p><span class="zh">对隧道上方覆土成像，发现密度异常与潜在空洞。</span><span class="en">Image the cover above urban tunnels to find density anomalies and potential voids.</span></p><div class="st"><span class="pill"><span class="zh">研究进行中</span><span class="en">In study</span></span></div></div>
-    <div class="sol"><h3><span class="zh">地铁、综合管廊</span><span class="en">Metro lines &amp; utility tunnels</span></h3><p><span class="zh">在既有通道内部署，不影响运营即可了解周边地层。</span><span class="en">Deploy inside existing passages and learn about the surrounding ground without interrupting service.</span></p><div class="st"><span class="pill ghost"><span class="zh">可试点</span><span class="en">Pilot available</span></span></div></div>
-    <div class="sol"><h3><span class="zh">大坝与堤防</span><span class="en">Dams &amp; levees</span></h3><p><span class="zh">评估坝体内部密度分布，辅助隐患排查。</span><span class="en">Assess density inside embankments to support hazard inspection.</span></p><div class="st"><span class="pill ghost"><span class="zh">可试点</span><span class="en">Pilot available</span></span></div></div>
-    <div class="sol"><h3><span class="zh">矿山与地质勘查</span><span class="en">Mining &amp; geological survey</span></h3><p><span class="zh">从巷道或井下绘制上方岩体密度，圈定高密度区域。</span><span class="en">Map rock density from adits or boreholes to outline high-density zones.</span></p><div class="st"><span class="pill ghost"><span class="zh">可试点</span><span class="en">Pilot available</span></span></div></div>
-    <div class="sol"><h3><span class="zh">文物与历史建筑</span><span class="en">Heritage &amp; historic buildings</span></h3><p><span class="zh">不触碰文物，探查内部空腔与结构。</span><span class="en">Look for internal cavities and structure without touching the site.</span></p><div class="st"><span class="pill ghost"><span class="zh">可试点</span><span class="en">Pilot available</span></span></div></div>
-  </div>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
-</section>
-
-<!-- 4 CASE -->
-<section class="page ice" id="case">
-  <div class="split">
+<!-- 01 WHY -->
+<section class="sec" id="why">
+  <div class="wrap grid-2">
     <div>
-      <p class="eyebrow"><span class="zh">案例 · 上海外环隧道</span><span class="en">Case study · Shanghai Outer Ring Tunnel</span></p>
-      <h2><span class="zh">在黄浦江底，探测器读出了潮汐</span><span class="en">Beneath the Huangpu, the detector read the tide</span></h2>
-      <p class="lede"><span class="zh">我们在外环隧道越江段内布设缪子探测器。江水每涨一米，到达探测器的缪子就少一点。这说明系统足够灵敏，可以追踪隧道上方质量的变化。</span><span class="en">We installed muon detectors in the river-crossing section of the Outer Ring Tunnel. Each metre of rising tide removed a measurable share of muons. The system is sensitive enough to track changes in the mass above the tunnel.</span></p>
-      <dl class="kv">
-        <div><dt><span class="zh">场地</span><span class="en">Site</span></dt><dd><span class="zh">外环隧道越江段，黄浦江底</span><span class="en">Outer Ring Tunnel, river-crossing section under the Huangpu</span></dd></div>
-        <div><dt><span class="zh">上覆结构</span><span class="en">Overburden</span></dt><dd><span class="zh">约 2 m 混凝土顶板 + 泥沙 + 江水</span><span class="en">About 2 m concrete roof, sediment and river water</span></dd></div>
-        <div><dt><span class="zh">监测目标</span><span class="en">Target</span></dt><dd><span class="zh">隧道上方淤积与冲刷</span><span class="en">Sediment build-up and scour above the tunnel</span></dd></div>
-        <div><dt><span class="zh">成果</span><span class="en">Result</span></dt><dd><a href="https://arxiv.org/abs/2504.00582" target="_blank" rel="noopener">Khaw et al., <i>J. Appl. Phys.</i> 138, 114902 (2025)</a></dd></div>
+      <p class="label"><span class="idx">01</span><span class="zh">我们解决的问题</span><span class="en">The problem</span></p>
+      <h2 class="h2"><span class="zh">城市从没做过一次真正的体检</span><span class="en">Cities have never had a proper check-up</span></h2>
+      <p class="lead"><span class="zh">隧道、大坝与地下空间在老化，内部的劣化却看不见。业主只能在破坏性检测和“盲目期待”之间二选一。缪子成像给出第三种选择。</span><span class="en">Tunnels, dams and underground space are ageing, and the damage inside is invisible. Owners choose between destructive testing and hoping for the best. Muography offers a third option.</span></p>
+      <blockquote><span class="zh">测得慢不是缺点：它让一次性快照，变成一条持续的健康曲线。</span><span class="en">Slow is a feature: it turns a one-off snapshot into a continuous health record.</span></blockquote>
+    </div>
+    <div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th></th><th class="us"><span class="zh">缪子成像</span><span class="en">Muography</span></th><th><span class="zh">钻孔取样</span><span class="en">Boreholes</span></th><th><span class="zh">探地雷达</span><span class="en">Ground radar</span></th><th><span class="zh">水面声呐</span><span class="en">Surface sonar</span></th></tr></thead>
+          <tbody>
+            <tr><th><span class="zh">探测深度</span><span class="en">Depth</span></th><td class="us"><span class="zh">数米至数百米</span><span class="en">Metres to hundreds of metres</span></td><td><span class="zh">取决于钻深</span><span class="en">As deep as drilled</span></td><td><span class="zh">通常数米以内</span><span class="en">Usually a few metres</span></td><td><span class="zh">仅水底表面</span><span class="en">Riverbed surface only</span></td></tr>
+            <tr><th><span class="zh">对结构</span><span class="en">Structure</span></th><td class="us"><span class="zh">完全无损</span><span class="en">No contact</span></td><td><span class="zh">需打孔</span><span class="en">Drilling</span></td><td><span class="zh">无损</span><span class="en">No contact</span></td><td><span class="zh">无损</span><span class="en">No contact</span></td></tr>
+            <tr><th><span class="zh">对运营</span><span class="en">Operations</span></th><td class="us"><span class="zh">不停运，静默运行</span><span class="en">No closures</span></td><td><span class="zh">需占道或封闭</span><span class="en">Closures</span></td><td><span class="zh">需短时占道</span><span class="en">Short closures</span></td><td><span class="zh">需协调航道</span><span class="en">Waterway permits</span></td></tr>
+            <tr><th><span class="zh">连续监测</span><span class="en">Continuous</span></th><td class="us">7×24</td><td><span class="zh">一次性</span><span class="en">One-off</span></td><td><span class="zh">定期巡检</span><span class="en">Periodic</span></td><td><span class="zh">定期巡检</span><span class="en">Periodic</span></td></tr>
+            <tr><th><span class="zh">辐射源</span><span class="en">Source</span></th><td class="us"><span class="zh">无，使用天然缪子</span><span class="en">None, natural muons</span></td><td><span class="zh">无</span><span class="en">None</span></td><td><span class="zh">无</span><span class="en">None</span></td><td><span class="zh">无</span><span class="en">None</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="foot-note"><span class="zh">各方法适用条件不同，选型请结合现场评估。</span><span class="en">Each method suits different conditions; choose after a site assessment.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 SOLUTIONS -->
+<section class="sec sec-grid" id="solutions">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label"><span class="idx">02</span><span class="zh">解决方案</span><span class="en">Solutions</span></p>
+      <h2 class="h2"><span class="zh">每一种结构，都有对应的“检查科室”</span><span class="en">A specialist scan for every structure</span></h2>
+      <p class="lead"><span class="zh">隧道与地铁已完成现场部署。其他场景先做模拟评估，再开展试点。</span><span class="en">Tunnels and metro are deployed in the field. For other settings we start with simulation, then a pilot.</span></p>
+    </div>
+    <div class="modules">
+      <article class="module"><header class="mod-top"><span>S-01</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">越江隧道覆土与淤积</span><span class="en">River-tunnel overburden</span></h3><p class="mod-txt"><span class="zh">持续测量隧道顶部的水体与泥沙，掌握冲刷与淤积变化。</span><span class="en">Track water and sediment above the roof to follow scour and deposition.</span></p></article>
+      <article class="module"><header class="mod-top"><span>S-02</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">城市道路隧道</span><span class="en">Urban road tunnels</span></h3><p class="mod-txt"><span class="zh">对上方覆土成像，发现密度异常与潜在空洞，如同腹部 CT。</span><span class="en">Image the cover to find density anomalies and voids, like an abdominal CT.</span></p></article>
+      <article class="module"><header class="mod-top"><span>S-03</span><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></header><h3><span class="zh">地铁与综合管廊</span><span class="en">Metro &amp; utility tunnels</span></h3><p class="mod-txt"><span class="zh">在既有通道内部署，不影响运营即可了解周边地层。</span><span class="en">Deploy inside existing passages without interrupting service.</span></p></article>
+      <article class="module"><header class="mod-top"><span>S-04</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">大坝与水库</span><span class="en">Dams &amp; reservoirs</span></h3><p class="mod-txt"><span class="zh">评估坝体内部密度，如同心脏造影，辅助隐患排查。</span><span class="en">Assess density inside the dam body, like a cardiac angiogram.</span></p></article>
+      <article class="module"><header class="mod-top"><span>S-05</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">矿产与地质勘查</span><span class="en">Mineral exploration</span></h3><p class="mod-txt"><span class="zh">从巷道或井下绘制上方岩体密度，圈定高密度区域。</span><span class="en">Map rock density from adits or boreholes to outline high-density zones.</span></p></article>
+      <article class="module"><header class="mod-top"><span>S-06</span><span class="status"><i></i><span class="zh">可试点</span><span class="en">Pilot available</span></span></header><h3><span class="zh">文物与历史建筑</span><span class="en">Heritage sites</span></h3><p class="mod-txt"><span class="zh">不触碰文物，探查内部空腔与结构。</span><span class="en">Look for cavities and structure without touching the site.</span></p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 03 DEPLOYMENTS -->
+<section class="sec" id="deployments">
+  <div class="wrap">
+    <div class="grid-2">
+      <div>
+        <p class="label"><span class="idx">03</span><span class="zh">项目案例</span><span class="en">Deployments</span></p>
+        <h2 class="h2"><span class="zh">在黄浦江底，探测器读出了潮汐</span><span class="en">Beneath the Huangpu, the detector read the tide</span></h2>
+        <p class="lead"><span class="zh">外环隧道越江段的先导实验中，江水每涨一米，到达探测器的缪子就少约 4%。系统足够灵敏，可以追踪隧道上方质量的变化，而隧道全程正常通车。</span><span class="en">In the Outer Ring Tunnel pilot, each metre of rising tide removed about 4% of the muons reaching the detector. The system tracks changes in mass above the tunnel while traffic keeps flowing.</span></p>
+        <figure class="photo bracket" style="margin-top:32px"><img src="assets/img/tunnel-detector.webp" alt="Muon detector testing in a city tunnel survey" width="446" height="334" decoding="async"><figcaption><span class="zh">城市隧道勘测中的缪子探测器测试</span><span class="en">Muon detector testing in a city tunnel survey</span></figcaption></figure>
+      </div>
+      <div>
+        <div class="big"><b>~4<small>%</small></b><span><span class="zh">潮位每上升 1 米，缪子通量下降约 4%。</span><span class="en">Muon flux drop for each metre of tidal rise.</span></span></div>
+        <div class="panel bracket">
+          <div class="panel-head"><span><span class="zh">通量随潮位变化</span><span class="en">Flux vs tide level</span></span><span><span class="zh">相对低潮</span><span class="en">rel. low tide</span></span></div>
+          <div class="chart"><svg id="tide" viewBox="0 0 560 300" role="img" aria-label="Relative muon flux falls about 4 percent per metre of tide"></svg></div>
+        </div>
+        <p class="foot-note"><span class="zh">按论文报道的约 4%/m 斜率绘制的示意，非逐点实测数据。</span><span class="en">Drawn from the reported ~4%/m slope; not point-by-point data.</span> Source: <a href="https://arxiv.org/abs/2504.00582" target="_blank" rel="noopener" style="color:var(--accent)">Khaw et al., J. Appl. Phys. 138, 114902 (2025)</a>.</p>
+      </div>
+    </div>
+    <ol class="deploy">
+      <li><span class="n">D-01</span><h3><span class="zh">外环隧道越江段 · 一期</span><span class="en">Outer Ring Tunnel · phase 1</span></h3><p><span class="zh">黄浦江底先导实验，验证潮位与泥沙覆盖的响应，成果发表于 J. Appl. Phys.。</span><span class="en">Pilot under the Huangpu; flux tracks tide and sediment. Published in J. Appl. Phys.</span></p><span class="status ok"><i></i><span class="zh">已完成</span><span class="en">Completed</span></span></li>
+      <li><span class="n">D-02</span><h3><span class="zh">外环隧道越江段 · 二期</span><span class="en">Outer Ring Tunnel · phase 2</span></h3><p><span class="zh">在一期基础上扩展的长期监测部署。</span><span class="en">Extended long-term monitoring building on phase 1.</span></p><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></li>
+      <li><span class="n">D-03</span><h3><span class="zh">崇明线</span><span class="en">Chongming Line metro</span></h3><p><span class="zh">在轨道交通工程中开展的缪子测量部署。</span><span class="en">Muon measurements deployed on a rail-transit project.</span></p><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></li>
+      <li><span class="n">D-04</span><h3><span class="zh">漕宝路快速路隧道</span><span class="en">Caobao Road expressway tunnel</span></h3><p><span class="zh">首个“成像级”部署，对隧道上方覆土进行密度成像。</span><span class="en">Our first imaging-grade deployment: density imaging of the tunnel cover.</span></p><span class="status ok"><i></i><span class="zh">已部署</span><span class="en">Deployed</span></span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 04 TECHNOLOGY -->
+<section class="sec sec-grid" id="technology">
+  <div class="wrap grid-2">
+    <figure class="photo bracket tech-photo"><img src="assets/img/detector-dev.webp" alt="Detector development at the Muon Tech Lab" width="540" height="720" decoding="async"><figcaption><span class="zh">缪子科技实验室的探测器研发</span><span class="en">Detector development at the Muon Tech Lab</span></figcaption></figure>
+    <div>
+      <p class="label"><span class="idx">04</span><span class="zh">核心技术</span><span class="en">Technology</span></p>
+      <h2 class="h2"><span class="zh">从探测器到三维图像，全链条自主研发</span><span class="en">From detector to 3D image, built in-house</span></h2>
+      <p class="lead"><span class="zh">我们不采购国外整机。探测器、读出电子学、模拟与重建算法均为团队自研，可按场地定制，满足国产化与数据安全要求。</span><span class="en">We do not resell foreign systems. Detectors, readout, simulation and reconstruction are our own, customised per site and suited to domestic-supply and data-security requirements.</span></p>
+      <dl class="specs">
+        <div><dt><span class="zh">探测单元</span><span class="en">Sensing</span></dt><dd><span class="zh">三棱柱塑料闪烁体 + SiPM</span><span class="en">Triangular plastic scintillator + SiPM</span></dd></div>
+        <div><dt><span class="zh">模拟</span><span class="en">Simulation</span></dt><dd>Geant4 · <span class="zh">宇宙线能谱模型</span><span class="en">cosmic-ray spectrum models</span></dd></div>
+        <div><dt><span class="zh">重建</span><span class="en">Reconstruction</span></dt><dd><span class="zh">三维层析 + 正则化密度反演</span><span class="en">3D tomography + regularised density inversion</span></dd></div>
+        <div><dt><span class="zh">人工智能</span><span class="en">AI</span></dt><dd><span class="zh">学习型替代模型加速反演</span><span class="en">Learned surrogates to speed up inversion</span></dd></div>
       </dl>
-    </div>
-    <div>
-      <div class="bigfig">~4<small>%</small></div>
-      <p class="bigcap"><span class="zh">潮位每上升 1 米，缪子通量下降约 4%。</span><span class="en">Muon flux drop for each metre of tidal rise.</span></p>
-      <div class="chart-wrap">
-        <p class="chart-title"><span class="zh">通量随潮位变化</span><span class="en">Flux versus tide level</span></p>
-        <p class="chart-sub"><span class="zh">相对低潮时的缪子通量</span><span class="en">Muon flux relative to low tide</span></p>
-        <svg id="tide" viewBox="0 0 560 330" role="img" aria-label="Lollipop chart: relative muon flux falls about 4 percent per metre of tide"></svg>
+      <div class="moat">
+        <div><b>1 + 1</b><span><span class="zh">成像系统发明专利：1 项授权、1 项申请中</span><span class="en">Imaging-system invention patents: 1 granted, 1 pending</span></span></div>
+        <div><b>4<small><span class="zh">处</span><span class="en">sites</span></small></b><span><span class="zh">上海真实工程现场</span><span class="en">Real Shanghai engineering sites</span></span></div>
+        <div><b>SCI</b><span><span class="zh">J. Appl. Phys. 等同行评审论文</span><span class="en">Peer-reviewed papers incl. J. Appl. Phys.</span></span></div>
+        <div><b><span class="zh">标准</span><span class="en">Standards</span></b><span><span class="zh">参与团体标准编写</span><span class="en">Co-authoring group standards</span></span></div>
       </div>
-      <p class="foot"><span class="zh">按论文报道的约 4%/m 斜率绘制的示意，非逐点实测数据。</span><span class="en">Illustration drawn from the reported slope of about 4% per metre, not point-by-point data.</span><br>Source: Khaw et al., J. Appl. Phys. 138, 114902 (2025).</p>
     </div>
   </div>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
 </section>
 
-<!-- 5 DELIVERABLES -->
-<section class="page white" id="deliver">
-  <p class="eyebrow"><span class="zh">您将获得</span><span class="en">What you receive</span></p>
-  <h2><span class="zh">交付的是结论，不只是数据</span><span class="en">We deliver answers, not just data</span></h2>
-  <p class="lede"><span class="zh">每个项目都以一份您可以拿去决策的结论收尾。</span><span class="en">Every project ends with findings you can act on.</span></p>
-  <div class="dels">
-    <div class="del"><div class="tag"><span class="zh">项目前</span><span class="en">Before</span></div><h3><span class="zh">可行性报告</span><span class="en">Feasibility report</span></h3><p><span class="zh">基于您的图纸做模拟，给出能测什么、要测多久。</span><span class="en">Simulation from your drawings: what can be measured and how long it takes.</span></p></div>
-    <div class="del"><div class="tag"><span class="zh">测量中</span><span class="en">During</span></div><h3><span class="zh">监测看板</span><span class="en">Monitoring dashboard</span></h3><p><span class="zh">在线查看通量与覆土变化趋势。</span><span class="en">Follow flux and overburden trends online.</span></p></div>
-    <div class="del"><div class="tag"><span class="zh">成像</span><span class="en">Imaging</span></div><h3><span class="zh">密度分布图</span><span class="en">Density maps</span></h3><p><span class="zh">二维透射率与三维密度重建，标出异常区域。</span><span class="en">2D transmission and 3D density reconstructions with anomalies marked.</span></p></div>
-    <div class="del"><div class="tag"><span class="zh">项目后</span><span class="en">After</span></div><h3><span class="zh">技术评估报告</span><span class="en">Assessment report</span></h3><p><span class="zh">结论、不确定度与建议，适合提交主管单位。</span><span class="en">Findings, uncertainties and recommendations, ready for your authority.</span></p></div>
+<!-- 05 PROCESS + DELIVERABLES -->
+<section class="sec deliver" id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label"><span class="idx">05</span><span class="zh">合作方式</span><span class="en">How we work</span></p>
+      <h2 class="h2"><span class="zh">先模拟，再上现场；交付结论，不只是数据</span><span class="en">Simulate first, then deliver answers</span></h2>
+      <p class="lead"><span class="zh">在您投入设备和工期之前，我们先用模拟回答“能不能测”。可一次性成像，也可签约长期监测服务。</span><span class="en">Before you commit equipment or schedule, simulation answers whether it can be measured. Choose a one-off survey or a long-term monitoring service.</span></p>
+    </div>
+    <ol class="timeline">
+      <li><time>01</time><h3><span class="zh">需求沟通</span><span class="en">Scoping</span></h3><p><span class="zh">明确目标、场地条件与图纸。</span><span class="en">Agree the question, site and drawings.</span></p></li>
+      <li><time>02</time><h3><span class="zh">可行性报告</span><span class="en">Feasibility report</span></h3><p><span class="zh">Geant4 建模，给出能测什么、要测多久。</span><span class="en">Geant4 model: what is measurable, how long.</span></p></li>
+      <li><time>03</time><h3><span class="zh">现场部署</span><span class="en">Deployment</span></h3><p><span class="zh">夜间窗口安装，不影响运营。</span><span class="en">Installed in night windows, no disruption.</span></p></li>
+      <li><time>04</time><h3><span class="zh">监测看板</span><span class="en">Dashboard</span></h3><p><span class="zh">在线查看通量、密度与变化趋势。</span><span class="en">Flux, density and trends online.</span></p></li>
+      <li><time>05</time><h3><span class="zh">评估报告</span><span class="en">Assessment</span></h3><p><span class="zh">结论、不确定度与建议，可提交主管单位。</span><span class="en">Findings, uncertainty and advice for your authority.</span></p></li>
+    </ol>
   </div>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
 </section>
 
-<!-- 6 PROCESS -->
-<section class="page navy" id="service">
-  <p class="eyebrow"><span class="zh">服务流程</span><span class="en">How we work</span></p>
-  <h2><span class="zh">先模拟，再上现场</span><span class="en">Simulate first, then go on site</span></h2>
-  <p class="lede"><span class="zh">在您投入设备和工期之前，我们先用模拟回答“能不能测”。</span><span class="en">Before you commit equipment or schedule, we use simulation to answer whether it can be measured.</span></p>
-  <ol class="steps">
-    <li><b>1</b><h3><span class="zh">需求沟通</span><span class="en">Scoping</span></h3><p><span class="zh">明确目标、场地条件与图纸资料。</span><span class="en">Agree the question, site conditions and drawings.</span></p></li>
-    <li><b>2</b><h3><span class="zh">模拟评估</span><span class="en">Simulation</span></h3><p><span class="zh">Geant4 建模，预估灵敏度与测量时长。</span><span class="en">Geant4 model to predict sensitivity and duration.</span></p></li>
-    <li><b>3</b><h3><span class="zh">现场部署</span><span class="en">Deployment</span></h3><p><span class="zh">安装探测器与本底测点，不影响运营。</span><span class="en">Install detectors and an open-sky reference without disrupting operations.</span></p></li>
-    <li><b>4</b><h3><span class="zh">采集与反演</span><span class="en">Acquisition &amp; inversion</span></h3><p><span class="zh">自研重建流程，输出密度与变化趋势。</span><span class="en">Our in-house pipeline produces density and trends.</span></p></li>
-    <li><b>5</b><h3><span class="zh">报告与运维</span><span class="en">Reporting &amp; upkeep</span></h3><p><span class="zh">交付报告，可转为长期监测服务。</span><span class="en">Report delivered; optional long-term monitoring.</span></p></li>
-  </ol>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
-</section>
-
-<!-- 7 ESTIMATOR -->
-<section class="page ice" id="estimate">
-  <p class="eyebrow"><span class="pill"><span class="zh">可行性速算</span><span class="en">Feasibility check</span></span></p>
-  <h2><span class="zh">您的场地，需要测多久？</span><span class="en">How long would your site take?</span></h2>
-  <p class="lede"><span class="zh">输入目标上方的厚度与材料，以及您想看出的变化幅度。工具会给出一块探测器大约需要的测量时间。</span><span class="en">Enter the thickness and material above your target and the change you want to see. The tool estimates how long one detector needs to measure.</span></p>
-  <div class="tool">
-    <div>
-      <div class="field">
-        <label for="depth"><span><span class="zh">上覆厚度</span><span class="en">Cover thickness</span></span><output id="depth-out">20 m</output></label>
-        <input type="range" id="depth" min="1" max="300" step="1" value="20">
-      </div>
-      <div class="field">
-        <div class="lab"><span><span class="zh">材料</span><span class="en">Material</span></span><output id="rho-out">1.8 g/cm³</output></div>
-        <div class="seg" id="mat">
-          <button type="button" data-rho="1.02" aria-pressed="false"><span class="zh">江水</span><span class="en">River water</span></button>
-          <button type="button" data-rho="1.8" aria-pressed="true"><span class="zh">泥沙/软土</span><span class="en">Silt / soft soil</span></button>
-          <button type="button" data-rho="2.4" aria-pressed="false"><span class="zh">混凝土</span><span class="en">Concrete</span></button>
-          <button type="button" data-rho="2.65" aria-pressed="false"><span class="zh">岩石</span><span class="en">Rock</span></button>
+<!-- 06 ESTIMATOR -->
+<section class="sec" id="estimate">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label"><span class="idx">06</span><span class="zh">可行性速算</span><span class="en">Feasibility check</span></p>
+      <h2 class="h2"><span class="zh">您的场地，需要测多久？</span><span class="en">How long would your site take?</span></h2>
+      <p class="lead"><span class="zh">输入目标上方的厚度与材料，以及想识别的变化幅度，工具会估算一块探测器的测量时间。</span><span class="en">Enter the thickness and material above your target and the change you want to see; the tool estimates the measuring time for one detector.</span></p>
+    </div>
+    <div class="tool">
+      <div>
+        <div class="field">
+          <label class="lab" for="depth"><span><span class="zh">上覆厚度</span><span class="en">Cover thickness</span></span><output id="depth-out">20 m</output></label>
+          <input type="range" id="depth" min="1" max="300" step="1" value="20">
+        </div>
+        <div class="field">
+          <div class="lab"><span><span class="zh">材料</span><span class="en">Material</span></span><output id="rho-out">1.8 g/cm³</output></div>
+          <div class="chips" id="mat">
+            <button type="button" data-v="1.02" aria-pressed="false"><span class="zh">江水</span><span class="en">River water</span></button>
+            <button type="button" data-v="1.8" aria-pressed="true"><span class="zh">泥沙/软土</span><span class="en">Silt / soil</span></button>
+            <button type="button" data-v="2.4" aria-pressed="false"><span class="zh">混凝土</span><span class="en">Concrete</span></button>
+            <button type="button" data-v="2.65" aria-pressed="false"><span class="zh">岩石</span><span class="en">Rock</span></button>
+          </div>
+        </div>
+        <div class="field">
+          <label class="lab" for="delta"><span><span class="zh">想识别的变化</span><span class="en">Change to detect</span></span><output id="delta-out">2%</output></label>
+          <input type="range" id="delta" min="0.5" max="10" step="0.5" value="2">
+          <p class="hint"><span class="zh">通量的相对变化。参考：越江隧道潮位变化 1 m 约为 4%。</span><span class="en">Relative change in flux. Reference: 1 m of tide in the river tunnel ≈ 4%.</span></p>
+        </div>
+        <div class="field">
+          <div class="lab"><span><span class="zh">探测器面积</span><span class="en">Detector area</span></span><output id="area-out">1 m²</output></div>
+          <div class="chips" id="area">
+            <button type="button" data-v="0.25" aria-pressed="false">0.25 m²</button>
+            <button type="button" data-v="1" aria-pressed="true">1 m²</button>
+            <button type="button" data-v="4" aria-pressed="false">4 m²</button>
+          </div>
         </div>
       </div>
-      <div class="field">
-        <label for="delta"><span><span class="zh">想识别的变化</span><span class="en">Change to detect</span></span><output id="delta-out">2%</output></label>
-        <input type="range" id="delta" min="0.5" max="10" step="0.5" value="2">
-        <div class="foot" style="margin-top:8px"><span class="zh">指通量的相对变化。参考：越江隧道潮位每变化 1 m 约为 4%。</span><span class="en">Relative change in flux. For reference, 1 m of tide in the river tunnel is about 4%.</span></div>
-      </div>
-      <div class="field">
-        <div class="lab"><span><span class="zh">探测器面积</span><span class="en">Detector area</span></span><output id="area-out">1 m²</output></div>
-        <div class="seg" id="area">
-          <button type="button" data-a="0.25" aria-pressed="false">0.25 m²</button>
-          <button type="button" data-a="1" aria-pressed="true">1 m²</button>
-          <button type="button" data-a="4" aria-pressed="false">4 m²</button>
+      <div>
+        <div class="ro-grid">
+          <div class="ro"><div class="k"><span class="zh">缪子存活比例</span><span class="en">Muons surviving</span></div><div class="v" id="surv">—</div></div>
+          <div class="ro"><div class="k"><span class="zh">每日计数 · θ&lt;30°</span><span class="en">Counts / day · θ&lt;30°</span></div><div class="v" id="perday">—</div></div>
+          <div class="ro wide"><div class="k"><span class="zh">识别该变化所需时间 · 3σ</span><span class="en">Time to detect · 3σ</span></div><div class="v" id="ttime">—</div><div class="verdict"><span class="dot"></span><span id="verdict">—</span></div></div>
         </div>
+        <p class="foot-note"><span class="zh">粗估：地表 30° 内通量约 50 个/m²·s；dE/dX = a + bE（a ≈ 0.25 GeV/m.w.e.，b ≈ 4×10⁻⁴ /m.w.e.）；所需计数 N = (3/δ)²。未计效率、角分布与本底，正式方案以模拟为准。</span><span class="en">Rough model: ~50 muons/m²·s within 30° at surface; dE/dX = a + bE (a ≈ 0.25 GeV/m.w.e., b ≈ 4×10⁻⁴ /m.w.e.); required counts N = (3/δ)². Ignores efficiency, angles and background; formal plans follow simulation.</span></p>
       </div>
     </div>
-    <div class="readout">
-      <div class="ro"><div class="lbl"><span class="zh">缪子存活比例</span><span class="en">Muons surviving</span></div><div class="big" id="surv">—</div><div class="hint"><span class="zh">相对地表</span><span class="en">relative to surface</span></div></div>
-      <div class="ro"><div class="lbl"><span class="zh">每日计数</span><span class="en">Counts per day</span></div><div class="big" id="perday">—</div><div class="hint"><span class="zh">天顶角 30° 以内</span><span class="en">within 30° of vertical</span></div></div>
-      <div class="ro wide"><div class="lbl"><span class="zh">识别该变化所需时间（3σ）</span><span class="en">Time to detect this change (3σ)</span></div><div class="big" id="ttime">—</div><div class="verdict" id="verdict">—</div></div>
+  </div>
+</section>
+
+<!-- 07 INVESTORS -->
+<section class="sec invest" id="investors">
+  <div class="wrap grid-2">
+    <div>
+      <p class="label"><span class="idx">07</span><span class="zh">投资者关系</span><span class="en">For investors</span></p>
+      <h2 class="h2"><span class="zh">如果没有我们，城市会失去什么？</span><span class="en">What would cities lose without us?</span></h2>
+      <p class="lead"><span class="zh">成千上万座老化的隧道与大坝，只能在破坏性检测和盲目期待之间选择。我们把顶尖实验室的粒子探测能力，转化为可规模化交付的基础设施服务。</span><span class="en">Thousands of ageing tunnels and dams left choosing between destructive testing and blind hope. We turn frontier particle-detection skills into an infrastructure service that scales.</span></p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact" data-topic="invest"><span class="zh">索取商业计划书</span><span class="en">Request our deck</span> <span class="arr">→</span></a>
+      </div>
+    </div>
+    <ol class="thesis">
+      <li><span class="n">T-01</span><div><h3><span class="zh">已被现场验证</span><span class="en">Proven in the field</span></h3><p><span class="zh">上海四处工程部署、同行评审论文与工信部 2024 年典型案例，而不只是实验室原型。</span><span class="en">Four Shanghai deployments, a peer-reviewed paper and an MIIT 2024 typical case, not just a lab prototype.</span></p></div></li>
+      <li><span class="n">T-02</span><div><h3><span class="zh">国产自主替代</span><span class="en">Domestic alternative</span></h3><p><span class="zh">全链条自研、自主知识产权，为国内基础设施提供可控的选择。</span><span class="en">Fully in-house with our own IP, a controllable option for domestic infrastructure.</span></p></div></li>
+      <li><span class="n">T-03</span><div><h3><span class="zh">双轮商业模式</span><span class="en">Two revenue engines</span></h3><p><span class="zh">科教套件带来近期现金流，工业监测数据服务（DaaS）带来长期增长。</span><span class="en">STEM education kits for near-term cash flow; industrial monitoring-as-a-service for long-term growth.</span></p></div></li>
+      <li><span class="n">T-04</span><div><h3><span class="zh">从上海走向东南亚</span><span class="en">From Shanghai to Southeast Asia</span></h3><p><span class="zh">依托马来西亚的高校与商会网络，布局喀斯特地质、矿业与文化遗产市场。</span><span class="en">Using university and chamber-of-commerce ties in Malaysia to reach karst geology, mining and heritage markets.</span></p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 08 CAREERS -->
+<section class="sec" id="careers">
+  <div class="wrap grid-2">
+    <div>
+      <p class="label"><span class="idx">08</span><span class="zh">加入我们</span><span class="en">Careers</span></p>
+      <h2 class="h2"><span class="zh">把粒子物理，带进城市</span><span class="en">Bring particle physics to the city</span></h2>
+      <p class="lead"><span class="zh">在这里，你做的探测器会装进真实的隧道，你写的算法会回答业主的真实问题。团队来自中国、马来西亚及世界各地。</span><span class="en">Here, the detector you build goes into a real tunnel and the code you write answers a real owner's question. Our team comes from China, Malaysia and around the world.</span></p>
+      <ul class="culture">
+        <li><span class="zh">每周 Monday Muon Meeting</span><span class="en">Weekly Monday Muon Meeting</span></li>
+        <li><span class="zh">中英双语</span><span class="en">Bilingual</span></li>
+        <li><span class="zh">真实工程现场</span><span class="en">Real field sites</span></li>
+        <li><span class="zh">国际实验室网络</span><span class="en">Global lab network</span></li>
+      </ul>
+      <figure class="photo bracket careers-photo" style="margin-top:32px"><img src="assets/img/team-lab.webp" alt="Group photo in the Muon Tech Lab" width="720" height="540" decoding="async"><figcaption><span class="zh">缪子科技实验室合影</span><span class="en">The team in the Muon Tech Lab</span></figcaption></figure>
+    </div>
+    <div>
+      <div class="roles" style="grid-template-columns:1fr 1fr">
+        <div class="role"><span class="mono">R-01</span><h3><span class="zh">探测器工程师</span><span class="en">Detector engineer</span></h3><p><span class="zh">闪烁体、SiPM 与读出电子学的设计、装配与测试。</span><span class="en">Design, build and test scintillator, SiPM and readout systems.</span></p></div>
+        <div class="role"><span class="mono">R-02</span><h3><span class="zh">算法 / AI 工程师</span><span class="en">Algorithm / AI engineer</span></h3><p><span class="zh">模拟、三维重建与机器学习反演。</span><span class="en">Simulation, 3D reconstruction and ML-based inversion.</span></p></div>
+        <div class="role"><span class="mono">R-03</span><h3><span class="zh">现场工程师</span><span class="en">Field engineer</span></h3><p><span class="zh">隧道与工地的部署、运维与数据质量。</span><span class="en">Deployment, upkeep and data quality on tunnels and sites.</span></p></div>
+        <div class="role"><span class="mono">R-04</span><h3><span class="zh">商务拓展</span><span class="en">Business development</span></h3><p><span class="zh">对接业主、设计院与海外市场。</span><span class="en">Work with owners, design institutes and overseas markets.</span></p></div>
+      </div>
+      <p class="foot-note"><span class="zh">也欢迎博士后、研究生与本科科研实习生，通过李政道研究所缪子物理课题组加入。</span><span class="en">Postdocs, graduate students and undergraduate interns can join through the TDLI Muon Physics Group.</span> <a href="https://kimsiang.github.io/" target="_blank" rel="noopener" style="color:var(--accent)">kimsiang.github.io ↗</a></p>
+      <div class="cta-row"><a class="btn btn-ghost" href="#contact" data-topic="job"><span class="zh">投递简历</span><span class="en">Send your CV</span> <span class="arr">→</span></a></div>
     </div>
   </div>
-  <p class="foot"><span class="zh">粗估模型：地表 30° 内通量约 50 个/m²·s；能损 dE/dX = a + bE（a ≈ 0.25 GeV/m.w.e.，b ≈ 4×10⁻⁴ /m.w.e.）；所需计数 N = (3/δ)²。未计入探测效率、角度分布与本底。正式方案以模拟评估为准。</span><span class="en">Rough model: ~50 muons/m²·s within 30° at the surface; energy loss dE/dX = a + bE (a ≈ 0.25 GeV/m.w.e., b ≈ 4×10⁻⁴ /m.w.e.); required counts N = (3/δ)². Ignores efficiency, angular spread and background. Formal plans follow a simulation study.</span></p>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
 </section>
 
-<!-- 8 FAQ -->
-<section class="page white" id="faq">
-  <p class="eyebrow"><span class="zh">常见问题</span><span class="en">FAQ</span></p>
-  <h2><span class="zh">客户最常问的五个问题</span><span class="en">Five questions clients ask first</span></h2>
-  <div class="faq">
-    <details open><summary><span class="zh">能探多深？</span><span class="en">How deep can it see?</span></summary><p><span class="zh">缪子能穿透数百米岩石，深度本身很少是限制。真正的限制是时间：越深，到达的缪子越少，测量越久。上面的速算工具可以给您一个量级。</span><span class="en">Muons pass through hundreds of metres of rock, so depth is rarely the limit. Time is: deeper targets receive fewer muons and take longer. The feasibility tool above gives you the order of magnitude.</span></p></details>
-    <details><summary><span class="zh">能看多细？</span><span class="en">How fine is the detail?</span></summary><p><span class="zh">分辨率取决于探测器的角分辨率、与目标的距离和测量时长。通常距离越近、测得越久越清晰。我们在模拟评估阶段会给出具体数值。</span><span class="en">Resolution depends on the detector's angular resolution, distance to the target and measurement time. Closer and longer is sharper. We give concrete numbers in the simulation study.</span></p></details>
-    <details><summary><span class="zh">有辐射吗？安全吗？</span><span class="en">Is there any radiation risk?</span></summary><p><span class="zh">没有额外辐射。我们只“接收”天然存在的宇宙射线缪子，探测器本身不发射任何射线，也不需要放射源许可。</span><span class="en">No added radiation. We only receive natural cosmic-ray muons. The detectors emit nothing and need no radioactive-source licence.</span></p></details>
-    <details><summary><span class="zh">会影响隧道运营吗？</span><span class="en">Will it disrupt operations?</span></summary><p><span class="zh">不会。探测器安装在检修通道或设备空间，静默运行，只需供电和网络。安装通常可安排在夜间维护窗口。</span><span class="en">No. Detectors sit in service corridors or equipment rooms and run silently, needing only power and network. Installation fits a night maintenance window.</span></p></details>
-    <details><summary><span class="zh">项目怎么开始？</span><span class="en">How does a project start?</span></summary><p><span class="zh">提交下方表单或通过公众号联系我们。提供场地位置、目标深度和图纸后，我们先做免费的初步评估，再商定模拟与试点方案。</span><span class="en">Send the form below or contact us via WeChat. With the site location, target depth and drawings, we give an initial assessment, then agree a simulation and pilot plan.</span></p></details>
-  </div>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
-</section>
+<!-- 09 TEAM + FAQ -->
+<section class="sec sec-grid" id="team">
+  <div class="wrap">
+    <p class="label"><span class="idx">09</span><span class="zh">创始人</span><span class="en">Founder</span></p>
+    <h2 class="h2"><span class="zh">来自国际缪子实验的创始团队</span><span class="en">A founding team from international muon experiments</span></h2>
+    <div class="pi">
+      <div class="pi-mark"><img src="assets/img/pi.webp" alt="Kim Siang Khaw" width="400" height="400" decoding="async"><i aria-hidden="true"></i></div>
+      <div>
+        <p class="pi-role"><span class="zh">创始人 · 首席科学家</span><span class="en">Founder · Chief Scientist</span></p>
+        <h3>Kim Siang Khaw <span class="cjk">许金祥</span></h3>
+        <p class="lead" style="margin-top:12px"><span class="zh">上海交通大学李政道研究所长聘副教授、缪子物理课题组负责人，参与费米实验室 Muon g−2 与 PSI 缪子电偶极矩实验。奇绩创坛 Fellow。</span><span class="en">Tenured Associate Professor at the Tsung-Dao Lee Institute, SJTU, leading the Muon Physics Group, with work on Fermilab's Muon g−2 and the muon EDM search at PSI. MiraclePlus Fellow.</span></p>
+        <ol class="cv">
+          <li><b>2025–</b><span class="zh">TDLI 长聘学者 / 长聘副教授</span><span class="en">TDLI Tenured Scholar / Assoc. Prof.</span></li>
+          <li><b>2019–2025</b>T.D. Lee Fellow</li>
+          <li><b>2015–2019</b><span class="zh">华盛顿大学博士后</span><span class="en">Postdoc, University of Washington</span></li>
+          <li><b>2011–2015</b><span class="zh">ETH Zurich 博士</span><span class="en">PhD, ETH Zurich</span></li>
+          <li><b>2009–2011</b><span class="zh">东京大学硕士</span><span class="en">MSc, University of Tokyo</span></li>
+          <li><b>2005–2009</b><span class="zh">京都大学学士</span><span class="en">BSc, Kyoto University</span></li>
+        </ol>
+      </div>
+    </div>
 
-<!-- 9 CREDIBILITY -->
-<section class="page royal" id="team">
-  <p class="eyebrow"><span class="zh">关于我们</span><span class="en">About us</span></p>
-  <h2><span class="zh">来自粒子物理实验室的成像团队</span><span class="en">An imaging team from a particle-physics lab</span></h2>
-  <p class="lede"><span class="zh">缪子科技实验室隶属上海交通大学李政道研究所。团队长期参与国际缪子精密实验，把同样的探测与分析能力用于城市基础设施。</span><span class="en">MuTechLab is part of the Tsung-Dao Lee Institute at Shanghai Jiao Tong University. The team works on international precision muon experiments and brings the same detection and analysis skills to urban infrastructure.</span></p>
-  <div class="cred">
-    <div class="cr"><div class="num"><span class="zh">自主研发</span><span class="en">In-house</span></div><p><span class="zh">从探测器、模拟到三维重建的完整技术链，国产化可控。</span><span class="en">Detectors, simulation and 3D reconstruction, developed and controlled domestically.</span></p></div>
-    <div class="cr"><div class="num"><span class="zh">同行评审</span><span class="en">Peer-reviewed</span></div><p><span class="zh">越江隧道监测成果发表于国际应用物理期刊。</span><span class="en">River-tunnel monitoring results published in an international applied-physics journal.</span></p></div>
-    <div class="cr"><div class="num"><span class="zh">国际经验</span><span class="en">Global</span></div><p><span class="zh">团队曾参与费米实验室、PSI 等机构的缪子实验。</span><span class="en">Team experience on muon experiments at Fermilab, PSI and other laboratories.</span></p></div>
+    <div class="grid-2" style="margin-top:96px">
+      <div>
+        <p class="label"><span class="idx">FAQ</span><span class="zh">常见问题</span><span class="en">Questions</span></p>
+        <h3 class="h2" style="font-size:clamp(26px,3vw,40px)"><span class="zh">客户最常问的问题</span><span class="en">What clients ask first</span></h3>
+      </div>
+      <div class="faq">
+        <details open><summary><span class="n">Q1</span><span><span class="zh">能探多深？</span><span class="en">How deep can it see?</span></span></summary><p><span class="zh">缪子能穿透数百米岩石，深度很少是限制，真正的限制是时间：越深，到达的缪子越少，测量越久。可行性速算可以给您一个量级。</span><span class="en">Muons pass through hundreds of metres of rock, so depth is rarely the limit. Time is: deeper targets receive fewer muons. The feasibility tool gives the order of magnitude.</span></p></details>
+        <details><summary><span class="n">Q2</span><span><span class="zh">能看多细？</span><span class="en">How fine is the detail?</span></span></summary><p><span class="zh">分辨率取决于探测器角分辨率、与目标的距离和测量时长。可行性报告会给出具体数值。</span><span class="en">It depends on angular resolution, distance and measurement time. The feasibility report gives concrete numbers.</span></p></details>
+        <details><summary><span class="n">Q3</span><span><span class="zh">有辐射吗？</span><span class="en">Is there a radiation risk?</span></span></summary><p><span class="zh">没有额外辐射。我们只接收天然宇宙射线缪子，设备不发射射线，也无需放射源许可。</span><span class="en">No. We only receive natural cosmic-ray muons; the equipment emits nothing and needs no source licence.</span></p></details>
+        <details><summary><span class="n">Q4</span><span><span class="zh">会影响运营吗？</span><span class="en">Will it disrupt operations?</span></span></summary><p><span class="zh">不会。设备装在检修通道或设备间，静默运行，只需供电和网络。</span><span class="en">No. Equipment sits in service corridors, runs silently and needs only power and network.</span></p></details>
+      </div>
+    </div>
   </div>
-  <svg class="next" viewBox="0 0 44 12" aria-hidden="true"><line x1="0" y1="6" x2="42" y2="6"/><polyline points="36,1 42,6 36,11"/></svg>
 </section>
 
 <!-- 10 CONTACT -->
-<section class="page navy" id="contact">
-  <p class="eyebrow"><span class="zh">咨询项目</span><span class="en">Start a project</span></p>
-  <h2><span class="zh">告诉我们您想看清什么</span><span class="en">Tell us what you need to see</span></h2>
-  <p class="lede"><span class="zh">填写下面几项，我们会整理成一份需求摘要。复制后通过邮件或公众号发给我们即可。</span><span class="en">Fill in a few details and we will turn them into a project summary. Copy it and send it to us by email or WeChat.</span></p>
-  <form class="form" id="inq" novalidate>
-    <div><label for="f-org"><span class="zh">单位</span><span class="en">Organisation</span></label><input id="f-org" name="org" autocomplete="organization"></div>
-    <div><label for="f-name"><span class="zh">联系人</span><span class="en">Contact name</span></label><input id="f-name" name="name" autocomplete="name"></div>
-    <div><label for="f-type"><span class="zh">场景</span><span class="en">Setting</span></label>
-      <select id="f-type" name="type">
-        <option value="越江隧道 / River tunnel">越江隧道 / River tunnel</option>
-        <option value="城市隧道与地下空间 / Urban tunnel">城市隧道与地下空间 / Urban tunnel</option>
-        <option value="地铁与管廊 / Metro &amp; utility">地铁与管廊 / Metro &amp; utility</option>
-        <option value="大坝堤防 / Dam &amp; levee">大坝堤防 / Dam &amp; levee</option>
-        <option value="矿山地质 / Mining &amp; geology">矿山地质 / Mining &amp; geology</option>
-        <option value="文物建筑 / Heritage">文物建筑 / Heritage</option>
-        <option value="其他 / Other">其他 / Other</option>
-      </select></div>
-    <div><label for="f-depth"><span class="zh">目标深度或上覆厚度（m）</span><span class="en">Target depth or cover (m)</span></label><input id="f-depth" name="depth" inputmode="decimal"></div>
-    <div class="full"><label for="f-msg"><span class="zh">您想解决的问题</span><span class="en">The question you need answered</span></label><textarea id="f-msg" name="msg"></textarea></div>
-    <div class="actions">
-      <button class="btn btn-solid" type="submit"><span class="zh">生成需求摘要</span><span class="en">Create summary</span></button>
-      <button class="btn btn-line" type="button" id="copy" hidden><span class="zh">复制摘要</span><span class="en">Copy summary</span></button>
-      <span id="form-msg" role="status"></span>
+<section class="sec" id="contact">
+  <div class="wrap grid-2">
+    <div>
+      <p class="label"><span class="idx">10</span><span class="zh">联系我们</span><span class="en">Contact</span></p>
+      <h2 class="h2"><span class="zh">告诉我们您想看清什么</span><span class="en">Tell us what you need to see</span></h2>
+      <p class="lead"><span class="zh">项目合作、投资交流或加入团队，都可以从这里开始。页面会生成一份摘要，复制后通过邮件或公众号发给我们。</span><span class="en">Projects, investment or joining the team all start here. The page builds a summary; copy it and send it by email or WeChat.</span></p>
+      <dl class="contact-dl">
+        <div id="email-row" hidden><dt><span class="zh">邮箱</span><span class="en">Email</span></dt><dd id="email-v"></dd></div>
+        <div><dt><span class="zh">公众号</span><span class="en">WeChat</span></dt><dd>缪子科技实验室</dd></div>
+        <div><dt><span class="zh">地址</span><span class="en">Address</span></dt><dd><span class="zh">上海交通大学 李政道研究所</span><span class="en">Tsung-Dao Lee Institute, Shanghai Jiao Tong University</span></dd></div>
+      </dl>
     </div>
-    <div id="summary" hidden></div>
-  </form>
-  <div class="contact">
-    <div><b><span class="zh">邮箱</span><span class="en">Email</span></b><span class="v" id="email-v">—</span></div>
-    <div><b><span class="zh">微信公众号</span><span class="en">WeChat</span></b><span class="v">缪子科技实验室</span></div>
-    <div><b><span class="zh">地址</span><span class="en">Address</span></b><span class="v"><span class="zh">上海交通大学 李政道研究所</span><span class="en">Tsung-Dao Lee Institute, Shanghai Jiao Tong University</span></span></div>
+    <form class="form" id="inq" novalidate>
+      <label class="full"><span class="k"><span class="zh">我想</span><span class="en">I want to</span></span>
+        <select id="f-topic" name="topic">
+          <option value="project">咨询项目 / Discuss a project</option>
+          <option value="invest">投资交流 / Talk investment</option>
+          <option value="job">加入团队 / Join the team</option>
+          <option value="other">其他 / Other</option>
+        </select></label>
+      <label><span class="k"><span class="zh">单位 / 学校</span><span class="en">Organisation / school</span></span><input id="f-org" name="org" autocomplete="organization"></label>
+      <label><span class="k"><span class="zh">姓名</span><span class="en">Name</span></span><input id="f-name" name="name" autocomplete="name"></label>
+      <label class="full"><span class="k"><span class="zh">简要说明（场地、深度、投资阶段或应聘岗位）</span><span class="en">Details (site and depth, investment stage, or role)</span></span><textarea id="f-msg" name="msg"></textarea></label>
+      <div class="actions">
+        <button class="btn btn-primary" type="submit"><span class="zh">生成摘要</span><span class="en">Create summary</span> <span class="arr">→</span></button>
+        <button class="btn btn-ghost" type="button" id="copy" hidden><span class="zh">复制摘要</span><span class="en">Copy summary</span></button>
+        <span id="form-msg" role="status"></span>
+      </div>
+      <div id="summary" class="bracket" hidden></div>
+    </form>
   </div>
 </section>
+</main>
 
-<footer>
-  <div class="foot-in">
-    <div class="learn"><span class="zh">了解更多：</span><span class="en">Learn more at </span><a href="https://arxiv.org/abs/2504.00582" target="_blank" rel="noopener" id="paper-link">J. Appl. Phys. 138, 114902</a></div>
-    <div>© 2026 <span class="zh">缪子科技实验室</span><span class="en">Muon Technology Laboratory</span> · MuTechLab</div>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>© 2026 <span class="zh">缪子科技实验室 · 上海交通大学李政道研究所</span><span class="en">MuTechLab · Tsung-Dao Lee Institute, SJTU</span></span>
+    <nav aria-label="Footer"><a href="#solutions"><span class="zh">解决方案</span><span class="en">Solutions</span></a><a href="#deployments"><span class="zh">案例</span><span class="en">Deployments</span></a><a href="#investors"><span class="zh">投资者</span><span class="en">Investors</span></a><a href="#careers"><span class="zh">加入我们</span><span class="en">Careers</span></a><a href="https://kimsiang.github.io/" target="_blank" rel="noopener"><span class="zh">课题组</span><span class="en">Research group</span> ↗</a></nav>
   </div>
 </footer>
 </div>
@@ -470,137 +717,127 @@ footer{background:var(--navy);color:var(--mist);font-size:13px;padding-block:44p
 <script>
 (function(){
   /* ---- edit before launch ---- */
-  var CONTACT_EMAIL = "";            // e.g. "mutechlab@example.edu.cn"
-  var PAPER_URL = "https://arxiv.org/abs/2504.00582";  // swap for the journal DOI if preferred
+  var CONTACT_EMAIL = "";   // e.g. "mutechlab@example.edu.cn"
 
   var app=document.getElementById('app');
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var en=function(){return app.classList.contains('en')};
-  if(CONTACT_EMAIL) document.getElementById('email-v').textContent=CONTACT_EMAIL;
-  else document.getElementById('email-v').parentNode.hidden=true;
-  var pl=document.getElementById('paper-link');
-  if(PAPER_URL) pl.href=PAPER_URL;
+  function en(){return app.dataset.lang==='en'}
+  if(CONTACT_EMAIL){ document.getElementById('email-v').textContent=CONTACT_EMAIL; document.getElementById('email-row').hidden=false; }
 
   function setLang(l){
-    app.classList.toggle('en',l==='en');
-    document.documentElement.lang=l==='en'?'en':'zh-CN';
-    document.getElementById('btn-zh').setAttribute('aria-pressed',l!=='en');
-    document.getElementById('btn-en').setAttribute('aria-pressed',l==='en');
+    app.dataset.lang=l; document.documentElement.lang=l==='en'?'en':'zh-CN';
     try{localStorage.setItem('mtl-lang',l)}catch(e){}
     drawTide(); update();
   }
-  document.getElementById('btn-zh').onclick=function(){setLang('zh')};
-  document.getElementById('btn-en').onclick=function(){setLang('en')};
+  document.getElementById('lang').addEventListener('click',function(){ setLang(en()?'zh':'en'); });
 
-  /* ---- tide chart (illustrative, ~4%/m) ---- */
+  /* tide chart */
   function drawTide(){
-    var svg=document.getElementById('tide'), W=560,H=330,L=60,R=24,T=16,B=60;
-    var lv=[0,1,2,3,4], ymin=80, ymax=100, s='';
-    function y(v){return T+(ymax-v)/(ymax-ymin)*(H-T-B)}
+    var svg=document.getElementById('tide'), W=560,H=300,L=56,R=24,T=20,B=52, lv=[0,1,2,3,4], lo=80, hi=100, s='';
+    function y(v){return T+(hi-v)/(hi-lo)*(H-T-B)}
     var step=(W-L-R)/lv.length;
-    for(var g=80; g<=100; g+=5){ var yy=y(g); s+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'"/><text x="'+(L-10)+'" y="'+(yy+4)+'" text-anchor="end">'+g+'%</text>'; }
+    for(var g=lo; g<=hi; g+=5){ var yy=y(g); s+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'"/><text x="'+(L-10)+'" y="'+(yy+4)+'" text-anchor="end">'+g+'%</text>'; }
     lv.forEach(function(h,i){
       var v=100-4*h, cx=L+step*(i+.5), cy=y(v);
-      s+='<line class="stem" x1="'+cx+'" x2="'+cx+'" y1="'+y(ymin)+'" y2="'+cy+'"/><circle class="dot" cx="'+cx+'" cy="'+cy+'" r="7"/>';
-      s+='<text class="val" x="'+(cx+12)+'" y="'+(cy+4)+'">'+v+'%</text>';
-      s+='<text x="'+cx+'" y="'+(H-B+24)+'" text-anchor="middle">+'+h+' m</text>';
+      s+='<line class="stem" x1="'+cx+'" x2="'+cx+'" y1="'+y(lo)+'" y2="'+cy+'"/><circle class="dot" cx="'+cx+'" cy="'+cy+'" r="5"/>';
+      s+='<text class="val" x="'+(cx+11)+'" y="'+(cy+4)+'">'+v+'%</text>';
+      s+='<text x="'+cx+'" y="'+(H-B+22)+'" text-anchor="middle">+'+h+' m</text>';
     });
-    s+='<text x="'+L+'" y="'+(H-8)+'">'+(en()?'Tide above low water':'相对低潮的潮位上升')+'</text>';
+    s+='<text x="'+L+'" y="'+(H-6)+'">'+(en()?'TIDE ABOVE LOW WATER':'相对低潮的潮位上升')+'</text>';
     svg.innerHTML=s;
   }
 
-  /* ---- feasibility model ---- */
-  var A=0.25,Bc=4e-4,E0=3,G=1.7,FLUX=50;
+  /* feasibility */
+  var A=0.25,Bc=4e-4,E0=3,G=1.7,FLUX=50, rho=1.8, area=1;
   function surv(mwe){ if(mwe<=0) return 1; var Emin=(A/Bc)*(Math.exp(Bc*mwe)-1); return Math.pow(E0/(E0+Emin),G); }
-  var rho=1.8, area=1;
   var depth=document.getElementById('depth'), delta=document.getElementById('delta');
   function fmtInt(n){ return n>=1e6?(n/1e6).toFixed(1)+'M':(n>=1e4?Math.round(n/1e3)+'k':Math.round(n).toLocaleString()); }
-  function fmtTime(sec){
-    var e=en();
+  function fmtTime(sec){ var e=en();
     if(sec<3600) return Math.max(1,Math.round(sec/60))+(e?' min':' 分钟');
-    if(sec<86400*2) return (sec/3600).toFixed(1)+(e?' hours':' 小时');
+    if(sec<86400*2) return (sec/3600).toFixed(1)+(e?' h':' 小时');
     if(sec<86400*90) return Math.round(sec/86400)+(e?' days':' 天');
-    if(sec<86400*365*2) return Math.round(sec/86400/30)+(e?' months':' 个月');
-    return (sec/86400/365).toFixed(1)+(e?' years':' 年');
-  }
+    if(sec<86400*730) return Math.round(sec/86400/30)+(e?' months':' 个月');
+    return (sec/86400/365).toFixed(1)+(e?' years':' 年'); }
   function update(){
-    var m=+depth.value, d=+delta.value/100, mwe=m*rho, fr=surv(mwe);
-    var rate=FLUX*area*fr, perday=rate*86400, N=Math.pow(3/d,2), t=N/rate, e=en();
+    var m=+depth.value, d=+delta.value/100, fr=surv(m*rho), rate=FLUX*area*fr, t=Math.pow(3/d,2)/rate, e=en(), pct=fr*100;
     document.getElementById('depth-out').textContent=m+' m';
     document.getElementById('rho-out').textContent=rho+' g/cm³';
     document.getElementById('delta-out').textContent=(+delta.value)+'%';
     document.getElementById('area-out').textContent=area+' m²';
-    var pct=fr*100;
     document.getElementById('surv').textContent=pct>=10?pct.toFixed(0)+'%':(pct>=1?pct.toFixed(1)+'%':(pct>=0.01?pct.toFixed(2)+'%':pct.toExponential(1)+'%'));
-    document.getElementById('perday').textContent=fmtInt(perday);
+    document.getElementById('perday').textContent=fmtInt(rate*86400);
     document.getElementById('ttime').textContent=fmtTime(t);
-    var v;
-    if(t<86400) v=e?'Well suited to continuous monitoring.':'适合连续监测，可按天跟踪变化。';
-    else if(t<86400*30) v=e?'Suited to imaging campaigns of weeks.':'适合数周的成像测量。';
-    else if(t<86400*365) v=e?'Feasible; consider more detector area.':'可行，建议增加探测器面积。';
-    else v=e?'Challenging; let us run a simulation first.':'难度较大，建议先做模拟评估。';
-    document.getElementById('verdict').textContent=v;
+    document.getElementById('verdict').textContent=
+      t<86400?(e?'Suited to continuous monitoring, tracked day by day.':'适合连续监测，可按天跟踪变化。'):
+      t<86400*30?(e?'Suited to an imaging campaign of a few weeks.':'适合数周的成像测量。'):
+      t<86400*365?(e?'Feasible; more detector area will shorten it.':'可行，增加探测器面积可缩短时间。'):
+      (e?'Challenging; we recommend a simulation study first.':'难度较大，建议先做模拟评估。');
   }
   depth.addEventListener('input',update); delta.addEventListener('input',update);
-  function segBind(id,fn){ var bs=document.querySelectorAll('#'+id+' button'); bs.forEach(function(b){ b.addEventListener('click',function(){ bs.forEach(function(o){o.setAttribute('aria-pressed',o===b)}); fn(b); update(); }); }); }
-  segBind('mat',function(b){rho=+b.dataset.rho});
-  segBind('area',function(b){area=+b.dataset.a});
+  function chips(id,fn){ var bs=document.querySelectorAll('#'+id+' button'); bs.forEach(function(b){ b.addEventListener('click',function(){ bs.forEach(function(o){o.setAttribute('aria-pressed',o===b)}); fn(+b.dataset.v); update(); }); }); }
+  chips('mat',function(v){rho=v}); chips('area',function(v){area=v});
 
-  /* ---- inquiry form → summary ---- */
+  /* inquiry */
   var form=document.getElementById('inq'), sum=document.getElementById('summary'), copy=document.getElementById('copy'), msg=document.getElementById('form-msg');
   form.addEventListener('submit',function(ev){
-    ev.preventDefault();
-    var f=new FormData(form);
-    if(!(f.get('org')||'').trim() || !(f.get('msg')||'').trim()){ msg.textContent=en()?'Add your organisation and question to create the summary.':'请填写单位和需要解决的问题。'; return; }
-    var txt='【缪子成像项目咨询 / Muography inquiry】\n'+
-      '单位 Organisation：'+f.get('org')+'\n'+
-      '联系人 Contact：'+(f.get('name')||'-')+'\n'+
-      '场景 Setting：'+f.get('type')+'\n'+
-      '深度 Depth (m)：'+(f.get('depth')||'-')+'\n'+
-      '问题 Question：'+f.get('msg');
-    sum.textContent=txt; sum.hidden=false; copy.hidden=false;
-    msg.textContent=en()?'Summary ready. Copy it and send it to us.':'摘要已生成，请复制后发送给我们。';
+    ev.preventDefault(); var f=new FormData(form);
+    if(!(f.get('org')||'').trim()||!(f.get('msg')||'').trim()){ msg.textContent=en()?'Add your organisation and details to create the summary.':'请填写单位和简要说明。'; return; }
+    var T={project:'项目咨询 / Project inquiry',invest:'投资交流 / Investment',job:'求职 / Job application',other:'其他 / Other'};
+    sum.textContent='【缪子科技实验室 · '+T[f.get('topic')]+'】\n单位 Organisation: '+f.get('org')+'\n姓名 Name: '+(f.get('name')||'-')+'\n说明 Details: '+f.get('msg');
+    sum.hidden=false; copy.hidden=false; msg.textContent=en()?'Summary ready. Copy it and send it to us.':'摘要已生成，请复制后发送给我们。';
   });
   copy.addEventListener('click',function(){
-    var t=sum.textContent;
     function sel(){ var r=document.createRange(); r.selectNodeContents(sum); var s=getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent=en()?'Text selected. Press Ctrl/⌘+C to copy.':'已选中文字，请按 Ctrl/⌘+C 复制。'; }
-    try{ navigator.clipboard.writeText(t).then(function(){ msg.textContent=en()?'Copied.':'已复制。'; },sel); }catch(e){ sel(); }
+    try{ navigator.clipboard.writeText(sum.textContent).then(function(){ msg.textContent=en()?'Copied.':'已复制。'; },sel); }catch(e){ sel(); }
   });
 
-  /* ---- hero scene: tunnel under a river, muons falling onto a detector ---- */
-  var cv=document.getElementById('scene'), cx=cv.getContext('2d'), DPR=Math.min(2,window.devicePixelRatio||1), tracks=[], tph=0;
+  document.querySelectorAll('[data-topic]').forEach(function(a){ a.addEventListener('click',function(){ document.getElementById('f-topic').value=a.dataset.topic; }); });
+
+  /* hero scene: river over a tunnel, muons falling onto the detector */
+  var cv=document.getElementById('scene'), cx=cv.getContext('2d'), DPR=Math.min(2,window.devicePixelRatio||1), tracks=[], tph=0, evt=18342;
   function size(){ var r=cv.getBoundingClientRect(); cv.width=r.width*DPR; cv.height=r.height*DPR; }
-  function geom(){ var W=cv.width,H=cv.height; return {W:W,H:H,water:H*.38,bed:H*.6,tx:W*.72,ty:H*.74,tr:Math.min(W*.12,H*.13)}; }
-  function spawn(){ var g=geom(), th=Math.acos(Math.pow(Math.random(),1/3))*(Math.random()<.5?-1:1); return {x:g.W*(.35+Math.random()*.75), y:-10, vx:Math.sin(th), vy:Math.cos(th), sp:(8+Math.random()*6)*DPR, stop:Math.random()<.35?g.water+Math.random()*(g.ty-g.water):Infinity}; }
-  function bg(g){
-    var tide=Math.sin(tph)*g.H*.012;
-    cx.fillStyle='rgba(0,169,244,.10)'; cx.beginPath(); cx.moveTo(0,g.water+tide);
+  function geom(){ var W=cv.width,H=cv.height, wide=W/DPR>760; return {W:W,H:H,water:H*.36,bed:H*.56,tx:wide?W*.7:W*.7,ty:H*.68,tr:Math.min(W*.1,H*.1)}; }
+  function spawn(){ var g=geom(), th=Math.acos(Math.pow(Math.random(),1/3))*(Math.random()<.5?-1:1); return {x:g.W*(.38+Math.random()*.7),y:-10,vx:Math.sin(th),vy:Math.cos(th),sp:(8+Math.random()*6)*DPR,stop:Math.random()<.32?g.water+Math.random()*(g.ty-g.water):Infinity,th:th}; }
+  function scene(g){
+    var tide=Math.sin(tph)*g.H*.014;
+    cx.fillStyle='rgba(47,200,255,.07)'; cx.beginPath(); cx.moveTo(0,g.water+tide);
     for(var k=0;k<=40;k++) cx.lineTo(g.W*k/40,g.water+tide+Math.sin(k*.6+tph*3)*2*DPR);
     cx.lineTo(g.W,g.bed); cx.lineTo(0,g.bed); cx.fill();
-    cx.fillStyle='rgba(255,255,255,.06)'; cx.fillRect(0,g.bed,g.W,g.H-g.bed);
-    cx.strokeStyle='rgba(255,255,255,.25)'; cx.lineWidth=DPR;
-    cx.beginPath(); cx.moveTo(0,g.bed); for(var j=0;j<=30;j++) cx.lineTo(g.W*j/30,g.bed+Math.sin(j*.9)*4*DPR); cx.stroke();
-    cx.strokeStyle='rgba(0,169,244,.9)'; cx.lineWidth=1.5*DPR; cx.beginPath(); cx.ellipse(g.tx,g.ty,g.tr*1.6,g.tr,0,0,Math.PI*2); cx.stroke();
-    cx.fillStyle='#2251FF'; cx.fillRect(g.tx-g.tr*.5,g.ty+g.tr*.45,g.tr,4*DPR);
+    cx.strokeStyle='rgba(47,200,255,.35)'; cx.lineWidth=DPR; cx.beginPath(); cx.moveTo(0,g.water+tide); for(var q=0;q<=40;q++) cx.lineTo(g.W*q/40,g.water+tide+Math.sin(q*.6+tph*3)*2*DPR); cx.stroke();
+    cx.fillStyle='rgba(150,180,220,.06)'; cx.fillRect(0,g.bed,g.W,g.H-g.bed);
+    cx.strokeStyle='rgba(150,180,220,.22)'; cx.beginPath(); cx.moveTo(0,g.bed); for(var j=0;j<=30;j++) cx.lineTo(g.W*j/30,g.bed+Math.sin(j*.9)*4*DPR); cx.stroke();
+    cx.strokeStyle='rgba(47,200,255,.9)'; cx.lineWidth=1.2*DPR; cx.beginPath(); cx.ellipse(g.tx,g.ty,g.tr*1.7,g.tr,0,0,Math.PI*2); cx.stroke();
+    cx.fillStyle='#dff6ff'; cx.shadowColor='#2fc8ff'; cx.shadowBlur=12*DPR; cx.fillRect(g.tx-g.tr*.55,g.ty+g.tr*.42,g.tr*1.1,3*DPR); cx.shadowBlur=0;
+    return tide;
   }
+  var hudT=0;
   function frame(){
-    var g=geom(); cx.clearRect(0,0,g.W,g.H); tph+=reduce?0:.006; bg(g);
-    if(tracks.length<60&&Math.random()<.55) tracks.push(spawn());
+    var g=geom(); cx.clearRect(0,0,g.W,g.H); if(!reduce) tph+=.005; var tide=scene(g);
+    if(tracks.length<55&&Math.random()<.5) tracks.push(spawn());
     tracks.forEach(function(t){
       if(t.y<t.stop){ t.x+=t.vx*t.sp; t.y+=t.vy*t.sp; } else t.dead=(t.dead||0)+1;
-      var len=110*DPR, gr=cx.createLinearGradient(t.x,t.y,t.x-t.vx*len,t.y-t.vy*len);
-      var a=t.dead?Math.max(0,1-t.dead/25):1;
-      gr.addColorStop(0,'rgba(0,169,244,'+(.95*a)+')'); gr.addColorStop(1,'rgba(0,169,244,0)');
+      var len=110*DPR, a=t.dead?Math.max(0,1-t.dead/25):1, gr=cx.createLinearGradient(t.x,t.y,t.x-t.vx*len,t.y-t.vy*len);
+      gr.addColorStop(0,'rgba(47,200,255,'+(.95*a)+')'); gr.addColorStop(1,'rgba(47,200,255,0)');
       cx.strokeStyle=gr; cx.lineWidth=DPR; cx.beginPath(); cx.moveTo(t.x,t.y); cx.lineTo(t.x-t.vx*len,t.y-t.vy*len); cx.stroke();
+      cx.fillStyle='rgba(223,246,255,'+a+')'; cx.fillRect(t.x-DPR,t.y-DPR,2*DPR,2*DPR);
     });
     tracks=tracks.filter(function(t){ return t.y-120*DPR<g.H && !(t.dead>25); });
+    var now=Date.now();
+    if(now-hudT>700){ hudT=now; evt+=1+Math.floor(Math.random()*3);
+      var lvl=(Math.sin(tph)+1)*1.1, fl=1-0.04*lvl+(Math.random()-.5)*.006;
+      document.getElementById('hud-evt').textContent=String(evt).padStart(6,'0');
+      document.getElementById('hud-flux').textContent=fl.toFixed(3);
+      document.getElementById('hud-tide').textContent='+'+lvl.toFixed(1)+' m';
+      document.getElementById('hud-theta').textContent=(Math.acos(Math.pow(Math.random(),1/3))*180/Math.PI).toFixed(1)+'°';
+    }
     if(!reduce) requestAnimationFrame(frame);
   }
-  function stat(){ var g=geom(); for(var i=0;i<45;i++){ var t=spawn(); t.y=Math.random()*Math.min(t.stop,g.H); tracks.push(t);} frame(); }
-
   window.addEventListener('resize',size);
-  var l='zh'; try{l=localStorage.getItem('mtl-lang')||'zh'}catch(e){}
-  size(); setLang(l); if(reduce) stat(); else frame();
+
+  var l='zh'; try{ l=localStorage.getItem('mtl-lang')||'zh'; }catch(e){}
+  size(); setLang(l);
+  if(reduce){ for(var i=0;i<40;i++){ var t=spawn(); t.y=Math.random()*Math.min(t.stop,cv.height); tracks.push(t);} }
+  frame();
 })();
 </script>
 </body>
