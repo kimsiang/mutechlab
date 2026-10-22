@@ -11,8 +11,11 @@ One time:
 ```bash
 brew install ffmpeg                       # if you don't have it
 git clone https://github.com/kimsiang/mutechlab && cd mutechlab/film
-./setup_voice.sh                          # offline guide voice (Kokoro, ~350 MB download)
 ```
+
+(`./setup_voice.sh` installs the offline guide voice, ~350 MB. You only need it if you change narration text:
+the audio for the current script is already in `voice/_cache/`, and `run_mac.sh` skips the download when nothing
+has to be re-spoken.)
 
 Then:
 

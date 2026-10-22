@@ -38,7 +38,7 @@ def guide(line, lang, S):
     out = os.path.join(CACHE, f"guide_{lang}_{line['id']}_{key}.wav")
     if os.path.exists(out): return out
     if not os.path.exists(os.path.join(MODEL, "model.onnx")):
-        print("  no guide voice model; run ./setup_voice.sh"); return None
+        sys.exit(f"  line {line['id']} needs the guide voice and no cached audio matches its text: run ./setup_voice.sh")
     import sherpa_onnx, soundfile as sf
     if _tts is None:
         d = MODEL
