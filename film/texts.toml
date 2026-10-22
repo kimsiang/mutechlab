@@ -1,0 +1,69 @@
+# ============================================================================================================
+#  NARRATION AND SUBTITLES OF THE 缪子科技实验室 PROMO  —  edit, then rebuild without re-rendering:
+#
+#      python3 narrate.py            (voice stem + subtitles)        python3 compose.py --skip-post
+#
+#  Same conventions as tdli-muon-group-video/texts.toml:
+#   * at = seconds into the 30 s edit; keep each line shorter than the gap to the next one
+#   * your own recording wins:  voice/zh/<id>.wav (or m4a/mp3/aiff).  Missing lines are spoken by the offline
+#     Kokoro guide voice (voice/models/kokoro-multi-lang-v1_0, speaker below).
+#   * tts = optional pronunciation text for the guide voice (homophones for 缪→谬 etc.); zh is what the
+#     subtitle shows when subtitles = "zh".
+# ============================================================================================================
+
+[settings]
+voice       = "en"           # "zh", "en" or "none"
+subtitles   = "zh"           # "en", "zh", "both" or "none"
+guide_voice = "zf_xiaoxiao"  # Mandarin guide (used when voice = "zh")
+guide_voice_en = "af_heart"  # English guide: af_heart af_bella bf_emma am_michael bm_george ...
+guide_speed = 0.95
+music_duck  = 12.0           # dB the music drops under the voice
+
+[[voice]]
+id = "01_city"
+at = 0.6
+zh = "一座城市的地下，藏着比地面更多的秘密。"
+tts = "一座城市的地下，藏着比地面更多的秘密。"
+en = "Beneath a city lie more secrets than above it."
+
+[[voice]]
+id = "02_cut"
+at = 4.6
+zh = "管线、地层、空洞，还有正在掘进的隧道。"
+tts = "管线、地层、空洞，还有正在掘进的隧道。"
+en = "Pipes, strata, cavities, and a tunnel being bored."
+
+[[voice]]
+id = "03_muon"
+at = 8.6
+zh = "要看清它们，我们用的是来自宇宙的缪子。"
+tts = "要看清它们，我们用的是来自宇宙的谬子。"
+en = "To see them, we use muons from the cosmos."
+
+[[voice]]
+id = "04_rain"
+at = 13.0
+zh = "每分钟，上万个缪子穿过这台探测器。"
+tts = "每分钟，上万个谬子穿过这台探测器。"
+en = "Every minute, thousands of muons cross this detector."
+
+[[voice]]
+id = "05_image"
+at = 17.2
+zh = "它们走过的路，就是一张地下的影像。"
+tts = "它们走过的路，就是一张地下的影像。"
+en = "The paths they take become an image of the underground."
+
+[[voice]]
+id = "06_wide"
+at = 20.6
+zh = "不用开挖，不用停工，安全、清晰。"
+tts = "不用开挖，不用停工，安全、清晰。"
+en = "No digging, no downtime. Safe and clear."
+
+[[voice]]
+id = "07_logo"
+at = 24.4
+zh = "缪子科技实验室，看见看不见的世界。"
+tts = "谬子科技实验室，看见看不见的世界。"
+en = "Muon Tech Lab. Seeing the unseen."

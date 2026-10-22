@@ -1,0 +1,133 @@
+{
+ "subtitles": "zh",
+ "music_duck": 12.0,
+ "lines": [
+  {
+   "start": 0.6,
+   "end": 3.352,
+   "zh": "一座城市的地下，藏着比地面更多的秘密。",
+   "en": "Beneath a city lie more secrets than above it."
+  },
+  {
+   "start": 4.6,
+   "end": 7.686,
+   "zh": "管线、地层、空洞，还有正在掘进的隧道。",
+   "en": "Pipes, strata, cavities, and a tunnel being bored."
+  },
+  {
+   "start": 8.4,
+   "end": 11.194,
+   "zh": "我们不用开挖就能看见它们。原理是这样的。",
+   "en": "We can see them without digging. Here is how."
+  },
+  {
+   "start": 12.2,
+   "end": 17.508,
+   "zh": "在十五公里高空，宇宙射线撞上大气层，产生一场粒子簇射。",
+   "en": "Fifteen kilometres up, cosmic rays strike the atmosphere and make a shower of particles."
+  },
+  {
+   "start": 17.6,
+   "end": 24.051,
+   "zh": "其中的缪子穿透力极强，每分钟有上万个落到每平方米地面。",
+   "en": "The muons among them are highly penetrating: about ten thousand reach every square metre of ground each minute."
+  },
+  {
+   "start": 24.001,
+   "end": 29.419,
+   "zh": "缪子穿过物质时会损失能量。岩石越厚、越致密，能穿过去的就越少。",
+   "en": "Muons lose energy as they pass through matter. The thicker or denser the rock, the fewer get through."
+  },
+  {
+   "start": 30.4,
+   "end": 35.938,
+   "zh": "如果岩石里有空洞，穿过去的缪子就会变多。缪子的数量，就是一把量厚度的尺子。",
+   "en": "If there is a cavity inside, more muons get through. The count of muons is a ruler for thickness."
+  },
+  {
+   "start": 37.8,
+   "end": 42.102,
+   "zh": "把探测器放在目标下方，记录每个缪子来的方向。",
+   "en": "Place a detector below the target and record the direction of every muon."
+  },
+  {
+   "start": 42.4,
+   "end": 48.686,
+   "zh": "按方向计数，和无遮挡时比较：少了，说明那条路径上岩石更厚；多了，说明有空洞。",
+   "en": "Count by direction and compare with open sky: fewer means thicker rock along that line; more means a cavity."
+  },
+  {
+   "start": 52.0,
+   "end": 57.57,
+   "zh": "一个方向只能给出一条线上的平均密度。换几个位置再看，",
+   "en": "One viewpoint only gives the average density along each line. Look from several positions,"
+  },
+  {
+   "start": 57.52,
+   "end": 63.737,
+   "zh": "把所有视线交叉起来，就能像医院的 CT 一样，重建出三维的密度分布。",
+   "en": "cross all the lines of sight, and, just like a hospital CT, you reconstruct density in three dimensions."
+  },
+  {
+   "start": 65.4,
+   "end": 68.051,
+   "zh": "这就是缪子透射成像。",
+   "en": "This is muon transmission tomography."
+  },
+  {
+   "start": 70.4,
+   "end": 74.425,
+   "zh": "回到隧道。每分钟，上万个缪子穿过这台探测器。",
+   "en": "Back in the tunnel. Every minute, thousands of muons cross this detector."
+  },
+  {
+   "start": 75.2,
+   "end": 80.074,
+   "zh": "它们走过的路，就是一张地下的影像。不用开挖，不用停工。",
+   "en": "The paths they take become an image of the underground. No digging, no downtime."
+  },
+  {
+   "start": 82.4,
+   "end": 85.079,
+   "zh": "缪子科技实验室，看见看不见的世界。",
+   "en": "Muon Tech Lab. Seeing the unseen."
+  }
+ ],
+ "titles": [
+  {
+   "from": 11.4,
+   "to": 22.0,
+   "eyebrow": "STEP 1 · 15 KM UP",
+   "zh": "缪子从哪里来",
+   "en": "Where muons come from"
+  },
+  {
+   "from": 23.4,
+   "to": 36.0,
+   "eyebrow": "STEP 2 · ATTENUATION",
+   "zh": "穿过的越多，剩下的越少",
+   "en": "More matter, fewer muons"
+  },
+  {
+   "from": 37.4,
+   "to": 50.0,
+   "eyebrow": "STEP 3 · ONE VIEWPOINT",
+   "zh": "数一数每个方向的缪子",
+   "en": "Count muons by direction"
+  },
+  {
+   "from": 51.4,
+   "to": 64.0,
+   "eyebrow": "STEP 4 · MANY VIEWPOINTS",
+   "zh": "像 CT 一样合成三维",
+   "en": "Combine views, like a CT scan"
+  },
+  {
+   "from": 65.4,
+   "to": 69.0,
+   "eyebrow": "MUON TRANSMISSION TOMOGRAPHY",
+   "zh": "缪子透射成像",
+   "en": "Muon transmission tomography"
+  }
+ ]
+}

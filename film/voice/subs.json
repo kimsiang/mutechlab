@@ -1,0 +1,48 @@
+{
+ "subtitles": "zh",
+ "music_duck": 12.0,
+ "lines": [
+  {
+   "start": 0.6,
+   "end": 3.352,
+   "zh": "一座城市的地下，藏着比地面更多的秘密。",
+   "en": "Beneath a city lie more secrets than above it."
+  },
+  {
+   "start": 4.6,
+   "end": 7.686,
+   "zh": "管线、地层、空洞，还有正在掘进的隧道。",
+   "en": "Pipes, strata, cavities, and a tunnel being bored."
+  },
+  {
+   "start": 8.6,
+   "end": 11.317,
+   "zh": "要看清它们，我们用的是来自宇宙的缪子。",
+   "en": "To see them, we use muons from the cosmos."
+  },
+  {
+   "start": 13.0,
+   "end": 16.009,
+   "zh": "每分钟，上万个缪子穿过这台探测器。",
+   "en": "Every minute, thousands of muons cross this detector."
+  },
+  {
+   "start": 17.2,
+   "end": 20.391,
+   "zh": "它们走过的路，就是一张地下的影像。",
+   "en": "The paths they take become an image of the underground."
+  },
+  {
+   "start": 20.6,
+   "end": 23.567,
+   "zh": "不用开挖，不用停工，安全、清晰。",
+   "en": "No digging, no downtime. Safe and clear."
+  },
+  {
+   "start": 24.4,
+   "end": 27.079,
+   "zh": "缪子科技实验室，看见看不见的世界。",
+   "en": "Muon Tech Lab. Seeing the unseen."
+  }
+ ]
+}

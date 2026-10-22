@@ -1,0 +1,142 @@
+# Narration, subtitles and title cards of the 90 s cut.  Same rules as texts.toml (at = seconds in the 90 s edit).
+# Rebuild:  python3 narrate.py --texts texts90.toml --duration 90 && python3 compose90.py --skip-post
+
+[settings]
+voice       = "en"
+subtitles   = "zh"
+guide_voice = "zf_xiaoxiao"
+guide_voice_en = "af_heart"
+guide_speed = 0.95
+music_duck  = 12.0
+
+# ---------------------------------------------------------------- title cards (eyebrow + headline, top-left)
+[[title]]
+from = 11.4
+to = 22.0
+eyebrow = "STEP 1 · 15 KM UP"
+zh = "缪子从哪里来"
+en = "Where muons come from"
+
+[[title]]
+from = 23.4
+to = 36.0
+eyebrow = "STEP 2 · ATTENUATION"
+zh = "穿过的越多，剩下的越少"
+en = "More matter, fewer muons"
+
+[[title]]
+from = 37.4
+to = 50.0
+eyebrow = "STEP 3 · ONE VIEWPOINT"
+zh = "数一数每个方向的缪子"
+en = "Count muons by direction"
+
+[[title]]
+from = 51.4
+to = 64.0
+eyebrow = "STEP 4 · MANY VIEWPOINTS"
+zh = "像 CT 一样合成三维"
+en = "Combine views, like a CT scan"
+
+[[title]]
+from = 65.4
+to = 69.0
+eyebrow = "MUON TRANSMISSION TOMOGRAPHY"
+zh = "缪子透射成像"
+en = "Muon transmission tomography"
+
+# ---------------------------------------------------------------- narration
+[[voice]]
+id = "01_city"
+at = 0.6
+zh = "一座城市的地下，藏着比地面更多的秘密。"
+en = "Beneath a city lie more secrets than above it."
+
+[[voice]]
+id = "02_cut"
+at = 4.6
+zh = "管线、地层、空洞，还有正在掘进的隧道。"
+en = "Pipes, strata, cavities, and a tunnel being bored."
+
+[[voice]]
+id = "03_how"
+at = 8.4
+zh = "我们不用开挖就能看见它们。原理是这样的。"
+en = "We can see them without digging. Here is how."
+
+# step 1
+[[voice]]
+id = "11_shower"
+at = 12.2
+zh = "在十五公里高空，宇宙射线撞上大气层，产生一场粒子簇射。"
+en = "Fifteen kilometres up, cosmic rays strike the atmosphere and make a shower of particles."
+
+[[voice]]
+id = "12_muons"
+at = 17.6
+zh = "其中的缪子穿透力极强，每分钟有上万个落到每平方米地面。"
+en = "The muons among them are highly penetrating: about ten thousand reach every square metre of ground each minute."
+
+# step 2
+[[voice]]
+id = "21_lose"
+at = 23.8
+zh = "缪子穿过物质时会损失能量。岩石越厚、越致密，能穿过去的就越少。"
+en = "Muons lose energy as they pass through matter. The thicker or denser the rock, the fewer get through."
+
+[[voice]]
+id = "22_void"
+at = 30.4
+zh = "如果岩石里有空洞，穿过去的缪子就会变多。缪子的数量，就是一把量厚度的尺子。"
+en = "If there is a cavity inside, more muons get through. The count of muons is a ruler for thickness."
+
+# step 3
+[[voice]]
+id = "31_tele"
+at = 37.8
+zh = "把探测器放在目标下方，记录每个缪子来的方向。"
+en = "Place a detector below the target and record the direction of every muon."
+
+[[voice]]
+id = "32_map"
+at = 42.4
+zh = "按方向计数，和无遮挡时比较：少了，说明那条路径上岩石更厚；多了，说明有空洞。"
+en = "Count by direction and compare with open sky: fewer means thicker rock along that line; more means a cavity."
+
+# step 4
+[[voice]]
+id = "41_views"
+at = 52.0
+zh = "一个方向只能给出一条线上的平均密度。换几个位置再看，"
+en = "One viewpoint only gives the average density along each line. Look from several positions,"
+
+[[voice]]
+id = "42_ct"
+at = 56.8
+zh = "把所有视线交叉起来，就能像医院的 CT 一样，重建出三维的密度分布。"
+en = "cross all the lines of sight, and, just like a hospital CT, you reconstruct density in three dimensions."
+
+[[voice]]
+id = "51_name"
+at = 65.4
+zh = "这就是缪子透射成像。"
+en = "This is muon transmission tomography."
+
+# application (tunnel)
+[[voice]]
+id = "61_rain"
+at = 70.4
+zh = "回到隧道。每分钟，上万个缪子穿过这台探测器。"
+en = "Back in the tunnel. Every minute, thousands of muons cross this detector."
+
+[[voice]]
+id = "62_image"
+at = 75.2
+zh = "它们走过的路，就是一张地下的影像。不用开挖，不用停工。"
+en = "The paths they take become an image of the underground. No digging, no downtime."
+
+[[voice]]
+id = "71_logo"
+at = 82.4
+zh = "缪子科技实验室，看见看不见的世界。"
+en = "Muon Tech Lab. Seeing the unseen."

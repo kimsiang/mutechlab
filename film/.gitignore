@@ -1,0 +1,9 @@
+render*/
+work*/
+voice/models/
+*.mp4
+*.gif
+*.wav
+__pycache__/
+pkg/
+voice/tts/
