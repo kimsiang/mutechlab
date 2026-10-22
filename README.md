@@ -10,6 +10,7 @@ Audiences: infrastructure owners (customers), investors, future hires.
 - `index.html` — the whole site (styles and scripts inline)
 - `assets/fonts/` — self-hosted Space Grotesk, Inter, JetBrains Mono (no Google Fonts, so it loads in mainland China)
 - `assets/img/` — tunnel, detector, team and founder photos
+- `src/hero.js` — 3D muon tracker hero (three.js); `npm install && npm run build` → `assets/js/hero.bundle.js`
 - `build_artifact.py` — makes a single-file copy with assets inlined
 
 ## Sections

@@ -77,7 +77,8 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 
 /* hero */
 .hero{position:relative;overflow:hidden;isolation:isolate;min-height:min(860px,calc(100svh - 68px));display:flex;flex-direction:column;justify-content:center}
-#scene{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+#scene{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:0;transition:opacity 1.4s var(--ease)}
+#scene.on{opacity:1}
 .hero-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(4,7,12,.94) 0%,rgba(4,7,12,.6) 38%,transparent 64%),linear-gradient(0deg,var(--bg) 0%,transparent 26%)}
 .hero-grid{position:absolute;inset:0;z-index:-3;background:radial-gradient(60% 50% at 72% 50%,rgba(34,81,255,.26),transparent 70%),repeating-linear-gradient(90deg,transparent 0 79px,rgba(150,180,220,.05) 79px 80px),repeating-linear-gradient(0deg,transparent 0 79px,rgba(150,180,220,.05) 79px 80px),var(--bg)}
 .hero-inner{padding-block:72px 168px;position:relative}
@@ -393,15 +394,15 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
     </div>
   </div>
 
-  <aside class="hud" aria-label="Tunnel monitor (simulation)">
-    <div class="hud-head"><span class="live"></span><span class="zh">越江隧道监测 · 演示</span><span class="en">River tunnel monitor · demo</span></div>
+  <aside class="hud" aria-label="Live event display (simulation)">
+    <div class="hud-head"><span class="live"></span><span class="zh">实时事例显示</span><span class="en">Live event display</span></div>
     <dl>
       <div><dt>EVT</dt><dd id="hud-evt">018342</dd></div>
-      <div><dt>FLUX</dt><dd id="hud-flux">0.962</dd></div>
-      <div><dt>TIDE</dt><dd id="hud-tide">+0.9 m</dd></div>
+      <div><dt>HITS</dt><dd id="hud-hits">4/4</dd></div>
       <div><dt>θ<sub>zen</sub></dt><dd id="hud-theta">14.2°</dd></div>
+      <div><dt>RATE</dt><dd id="hud-rate">2.1 Hz</dd></div>
     </dl>
-    <p class="hud-note"><span class="zh">模拟数据 · 通量为相对低潮值</span><span class="en">Simulated data · flux relative to low tide</span></p>
+    <p class="hud-note"><span class="zh">模拟宇宙线缪子 · 四层三棱柱闪烁体径迹探测器</span><span class="en">Simulated cosmic muons · 4-plane triangular-scintillator tracker</span></p>
   </aside>
 
   <div class="spec-strip wrap" role="list">
@@ -793,52 +794,11 @@ blockquote{margin:36px 0 0;padding:4px 0 4px 22px;border-left:1px solid var(--ac
 
   document.querySelectorAll('[data-topic]').forEach(function(a){ a.addEventListener('click',function(){ document.getElementById('f-topic').value=a.dataset.topic; }); });
 
-  /* hero scene: river over a tunnel, muons falling onto the detector */
-  var cv=document.getElementById('scene'), cx=cv.getContext('2d'), DPR=Math.min(2,window.devicePixelRatio||1), tracks=[], tph=0, evt=18342;
-  function size(){ var r=cv.getBoundingClientRect(); cv.width=r.width*DPR; cv.height=r.height*DPR; }
-  function geom(){ var W=cv.width,H=cv.height, wide=W/DPR>760; return {W:W,H:H,water:H*.36,bed:H*.56,tx:wide?W*.7:W*.7,ty:H*.68,tr:Math.min(W*.1,H*.1)}; }
-  function spawn(){ var g=geom(), th=Math.acos(Math.pow(Math.random(),1/3))*(Math.random()<.5?-1:1); return {x:g.W*(.38+Math.random()*.7),y:-10,vx:Math.sin(th),vy:Math.cos(th),sp:(8+Math.random()*6)*DPR,stop:Math.random()<.32?g.water+Math.random()*(g.ty-g.water):Infinity,th:th}; }
-  function scene(g){
-    var tide=Math.sin(tph)*g.H*.014;
-    cx.fillStyle='rgba(47,200,255,.07)'; cx.beginPath(); cx.moveTo(0,g.water+tide);
-    for(var k=0;k<=40;k++) cx.lineTo(g.W*k/40,g.water+tide+Math.sin(k*.6+tph*3)*2*DPR);
-    cx.lineTo(g.W,g.bed); cx.lineTo(0,g.bed); cx.fill();
-    cx.strokeStyle='rgba(47,200,255,.35)'; cx.lineWidth=DPR; cx.beginPath(); cx.moveTo(0,g.water+tide); for(var q=0;q<=40;q++) cx.lineTo(g.W*q/40,g.water+tide+Math.sin(q*.6+tph*3)*2*DPR); cx.stroke();
-    cx.fillStyle='rgba(150,180,220,.06)'; cx.fillRect(0,g.bed,g.W,g.H-g.bed);
-    cx.strokeStyle='rgba(150,180,220,.22)'; cx.beginPath(); cx.moveTo(0,g.bed); for(var j=0;j<=30;j++) cx.lineTo(g.W*j/30,g.bed+Math.sin(j*.9)*4*DPR); cx.stroke();
-    cx.strokeStyle='rgba(47,200,255,.9)'; cx.lineWidth=1.2*DPR; cx.beginPath(); cx.ellipse(g.tx,g.ty,g.tr*1.7,g.tr,0,0,Math.PI*2); cx.stroke();
-    cx.fillStyle='#dff6ff'; cx.shadowColor='#2fc8ff'; cx.shadowBlur=12*DPR; cx.fillRect(g.tx-g.tr*.55,g.ty+g.tr*.42,g.tr*1.1,3*DPR); cx.shadowBlur=0;
-    return tide;
-  }
-  var hudT=0;
-  function frame(){
-    var g=geom(); cx.clearRect(0,0,g.W,g.H); if(!reduce) tph+=.005; var tide=scene(g);
-    if(tracks.length<55&&Math.random()<.5) tracks.push(spawn());
-    tracks.forEach(function(t){
-      if(t.y<t.stop){ t.x+=t.vx*t.sp; t.y+=t.vy*t.sp; } else t.dead=(t.dead||0)+1;
-      var len=110*DPR, a=t.dead?Math.max(0,1-t.dead/25):1, gr=cx.createLinearGradient(t.x,t.y,t.x-t.vx*len,t.y-t.vy*len);
-      gr.addColorStop(0,'rgba(47,200,255,'+(.95*a)+')'); gr.addColorStop(1,'rgba(47,200,255,0)');
-      cx.strokeStyle=gr; cx.lineWidth=DPR; cx.beginPath(); cx.moveTo(t.x,t.y); cx.lineTo(t.x-t.vx*len,t.y-t.vy*len); cx.stroke();
-      cx.fillStyle='rgba(223,246,255,'+a+')'; cx.fillRect(t.x-DPR,t.y-DPR,2*DPR,2*DPR);
-    });
-    tracks=tracks.filter(function(t){ return t.y-120*DPR<g.H && !(t.dead>25); });
-    var now=Date.now();
-    if(now-hudT>700){ hudT=now; evt+=1+Math.floor(Math.random()*3);
-      var lvl=(Math.sin(tph)+1)*1.1, fl=1-0.04*lvl+(Math.random()-.5)*.006;
-      document.getElementById('hud-evt').textContent=String(evt).padStart(6,'0');
-      document.getElementById('hud-flux').textContent=fl.toFixed(3);
-      document.getElementById('hud-tide').textContent='+'+lvl.toFixed(1)+' m';
-      document.getElementById('hud-theta').textContent=(Math.acos(Math.pow(Math.random(),1/3))*180/Math.PI).toFixed(1)+'°';
-    }
-    if(!reduce) requestAnimationFrame(frame);
-  }
-  window.addEventListener('resize',size);
 
   var l='zh'; try{ l=localStorage.getItem('mtl-lang')||'zh'; }catch(e){}
-  size(); setLang(l);
-  if(reduce){ for(var i=0;i<40;i++){ var t=spawn(); t.y=Math.random()*Math.min(t.stop,cv.height); tracks.push(t);} }
-  frame();
+  setLang(l);
 })();
 </script>
+<script type="module" src="assets/js/hero.bundle.js"></script>
 </body>
 </html>
