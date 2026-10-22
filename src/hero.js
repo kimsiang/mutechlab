@@ -1,7 +1,7 @@
 /* ============================================================
    MuTechLab — 3D hero: muography tracker
-   Four planes of triangular-prism plastic scintillator bars
-   (alternating apex up / apex down, x/y alternating readout)
+   Four tracking layers, each an X and a Y plane of 32 triangular-prism
+   plastic scintillator bars (apex up / apex down): 256 bars in total
    with cosmic muons arriving with a cos²θ angular distribution.
    Adapted from the TDLI Muon Physics Group homepage hero.
    Build: npm run build  →  assets/js/hero.bundle.js
@@ -17,9 +17,11 @@ const CYAN = new THREE.Color(0x2fc8ff);
 const BLUE = new THREE.Color(0x2251ff);
 const WHITE = new THREE.Color(0xffffff);
 
-const PLANES = 4;
-const PLANE_GAP = 1.15;
-const BARS = 20;          // triangular bars per plane
+const LAYERS = 4;         // tracking layers, each = one X plane + one Y plane
+const PLANES = LAYERS * 2;
+const LAYER_GAP = 1.25;
+const SUB_GAP = 0.26;      // X and Y planes inside a layer
+const BARS = 32;           // triangular bars per plane → 4 × 2 × 32 = 256 bars
 const SIZE_X = 5.6;
 const SIZE_Z = 5.6;
 
@@ -117,12 +119,15 @@ export function initHero(canvas, opts = {}) {
   const RAIL = 0.16;
   const RH = 0.3;
 
+  const planeLayer = [];
   for (let p = 0; p < PLANES; p++) {
-    const y = (p - (PLANES - 1) / 2) * PLANE_GAP;
+    const layer = Math.floor(p / 2), sub = p % 2;
+    const y = (layer - (LAYERS - 1) / 2) * LAYER_GAP + (sub === 0 ? SUB_GAP / 2 : -SUB_GAP / 2);
     planeY.push(y);
+    planeLayer.push(layer);
     const plane = new THREE.Group();
     plane.position.y = y;
-    const alongX = p % 2 === 1;                  // bars run along x → measure z
+    const alongX = sub === 1;                    // lower plane: bars along x → measure z
     const span = alongX ? SIZE_Z : SIZE_X;       // measured direction
     const L = alongX ? SIZE_X : SIZE_Z;          // bar length
     const pitch = span / (BARS + 1);             // interleaved triangles: base = 2 × pitch
@@ -150,11 +155,13 @@ export function initHero(canvas, opts = {}) {
     }
     strips.push({ row, alongX, pitch, span });
 
-    // aluminium tray
-    const fx = SIZE_X + RAIL * 2, fz = SIZE_Z + RAIL * 2;
-    for (const sz of [-1, 1]) { const r = box(fx, RH, RAIL, alu); r.position.set(0, 0.02, sz * (SIZE_Z / 2 + RAIL / 2)); plane.add(r); }
-    for (const sx of [-1, 1]) { const r = box(RAIL, RH, SIZE_Z, alu); r.position.set(sx * (SIZE_X / 2 + RAIL / 2), 0.02, 0); plane.add(r); }
-    const base = box(fx, 0.03, fz, aluDark); base.position.y = -T / 2 - 0.03; plane.add(base);
+    // aluminium tray around each X+Y layer (built once, on the lower plane)
+    if (sub === 1) {
+      const fx = SIZE_X + RAIL * 2, fz = SIZE_Z + RAIL * 2, H = RH + SUB_GAP;
+      for (const sz of [-1, 1]) { const r = box(fx, H, RAIL, alu); r.position.set(0, SUB_GAP / 2, sz * (SIZE_Z / 2 + RAIL / 2)); plane.add(r); }
+      for (const sx of [-1, 1]) { const r = box(RAIL, H, SIZE_Z, alu); r.position.set(sx * (SIZE_X / 2 + RAIL / 2), SUB_GAP / 2, 0); plane.add(r); }
+      const base = box(fx, 0.03, fz, aluDark); base.position.y = -T / 2 - 0.03; plane.add(base);
+    }
 
     // SiPM readout box on the fibre end
     const ro = new THREE.Group();
@@ -175,8 +182,9 @@ export function initHero(canvas, opts = {}) {
   }
 
   // corner posts + base
-  const postH = PLANE_GAP * (PLANES - 1) + 1.4;
-  const baseY = planeY[0] - 0.75;
+  const lowest = Math.min(...planeY), highest = Math.max(...planeY);
+  const postH = highest - lowest + 1.5;
+  const baseY = lowest - 0.75;
   for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
     const post = box(0.24, postH, 0.24, alu);
     post.position.set(sx * (SIZE_X / 2 + RAIL + 0.12), baseY + postH / 2, sz * (SIZE_Z / 2 + RAIL + 0.12));
@@ -282,7 +290,7 @@ export function initHero(canvas, opts = {}) {
     const back = 9 / Math.max(0.25, -dir.y);
     m.start.copy(through).addScaledVector(dir, -back);
     m.dir.copy(dir);
-    m.s = 0; m.len = back * 2; m.life = 0; m.crossed = 0;
+    m.s = 0; m.len = back * 2; m.life = 0; m.crossed = 0; m.layers = new Set();
     m.theta = Math.acos(-dir.y) * 180 / Math.PI;
     m.active = true;
     m.trail.visible = m.ghost.visible = m.head.visible = true;
@@ -308,6 +316,7 @@ export function initHero(canvas, opts = {}) {
     h.sp.visible = true;
     h.life = 1;
     m.crossed++;
+    m.layers.add(planeLayer[p]);
   }
 
   function step(m, dt) {
@@ -336,7 +345,7 @@ export function initHero(canvas, opts = {}) {
       if (m.life === dt) {
         evt++;
         recent.push(performance.now());
-        onEvent({ evt, hits: m.crossed, planes: PLANES, theta: m.theta, rate: recent.length / 10 });
+        onEvent({ evt, hits: m.layers.size, planes: LAYERS, theta: m.theta, rate: recent.length / 10 });
       }
       if (m.ghost.material.opacity <= 0) {
         m.active = false;
