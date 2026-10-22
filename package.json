@@ -5,17 +5,6 @@
   "scripts": {
     "build": "esbuild src/hero.js --bundle --minify --format=esm --target=es2020 --outfile=assets/js/hero.bundle.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kimsiang/mutechlab.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kimsiang/mutechlab/issues"
-  },
-  "homepage": "https://github.com/kimsiang/mutechlab#readme",
   "devDependencies": {
     "esbuild": "^0.28.2",
     "three": "^0.186.1"

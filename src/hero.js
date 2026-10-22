@@ -3,7 +3,6 @@
    Four tracking layers, each an X and a Y plane of 32 triangular-prism
    plastic scintillator bars (apex up / apex down): 256 bars in total
    with cosmic muons arriving with a cos²θ angular distribution.
-   Adapted from the TDLI Muon Physics Group homepage hero.
    Build: npm run build  →  assets/js/hero.bundle.js
    ============================================================ */
 import * as THREE from 'three';
