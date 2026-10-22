@@ -10,12 +10,12 @@ Audiences: infrastructure owners (customers), investors, future hires.
 - `index.html` — the whole site (styles and scripts inline)
 - `assets/fonts/` — self-hosted Space Grotesk, Inter, JetBrains Mono (no Google Fonts, so it loads in mainland China)
 - `assets/img/` — Outer Ring Tunnel flux figure and CMS detector figure (no people)
-- `assets/video/` — 30 s promo film (1080p MP4, English narration + 中文字幕, 11 MB) and its poster frame; source project: muonlab_promo (Blender)
+- `assets/video/` — the promo film: 90 s cut (principle + application, 24 MB) and 30 s cut (11 MB), English narration + 中文字幕, with poster frames. Source and build instructions: `film/README.md`
 - `src/hero.js` — 3D muon tracker hero (three.js); `npm install && npm run build` → `assets/js/hero.bundle.js`
 - `build_artifact.py` — makes a single-file copy with assets inlined
 
 ## Sections
-Hero (3D 256-bar tracker + live event HUD + spec strip) → audience router → 00 Film (30 s promo) → 01 Problem → 02 Solutions → 03 Deployments (Outer Ring Tunnel ×2, Chongming Line, Caobao Road, CMS commissioning, Malaysia 2026) → 04 Products & technology (flux monitor, 3D imaging system, CMS, demonstrator; R&D: SHINE accelerator muography, SciFi-MST, AI) → 05 How we work → 06 Feasibility estimator → 07 Investors + milestones → 08 Careers → 09 FAQ → 10 Contact form
+Hero (3D 256-bar tracker + live event HUD + spec strip) → audience router → 00 Film (90 s promo) → 01 Problem → 02 Solutions → 03 Deployments (Outer Ring Tunnel ×2, Chongming Line, Caobao Road, CMS commissioning, Malaysia 2026) → 04 Products & technology (flux monitor, 3D imaging system, CMS, demonstrator; R&D: SHINE accelerator muography, SciFi-MST, AI) → 05 How we work → 06 Feasibility estimator → 07 Investors + milestones → 08 Careers → 09 FAQ → 10 Contact form
 
 
 ## Local preview
