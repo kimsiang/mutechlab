@@ -69,13 +69,15 @@ def checks(page):
     }""")
 
 
-def run(pw, url, vp_name, seed, n_actions, outdir):
+def run(pw, url, vp_name, seed, n_actions, outdir, webgl=True):
     rng = random.Random(seed)
-    browser = pw.chromium.launch(args=["--use-gl=swiftshader", "--enable-unsafe-swiftshader"])
+    args = ["--use-gl=swiftshader", "--enable-unsafe-swiftshader"] if webgl else ["--disable-webgl", "--disable-3d-apis"]
+    browser = pw.chromium.launch(args=args)
     ctx = browser.new_context(**VIEWPORTS[vp_name])
     # never let mailto / external links leave the sandbox
     ctx.route(re.compile(r"^(?!http://127\.0\.0\.1).*"), lambda r: r.abort())
     page = ctx.new_page()
+    page.set_default_timeout(8000)
     issues = []
     log = []
 
@@ -172,7 +174,7 @@ def run(pw, url, vp_name, seed, n_actions, outdir):
 
     shot = os.path.join(outdir, f"{vp_name}-seed{seed}.png")
     try:
-        page.screenshot(path=shot)
+        page.screenshot(path=shot, timeout=20000)
     except PWError:
         shot = None
     browser.close()
@@ -184,6 +186,7 @@ def main():
     ap.add_argument("--actions", type=int, default=300)
     ap.add_argument("--seeds", default="1,2,3")
     ap.add_argument("--viewports", default=",".join(VIEWPORTS))
+    ap.add_argument("--no-webgl", action="store_true", help="disable WebGL (fast; also tests the no-GPU fallback)")
     ap.add_argument("--out", default=os.path.join(ROOT, "tests", "monkey-out"))
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
@@ -193,14 +196,14 @@ def main():
         for vp in a.viewports.split(","):
             for s in map(int, a.seeds.split(",")):
                 t = time.time()
-                r = run(pw, url, vp, s, a.actions, a.out)
+                r = run(pw, url, vp, s, a.actions, a.out, webgl=not a.no_webgl)
                 r["secs"] = round(time.time() - t, 1)
                 results.append(r)
-                print(f"{vp:8} seed {s}: {len(r['issues'])} issue(s) in {r['secs']}s")
+                print(f"{vp:8} seed {s}{' (no webgl)' if a.no_webgl else ''}: {len(r['issues'])} issue(s) in {r['secs']}s")
                 for i in r["issues"]:
                     print(f"   [{i['kind']}] {i['msg'][:200]}")
     httpd.shutdown()
-    with open(os.path.join(a.out, "report.json"), "w") as f:
+    with open(os.path.join(a.out, "report-nowebgl.json" if a.no_webgl else "report.json"), "w") as f:
         json.dump(results, f, ensure_ascii=False, indent=1)
 
 
