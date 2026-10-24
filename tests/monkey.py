@@ -64,7 +64,11 @@ def checks(page):
         }
         out.offenders = offenders;
       }
+      // leave out the inquiry summary: it echoes the monkey's own junk input
+      const sum = document.getElementById('summary'), keep = sum && sum.textContent;
+      if (sum) sum.textContent = '';
       out.text = document.body.innerText;
+      if (sum) sum.textContent = keep;
       return out;
     }""")
 
@@ -94,7 +98,7 @@ def run(pw, url, vp_name, seed, n_actions, outdir, webgl=True):
 
     page.goto(url, wait_until="load")
     page.wait_for_timeout(1500)
-    baseline = set(BAD_TEXT.findall(checks(page)["text"]))
+    baseline = {m.group(0).strip() for m in BAD_TEXT.finditer(checks(page)["text"])}
     W, H = page.viewport_size["width"], page.viewport_size["height"]
 
     def act():
@@ -165,7 +169,7 @@ def run(pw, url, vp_name, seed, n_actions, outdir, webgl=True):
                 c = checks(page)
             except PWError:
                 continue
-            bad = set(BAD_TEXT.findall(c["text"])) - baseline
+            bad = {m.group(0).strip() for m in BAD_TEXT.finditer(c["text"])} - baseline
             if bad:
                 ctxs = [m.group(0) for m in re.finditer(r".{0,40}\b(NaN|Infinity|undefined)\b.{0,40}", c["text"])][:4]
                 add("badtext", f"{sorted(bad)} :: {ctxs}")
